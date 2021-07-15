@@ -1,4 +1,3 @@
-#' scSTEM package
 # library(monocle3)
 # library(magrittr)
 # library(tibble)
@@ -285,7 +284,10 @@ gen_stem_input<-function(dataset,
 }
 
 #' scSTEM GUI function
-#' To use scSTEM in R, Run `run_scstem_GUI()` in R to call a shiny app based GUI
+#'
+#' This function runs scSTEM GUI
+#'
+#' To use scSTEM in R, Run `run_scstem_GUI()` in R to call a shiny app based GUI. Please follow the steps described in user manual to perform scSTEM analysis.
 #' @return NULL
 #' @export
 run_scstem_GUI <- function(){
@@ -1216,13 +1218,14 @@ run_scstem_GUI <- function(){
             shiny::incProgress(1/length(file_names),
                                detail = sprintf("%g%% done",round(100*i/length(file_names),2)))
             # Run STEM and get output table
-            stem_analysis(in_name = file_names[i],
-                          out_name = gsub(".tsv$","",file_names[i]),
-                          in_folder = rv$outdir_name,
-                          out_folder = rv$outdir_name,
-                          stem_where = file.path(rv$stem_folder,"stem-new.jar"),
-                          setting_file_name = file.path(rv$stem_folder, "stem_setting_template"),
-                          species = rv$species)
+            stem_analysis(
+                            input_path = file_names[i],
+                            tmp_folder = rv$outdir_name,
+                            stem_path = file.path(rv$stem_folder,"stem-new.jar"),
+                            setting_path = file.path(rv$outdir_name,gsub(".tsv$","",file_names[i])),
+                            setting_template_path = file.path(rv$stem_folder, "stem_setting_template"),
+                            species = rv$species
+                          )
 
             # clean up
             unlink(file.path(rv$outdir_name, file_names[i]))
@@ -1235,33 +1238,32 @@ run_scstem_GUI <- function(){
 }
 
 stem_analysis<-function(
-  in_name, # stem input file name
-  out_name, # stem current setting file name
-  in_folder, # stem input folder
-  out_folder, # stem output folder
-  stem_where, # stem program file path
-  setting_file_name, # stem setting template file path
+  input_path, # stem input file path
+  tmp_folder, # temporary output folder
+  stem_path, # stem.jar program file path
+  setting_path, # stem current setting file path
+  setting_template_path, # stem setting template file path
   species # species for GO Annotations
 ){
   # Read setting file template
-  settings <- readLines(setting_file_name)
+  settings <- readLines(setting_template_path)
 
-  # Specify input file name
-  settings[2] <- paste0("Data_File\t",in_name)
+  # Specify input file path
+  settings[2] <- paste0("Data_File\t",input_path)
 
   # Specify species for GO annotations
   settings[3] <- paste0("Gene_Annotation_Source\t",species)
 
-  # Write setting file
-  setwd(in_folder)
-  writeLines(settings, out_name)
+  # Write current setting file
+  writeLines(settings, setting_path)
 
   # Run stem in command line mode
-  #command = paste("java", "-mx1024M", "-jar", stem_where, "-b", out_name, out_folder)
-  browser()
-  command = paste("java", "-mx1024M", "-jar", stem_where, "-b", out_name)
+  wd <- getwd()
+  setwd(tmp_folder)
+  command = paste("java", "-mx1024M", "-jar", stem_path, "-b", setting_path)
   system(command)
 
-  # clean up
-  unlink(out_name)
+  # remove current setting file
+  unlink(setting_path)
+  setwd(wd)
 }
