@@ -11,7 +11,7 @@
 # traj: a trajectory object.
 # dataset: a dataset object.
 # tp_table: time point information table
-get_root_node <- function(traj, dataset, tp_table){
+get_root_node <- function(traj, tp_table){
 
   # Assign cells to closest milestone node (highest percentage)
   mp <- traj$milestone_percentages
@@ -96,7 +96,7 @@ get_ds <- function(exp_mat, gene_ids, cell_ids){
 }
 
 # Compute change rate
-get_cr <- function(ptime, norm_exp_mat, count_mat, gene_ids, cell_ids){
+get_cr <- function(ptime, norm_exp_mat, gene_ids, cell_ids){
 
   x <- ptime[cell_ids]
   Y <- norm_exp_mat[gene_ids, cell_ids]
@@ -221,10 +221,8 @@ get_stem_input<-function(dataset, traj, all_paths, closest_ms, metric){
       }else if(metric == "change_rate"){
         df[[i]][[k]] <- get_cr(ptime = traj$pseudotime,
                                norm_exp_mat = Matrix::t(dataset$expression),
-                               count_mat = Matrix::t(dataset$counts),
                                gene_ids = gene_ids,
-                               cell_ids = path_cells[[k]],
-                               tmp_folder = tmp_folder)
+                               cell_ids = path_cells[[k]])
       }
     }
     names(df[[i]]) <- c(paste0("segment",1:length(df[[i]])))
@@ -236,51 +234,6 @@ get_stem_input<-function(dataset, traj, all_paths, closest_ms, metric){
   #names(cells) <- paste0("path",1:length(cells))
   names(df) <- paste0("path",1:length(df))
   return(df)
-}
-
-# dataset: dynverse dataset object
-# traj: dynverse trajectory object
-# tmp_folder: temporary folder to save inputs for STEM.
-# metric: input metric type for STEM
-gen_stem_input<-function(dataset,
-                         traj,
-                         tmp_folder,
-                         metric){
-  # Get root node for the partition
-  root_id <- get_root_node(
-    traj = traj,
-    dataset = dataset,
-    tp_col = tp_col,
-    tp_order = tp_order
-  )
-
-  # Get paths from root node to all leaf nodes
-  all_paths <- get_all_paths(traj = traj, root_id = root_id)
-  ################################################################
-  # compute metrics
-  stem_input <- get_stem_input(
-    dataset = dataset,
-    traj = traj,
-    all_paths = all_paths,
-    metric = metric
-  )
-
-  # save metrics as tsv files
-  for(i in 1:length(stem_input$df)){
-    mat_name <- names(stem_input$df)[i]
-    data <- do.call(cbind,stem_input$df[[i]])
-    data <- data.frame(gene_id = rownames(data), data)
-    write.table(data,file.path(tmp_folder, paste0(names(stem_input$df)[i],"_",metric,".tsv")),
-                row.names = F,
-                col.names = T,
-                quote=F,
-                sep = "\t",
-                na = "")
-  }
-  file_names <- lapply(names(stem_input$df), function(x){
-    paste0(x,"_",metric,".tsv")
-  } )
-  return(list(file_names = file_names, stem_input = stem_input))
 }
 
 #' scSTEM GUI function
@@ -900,7 +853,7 @@ run_scstem_GUI <- function(){
           )
 
           # add pseudotime to the model
-          root_id <- get_root_node(rv$traj, rv$dataset, tp_table)
+          root_id <- get_root_node(rv$traj, tp_table)
           rv$cds <- monocle3::order_cells(rv$cds,
                                           root_pr_nodes = root_id)
           rv$traj <- dynwrap::add_pseudotime(
@@ -944,7 +897,7 @@ run_scstem_GUI <- function(){
             verbose = T
             ) %>%
           dynwrap::add_root(
-            root_milestone_id = get_root_node(., rv$dataset, tp_table)
+            root_milestone_id = get_root_node(., tp_table)
             ) %>%
           dynwrap::add_pseudotime(
             pseudotime = dynwrap::calculate_pseudotime(.)
