@@ -104,8 +104,8 @@ get_cr <- function(ptime, norm_exp_mat, gene_ids, cell_ids){
   # Compute z scores for expressions > 0.
   # and filter expressions using z scores
   mask <- Y>0
-  means <- rowSums(Y)/rowSums(mask)
-  sd <- sqrt(rowSums(((Y-means)*mask)^2)/rowSums(mask))
+  means <- Matrix::rowSums(Y)/Matrix::rowSums(mask)
+  sd <- sqrt(Matrix::rowSums(((Y-means)*mask)^2)/Matrix::rowSums(mask))
   z <- (Y-means)/sd
   z_filter <- z < sd * 1.96 & z > sd * -1.96 & mask
 
@@ -189,7 +189,7 @@ get_stem_input<-function(dataset, traj, all_paths, closest_ms, metric){
                 as.integer()
 
       for(k in 1:(length(key_pos)-1)){
-        path_cells[[k]] <-  pt[key_pos[k]:key_pos[k+1]]
+        path_cells[[k]] <-  names(pt[key_pos[k]:key_pos[k+1]])
       }
 
     }else if(length(key_node_pos) == 3){
@@ -485,7 +485,7 @@ run_scstem_GUI <- function(){
                                       align = "left",
                                       style = "margin-top: 25px;",
                                       shinyFiles::shinyDirButton(
-                                                                 id = "outdir_name",
+                                                                 id = "tmp_folder",
                                                                  label = "Output folder",
                                                                  title = "Select a folder for saving temporary files",
                                                                  multiple = F,
@@ -498,24 +498,24 @@ run_scstem_GUI <- function(){
                                       shiny::textOutput(outputId = "outdir_name")
                                       )
                       ),
-                        shiny::fluidRow(
-                          shiny::column(3,
-                                        align = "left",
-                                        style = "margin-top: 25px;",
-                                        shinyFiles::shinyDirButton(
-                                          id = "stem_folder",
-                                          label = "STEM folder",
-                                          title = "Please select STEM program directory",
-                                          multiple = F,
-                                          icon = shiny::icon("search",lib = "glyphicon")
-                                          )
-                                        ),
-                          shiny::column(6,
-                                        align = "left",
-                                        style = "margin-top: 25px;",
-                                        shiny::textOutput(outputId = "stem_folder")
-                                        )
-                          ),
+                        #shiny::fluidRow(
+                        #  shiny::column(3,
+                        #                align = "left",
+                        #                style = "margin-top: 25px;",
+                        #                shinyFiles::shinyDirButton(
+                        #                                            id = "stem_folder",
+                        #                                            label = "STEM folder",
+                        #                                            title = "Please select STEM program directory",
+                        #                                            multiple = F,
+                        #                                            icon = shiny::icon("search",lib = "glyphicon")
+                        #                                          )
+                        #                ),
+                        #  shiny::column(6,
+                        #                align = "left",
+                        #                style = "margin-top: 25px;",
+                        #                shiny::textOutput(outputId = "stem_folder")
+                        #                )
+                        #  ),
                         shiny::fluidRow(
                           shiny::column(3,
                                         align = "left",
@@ -526,6 +526,44 @@ run_scstem_GUI <- function(){
                                           icon = shiny::icon("play",lib = "glyphicon")
                                         )
                           )
+                        )
+                      ),
+                      ######## Step 6. Run cluster comparison (optional)
+                      shiny::wellPanel(
+                        shiny::fluidRow(
+                          shiny::column(12,
+                                        align = 'center',
+                                        shiny::h4("Step 6: Run comparison of clusters (optional)", style = 'text-align:left;font-weight:bold')
+                          ),
+
+                          shiny::column(3,
+                                        align = "left",
+                                        shiny::selectInput(
+                                          inputId = "compare1_name",
+                                          label = "Path name 1",
+                                          choices = c()
+                                        )
+                          ),
+
+                          shiny::column(3,
+                                        align = "left",
+                                        shiny::selectInput(
+                                          inputId = "compare2_name",
+                                          label = "Path name 2",
+                                          choices = c()
+                                        )
+                          ),
+                        ),
+                        shiny::fluidRow(
+                          shiny::column(3,
+                                        align = "left",
+                                        style = "margin-top: 25px",
+                                        shiny::actionButton(
+                                          inputId = "run_comparison",
+                                          label = "Run comparison",
+                                          icon = shiny::icon("play",lib = "glyphicon")
+                                        )
+                                      )
                         )
                       )
                     ),
@@ -547,20 +585,17 @@ run_scstem_GUI <- function(){
                          all_paths = NULL,
                          all_path_cells = NULL,
                          closest_ms = NULL,
+                         metric = NULL,
                          cell_meta = NULL,
                          gene_meta = NULL,
-                         exp_file_name = NULL,
-                         cell_file_name = NULL,
-                         gene_file_name = NULL,
                          outdir_name = NULL,
-                         stem_folder = NULL,
-                         current_dir = "")
+                         stem_folder = system.file('STEM',package = 'scSTEM'),
+                         current_dir = "",
+                         current_root = "")
 
-    shinyFiles::shinyFileChoose(input = input, id = "exp_file", roots = shinyFiles::getVolumes()(), defaultPath = rv$current_dir)
-    shinyFiles::shinyFileChoose(input = input, id = "cell_file", roots = shinyFiles::getVolumes()(), defaultPath = rv$current_dir)
-    shinyFiles::shinyFileChoose(input = input, id = "gene_file", roots = shinyFiles::getVolumes()(), defaultPath = rv$current_dir)
-    shinyFiles::shinyDirChoose(input = input, id = "stem_folder", roots = shinyFiles::getVolumes()())
-    shinyFiles::shinyDirChoose(input = input, id = 'outdir_name', roots = shinyFiles::getVolumes()())
+
+
+
 
     output$exp_file_status <- shiny::renderPrint({
       cat(sprintf("No file selected"))
@@ -574,41 +609,71 @@ run_scstem_GUI <- function(){
     output$outdir_name <- shiny::renderPrint({
       cat(sprintf("No output folder selected"))
     })
-    output$stem_folder <- shiny::renderPrint({
-      cat(sprintf("No STEM folder specified"))
-    })
+    #output$stem_folder <- shiny::renderPrint({
+    #  cat(sprintf("No STEM folder specified"))
+    #})
 
     ############################################################
     # Step 1. Load all input files
     ############################################################
+    # Here user specifies expression file name to be loaded
     shiny::observeEvent(input$exp_file, {
-      in_file <- shinyFiles::parseFilePaths(roots = shinyFiles::getVolumes()(), input$exp_file)
-      rv$exp_file_name <- as.character(in_file$name)
-      rv$current_dir <- gsub(paste0(in_file$name,"$"),"",in_file$datapath) %>%
-                        R.utils::getRelativePath(shinyFiles::getVolumes()())
-      output$exp_file_status <- shiny::renderPrint({
-        cat(sprintf("Selected: %s",rv$exp_file_name))
-      })
+      in_file <- shinyFiles::parseFilePaths(roots = shinyFiles::getVolumes(), input$exp_file)
+      if(rv$current_dir == ""){
+        shinyFiles::shinyFileChoose(input = input, id = "exp_file", roots = shinyFiles::getVolumes())
+      }else{
+        shinyFiles::shinyFileChoose(input = input, id = "exp_file", roots = shinyFiles::getVolumes(), defaultPath = rv$current_dir)
+      }
+
+      if(length(in_file$name)>0){
+
+        # rv$current_dir stores the relative path relative to the current root.
+        rv$current_dir <- gsub(paste0(in_file$name,"$"),"",in_file$datapath) %>%
+                            R.utils::getRelativePath(shinyFiles::getVolumes()()[input$exp_file$root])
+        output$exp_file_status <- shiny::renderPrint({
+          cat(sprintf("Selected: %s",in_file$name))
+        })
+      }
     })
 
+    # Here user specifies cell meta file name to be loaded
     shiny::observeEvent(input$cell_file, {
-      in_file <- shinyFiles::parseFilePaths(roots = shinyFiles::getVolumes()(), input$cell_file)
-      rv$cell_file_name <- as.character(in_file$name)
-      rv$current_dir <- gsub(paste0(in_file$name,"$"),"",in_file$datapath) %>%
-                        R.utils::getRelativePath(shinyFiles::getVolumes()())
-      output$cell_file_status <- shiny::renderPrint({
-        cat(sprintf("Selected: %s",rv$cell_file_name))
-      })
+      in_file <- shinyFiles::parseFilePaths(roots = shinyFiles::getVolumes(), input$cell_file)
+      if(rv$current_dir == ""){
+        shinyFiles::shinyFileChoose(input = input, id = "cell_file", roots = shinyFiles::getVolumes())
+      }else{
+        shinyFiles::shinyFileChoose(input = input, id = "cell_file", roots = shinyFiles::getVolumes(), defaultPath = rv$current_dir)
+      }
+
+      if(length(in_file$name)>0){
+
+        # rv$current_dir stores the relative path relative to the current root.
+        rv$current_dir <- gsub(paste0(in_file$name,"$"),"",in_file$datapath) %>%
+          R.utils::getRelativePath(shinyFiles::getVolumes()()[input$cell_file$root])
+        output$cell_file_status <- shiny::renderPrint({
+          cat(sprintf("Selected: %s",in_file$name))
+        })
+      }
     })
 
+    # Here user specifies gene meta file name to be loaded
     shiny::observeEvent(input$gene_file, {
-      in_file <- shinyFiles::parseFilePaths(roots = shinyFiles::getVolumes()(), input$gene_file)
-      rv$gene_file_name <- as.character(in_file$name)
-      rv$current_dir <- gsub(paste0(in_file$name,"$"),"",in_file$datapath) %>%
-                        R.utils::getRelativePath(shinyFiles::getVolumes()())
-      output$gene_file_status <- shiny::renderPrint({
-        cat(sprintf("Selected: %s",rv$gene_file_name))
-      })
+      in_file <- shinyFiles::parseFilePaths(roots = shinyFiles::getVolumes(), input$gene_file)
+      if(rv$current_dir == ""){
+        shinyFiles::shinyFileChoose(input = input, id = "gene_file", roots = shinyFiles::getVolumes())
+      }else{
+        shinyFiles::shinyFileChoose(input = input, id = "gene_file", roots = shinyFiles::getVolumes(), defaultPath = rv$current_dir)
+      }
+
+      if(length(in_file$name)>0){
+
+        # rv$current_dir stores the relative path relative to the current root.
+        rv$current_dir <- gsub(paste0(in_file$name,"$"),"",in_file$datapath) %>%
+          R.utils::getRelativePath(shinyFiles::getVolumes()()[input$gene_file$root])
+        output$gene_file_status <- shiny::renderPrint({
+          cat(sprintf("Selected: %s",in_file$name))
+        })
+      }
     })
 
     shiny::observeEvent(input$load, {
@@ -823,14 +888,15 @@ run_scstem_GUI <- function(){
                                               milestone_id = closest_nodes,
                                               percentage = 1,
                                               stringsAsFactors = F) %>%
-            tibble::as_tibble()
+                                      as_tibble()
+            #tibble::as_tibble()
 
           dimred_segment_progressions <-
             milestone_network %>%
             dplyr::select(from, to) %>%
             dplyr::mutate(percentage = purrr::map(seq_len(dplyr::n()), ~ c(0, 1))) %>%
             tidyr::unnest(percentage) %>%
-            tibble::as_tibble(rownames = NA)
+            as_tibble(rownames = NA)
 
           dsp_names <-
             dimred_segment_progressions %>%
@@ -928,11 +994,14 @@ run_scstem_GUI <- function(){
         names(rv$all_path_cells) <- names(rv$all_paths)
 
         # Update path info when inference is done
-        shiny::updateSelectInput(inputId = 'vis_path_select',
-                                        choices = names(rv$all_paths))
+        shiny::updateSelectInput(inputId = 'vis_path_select', choices = names(rv$all_paths))
+
         shinyWidgets::updatePickerInput(session = shiny::getDefaultReactiveDomain(),
                                         inputId = 'run_path_select',
                                         choices = names(rv$all_paths))
+
+        shiny::updateSelectInput(inputId = 'compare1_name', choices = names(rv$all_paths))
+        shiny::updateSelectInput(inputId = 'compare2_name', choices = names(rv$all_paths))
 
         shiny::removeModal()
         shiny::showModal(shiny::modalDialog(title = "Inference is done.",
@@ -1007,10 +1076,10 @@ run_scstem_GUI <- function(){
         edge_group = edge_group,
         path_group = path_group
       ) %>%
-        tibble::as_tibble()
+        as_tibble()
 
       # Get cell coordinates and cells mapped to currently selected path
-      cell_plot_data <- tibble::as_tibble(traj_simp$dimred, rownames = NA)
+      cell_plot_data <- as_tibble(traj_simp$dimred, rownames = NA)
       mask <- rownames(cell_plot_data) %in% path_cells
       cell_groups <- rep("other",length(mask))
       cell_groups[mask] <- "path"
@@ -1109,22 +1178,32 @@ run_scstem_GUI <- function(){
       })
     })
 
-    shiny::observeEvent(input$outdir_name,{
-      rv$outdir_name <- shinyFiles::parseDirPath(roots = shinyFiles::getVolumes()(), input$outdir_name)
-      output$outdir_name <- shiny::renderPrint({
-        cat(sprintf("Output folder selected: %s.", rv$outdir_name))
-      })
+    # Here user specifies the temporary output folder
+    shiny::observeEvent(input$tmp_folder,{
+      rv$outdir_name <- shinyFiles::parseDirPath(roots = shinyFiles::getVolumes(), input$tmp_folder)
+      if(length(rv$outdir_name) == 0){
+        shinyFiles::shinyDirChoose(input = input, id = 'tmp_folder', roots = shinyFiles::getVolumes()())
+      }else{
+        output$outdir_name <- shiny::renderPrint({
+          cat(sprintf("Output folder selected: %s.", rv$outdir_name))
+        })
+      }
     })
 
-    shiny::observeEvent(input$stem_folder,{
-      rv$stem_folder <- shinyFiles::parseDirPath(roots = shinyFiles::getVolumes()(), input$stem_folder)
-      output$stem_folder <- shiny::renderPrint({
-        cat(sprintf("STEM folder selected: %s.", rv$stem_folder))
-      })
-    })
+    # Here user specifies the folder where STEM program is located
+    #shiny::observeEvent(input$stem_folder,{
+    #  rv$stem_folder <- shinyFiles::parseDirPath(roots = shinyFiles::getVolumes(), input$stem_folder)
+    #  if(length(rv$stem_folder) == 0){
+    #    shinyFiles::shinyDirChoose(input = input, id = 'stem_folder', roots = shinyFiles::getVolumes()())
+    #  }else{
+    #    output$stem_folder <- shiny::renderPrint({
+    #      cat(sprintf("Output folder selected: %s.", rv$stem_folder))
+    #    })
+    #  }
+    #})
 
     ############################################################
-    # RUN STEM program
+    # Step 5. RUN STEM program
     ############################################################
     shiny::observeEvent(input$run_stem, {
       if(length(input$run_path_select) == 0){
@@ -1135,6 +1214,10 @@ run_scstem_GUI <- function(){
         shiny::showModal(shiny::modalDialog(title = "Please specify an output folder for STEM",
                                             footer = modalButton("OK"),
                                             easyClose = F))
+      #}else if(is.null(rv$stem_folder)){
+      #  shiny::showModal(shiny::modalDialog(title = "Please specify the folder where STEM java program is located",
+      #                                      footer = modalButton("OK"),
+      #                                      easyClose = F))
       }else{
         # compute metrics as input to stem
         shiny::withProgress(message = 'Generating input for STEM', value = 0, {
@@ -1146,7 +1229,11 @@ run_scstem_GUI <- function(){
             metric = input$metric
           )
         })
-        # save metrics as csv files
+
+        # Keep track of the metric method used for current STEM run.
+        rv$metric = input$metric
+
+        # save metrics as tsv files
         file_names <- paste0(names(df),"_",input$metric,".tsv")
         full_file_names <- file.path(rv$outdir_name, paste0(names(df),"_",input$metric,".tsv"))
 
@@ -1163,6 +1250,7 @@ run_scstem_GUI <- function(){
         }
 
         # Run STEM
+        res_table <- list()
         shiny::withProgress(message = "Running STEM", value = 0, {
           shiny::incProgress(0, detail = sprintf("%g%% done",0))
           for(i in 1:length(file_names)){
@@ -1172,18 +1260,99 @@ run_scstem_GUI <- function(){
                                detail = sprintf("%g%% done",round(100*i/length(file_names),2)))
             # Run STEM and get output table
             stem_analysis(
-                            input_path = file_names[i],
+                            input_path = paste0(rv$outdir_name,"/",file_names[i]),
                             tmp_folder = rv$outdir_name,
-                            stem_path = file.path(rv$stem_folder,"stem-new.jar"),
+                            stem_path = file.path(rv$stem_folder,"stem-jt.jar"),
                             setting_path = file.path(rv$outdir_name,gsub(".tsv$","",file_names[i])),
                             setting_template_path = file.path(rv$stem_folder, "stem_setting_template"),
                             species = rv$species
                           )
 
+            # Read STEM output tables (profile table and gene table)
+            #prof_tab_filename <- paste0(gsub(".tsv","",file_names[i]),"_profiletable.txt")
+            #gene_tab_filename <- paste0(gsub(".tsv","",file_names[i]),"_genetable.txt")
+            #prof_table <- file.path(rv$outdir_name, prof_tab_filename) %>%
+            #                read.table(sep = "\t", skip = 1)
+
+            # Keep only the significant clusters in profile tables
+            #tab <- prof_table[prof_table[,3] != -1,c(1,3,4,5,6)]
+            #colnames(tab) <- c("profile_id","cluster_id","genes_assigned","genes_expected","p_value")
+            #if(nrow(tab) > 0){
+            #  tab <- tab[order(tab$cluster_id),]
+            #  genes_in_cluster <- aggregate(genes_assigned ~ cluster_id, tab, FUN=sum)$genes_assigned
+            #  genes_in_cluster <- rep(genes_in_cluster, times = table(tab$cluster_id))
+            #  tab$genes_in_cluster <- genes_in_cluster
+            #  tab <- unlist(strsplit(file_names[i],"_"))[1] %>%
+            #          rep(times = nrow(tab)) %>%
+            #          data.frame(path_name=.,tab)
+            #}
+            #res_table[[length(res_table)+1]] <- tab
+
             # clean up
-            unlink(file.path(rv$outdir_name, file_names[i]))
+            #unlink(file.path(rv$outdir_name, file_names[i]))
+            #unlink(file.path(rv$outdir_name, prof_tab_filename))
+            #unlink(file.path(rv$outdir_name, gene_tab_filename))
           }
+          #res_table <- do.call(rbind, res_table)
+          # res_table <- tibble(res_table)
+
+          # compute a combined pvalue for all profiles in the same cluster
+          #res_table <- res_table %>%
+          #  dplyr::group_by(path_name, cluster_id) %>%
+          #  dplyr::summarise(
+          #    comb_p_value = pchisq( -2*sum(log(p_value)),
+          #                           2*length(p_value),
+          #                           lower.tail=FALSE
+          #    )
+          #  ) %>%
+          #  dplyr::right_join(res_table, by = c("path_name","cluster_id"))
+
+          #res_table <- res_table[,c("path_name",
+          #                          "cluster_id",
+          #                          "profile_id",
+          #                          "genes_assigned",
+          #                          "genes_expected",
+          #                          "p_value",
+          #                          "comb_p_value")]
+          #write.csv(res_table,
+          #          file.path(rv$outdir_name,"cluster_info.csv"),
+          #          row.names = F,
+          #          col.names = T,
+          #          quote=F)
         })
+      }
+    })
+
+    ############################################################
+    # Step 6. Run cluster comparison
+    ############################################################
+    shiny::observeEvent(input$run_comparison, {
+      if(is.null(input$compare1_name) | is.null(input$compare2_name)){
+        shiny::showModal(shiny::modalDialog(title = "To run comparison, both paths should be specified.",
+                                            footer = modalButton("OK"),
+                                            easyClose = F))
+      }else if(is.null(rv$outdir_name)){
+        shiny::showModal(shiny::modalDialog(title = "Please specify an output folder for STEM",
+                                            footer = modalButton("OK"),
+                                            easyClose = F))
+      #}else if(is.null(rv$stem_folder)){
+      #  shiny::showModal(shiny::modalDialog(title = "Please specify the folder where STEM java program is located",
+      #                                      footer = modalButton("OK"),
+      #                                      easyClose = F))
+      }else{
+        compare1_path = paste0(rv$outdir_name,"/",input$compare1_name,"_",rv$metric,".tsv")
+        compare2_path = paste0(rv$outdir_name,"/",input$compare2_name,"_",rv$metric,".tsv")
+
+        stem_analysis(
+          input_path = NULL,
+          tmp_folder = rv$outdir_name,
+          stem_path = file.path(rv$stem_folder,"stem-jt.jar"),
+          setting_path = file.path(rv$outdir_name,"setting"),
+          setting_template_path = file.path(rv$stem_folder, "stem_setting_template"),
+          species = rv$species,
+          compare1_path = compare1_path,
+          compare2_path = compare2_path
+        )
       }
     })
   }
@@ -1191,32 +1360,54 @@ run_scstem_GUI <- function(){
 }
 
 stem_analysis<-function(
-  input_path, # stem input file path
+  input_path, # stem input file path (when STEM is used to run a single file)
   tmp_folder, # temporary output folder
-  stem_path, # stem.jar program file path
+  stem_path, # stem program path
   setting_path, # stem current setting file path
   setting_template_path, # stem setting template file path
-  species # species for GO Annotations
+  species, # species for GO Annotations
+  compare1_path = NULL, # file path for the first set of stem clusters
+  compare2_path = NULL # file path for the second set of stem clusters
 ){
   # Read setting file template
   settings <- readLines(setting_template_path)
 
-  # Specify input file path
-  settings[2] <- paste0("Data_File\t",input_path)
-
   # Specify species for GO annotations
   settings[3] <- paste0("Gene_Annotation_Source\t",species)
 
-  # Write current setting file
-  writeLines(settings, setting_path)
-
   # Run stem in command line mode
-  wd <- getwd()
-  setwd(tmp_folder)
-  command = paste("java", "-mx1024M", "-jar", stem_path, "-b", setting_path)
-  system(command)
+  # wd <- getwd()
+  # setwd(tmp_folder)
+
+  # Whether to perform regular clustering, or clustering + cluster comparison?
+  if(is.null(compare1_path) | is.null(compare2_path)){
+
+    # Specify input file path
+    settings[2] <- paste0("Data_File\t",input_path)
+
+    # Write current setting file
+    writeLines(settings, setting_path)
+
+    # Perform regular clustering
+    cmd = paste("java", "-mx1024M", "-jar", stem_path, "-d", setting_path, "-a")
+  }else{
+
+    # Specify input file path as empty (as we are running comparison now)
+    settings[2] <- ""
+
+    # Write current setting file
+    writeLines(settings, setting_path)
+
+    # Perform clustering + cluster comparison
+    cmd = paste("java -mx1024M -jar",
+                    stem_path,
+                    "-d", setting_path,
+                    "-c", compare1_path, compare2_path,
+                    "-a","-C")
+  }
+  system(cmd)
 
   # remove current setting file
   unlink(setting_path)
-  setwd(wd)
+  #setwd(wd)
 }

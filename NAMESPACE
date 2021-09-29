@@ -1,3 +1,4 @@
 export(run_scstem_GUI)
 importFrom(magrittr,"%>%")
 import(SingleCellExperiment)
+import(tibble)
