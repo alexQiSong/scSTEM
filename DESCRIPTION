@@ -26,7 +26,7 @@ Imports:
 	dyno (>= 0.1.2),
 	dynplot (>= 1.1.1),
 	dynwrap (>= 1.2.2)
-Remotes: git::https://github.com/PaulingLiu/ROGUE.git
+Remotes: github::PaulingLiu/ROGUE
 Remotes: bioc::3.13/biomaRt
 
 Author: Qi Song
