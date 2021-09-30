@@ -41,3 +41,4 @@ scSTEM uses three files as input (See also the sample data set in **3. Sample da
 scSTEM output files:
 - a table file (tentative)
 - clustering plots (tentative)
+## 4. Analysis steps
