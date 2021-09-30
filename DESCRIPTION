@@ -25,8 +25,9 @@ Imports:
 	dyno (>= 0.1.2),
 	dynplot (>= 1.1.1),
 	dynwrap (>= 1.2.2)
-Remotes: github::PaulingLiu/ROGUE
-Remotes: bioc::3.13/biomaRt
+Remotes: 
+	github::PaulingLiu/ROGUE
+	bioc::3.13/biomaRt
 
 Author: Qi Song
 Maintainer: The package maintainer <sqsq3178@gmail.com>
