@@ -22,12 +22,10 @@ Imports:
 	shinyFiles (>= 0.9.0),
 	shinyWidgets (>= 0.6.0),
 	R.utils (>= 2.10.1),
+	ROGUE (>= 1.0),
 	dyno (>= 0.1.2),
 	dynplot (>= 1.1.1),
 	dynwrap (>= 1.2.2)
-Remotes: 
-	github::PaulingLiu/ROGUE,
-	bioc::3.13/biomaRt
 
 Author: Qi Song
 Maintainer: The package maintainer <sqsq3178@gmail.com>
