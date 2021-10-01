@@ -59,9 +59,9 @@ run_scSTEM_GUI()
 6. **Step 6: Run comparative analysis.** In the sixth panel, users can perform comparison of gene clustering results from different trajectory paths. To do this, first select the two paths to be compared in the two drop-down lists `Path name 1` and `Path name 2`, then click the `Run comparison` button. scSTEM will call STEM java program to run gene clustering and comparison of clustering results for the selected paths.
 
 # Contact
-Contact us if you have any questions:
-Qi (Alex) Song: qisong@andrew.cmu.edu; sqsq3178@gmail.com
-Ziv Bar-Joseph: zivbj@andrew.cmu.edu
+Contact us if you have any questions:  
+Qi (Alex) Song: qisong@andrew.cmu.edu; sqsq3178@gmail.com  
+Ziv Bar-Joseph: zivbj@andrew.cmu.edu  
 
 # Copyright
 ©2021 Qi Song, Ziv Bar-Joseph. [Systems Biology Group at Carnegie Mellon University](http://www.sb.cs.cmu.edu/). All rights reserved.
