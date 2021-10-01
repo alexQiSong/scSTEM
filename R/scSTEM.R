@@ -350,12 +350,12 @@ run_scstem_GUI <- function(){
                                       align = "left",
                                       shiny::actionButton(inputId = "umap",
                                                           label = "Run UMAP",
-                                                          icon = shiny::icon("sunglasses",lib = "glyphicon"))),
+                                                          )),
                         shiny::column(3,
                                       align = "left",
                                       shiny::actionButton(inputId = "cluster",
                                                           label = "Run Clustering",
-                                                          icon = shiny::icon("sunglasses",lib = "glyphicon"))),
+                                                         )),
                         shiny::column(3,
                                       align = "left",
                                       shiny::actionButton(inputId = "vis_partition",
@@ -443,13 +443,7 @@ run_scstem_GUI <- function(){
                                         style = "margin-top: 25px;",
                                         shiny::actionButton(inputId = "vis_path_umap",
                                                             label = "View by UMAP",
-                                                            icon = shiny::icon("sunglasses",lib = "glyphicon"))),
-                          shiny::column(3,
-                                        align = 'left',
-                                        style = "margin-top: 25px;",
-                                        shiny::actionButton(inputId = "vis_path_tree",
-                                                            label = "View by tree",
-                                                            icon = shiny::icon("sunglasses",lib = "glyphicon"))),
+                                                            ))
 
                         )
                       ),
@@ -498,36 +492,19 @@ run_scstem_GUI <- function(){
                                       shiny::textOutput(outputId = "outdir_name")
                                       )
                       ),
-                        #shiny::fluidRow(
-                        #  shiny::column(3,
-                        #                align = "left",
-                        #                style = "margin-top: 25px;",
-                        #                shinyFiles::shinyDirButton(
-                        #                                            id = "stem_folder",
-                        #                                            label = "STEM folder",
-                        #                                            title = "Please select STEM program directory",
-                        #                                            multiple = F,
-                        #                                            icon = shiny::icon("search",lib = "glyphicon")
-                        #                                          )
-                        #                ),
-                        #  shiny::column(6,
-                        #                align = "left",
-                        #                style = "margin-top: 25px;",
-                        #                shiny::textOutput(outputId = "stem_folder")
-                        #                )
-                        #  ),
-                        shiny::fluidRow(
-                          shiny::column(3,
-                                        align = "left",
-                                        style = "margin-top: 25px",
-                                        shiny::actionButton(
-                                          inputId = "run_stem",
-                                          label = "Run STEM",
-                                          icon = shiny::icon("play",lib = "glyphicon")
-                                        )
-                          )
+                      shiny::fluidRow(
+                        shiny::column(3,
+                                      align = "left",
+                                      style = "margin-top: 25px",
+                                      shiny::actionButton(
+                                        inputId = "run_stem",
+                                        label = "Run STEM",
+                                        icon = shiny::icon("play",lib = "glyphicon")
+                                      )
                         )
+                      )
                       ),
+
                       ######## Step 6. Run cluster comparison (optional)
                       shiny::wellPanel(
                         shiny::fluidRow(
@@ -581,6 +558,9 @@ run_scstem_GUI <- function(){
                          cds = NULL,
                          dataset = NULL,
                          traj = NULL,
+                         traj_simp = NULL,
+                         traj_proj = NULL,
+                         ms_plot_data = NULL,
                          species = NULL,
                          all_paths = NULL,
                          all_path_cells = NULL,
@@ -592,8 +572,6 @@ run_scstem_GUI <- function(){
                          stem_folder = system.file('STEM',package = 'scSTEM'),
                          current_dir = "",
                          current_root = "")
-
-
 
 
 
@@ -609,9 +587,6 @@ run_scstem_GUI <- function(){
     output$outdir_name <- shiny::renderPrint({
       cat(sprintf("No output folder selected"))
     })
-    #output$stem_folder <- shiny::renderPrint({
-    #  cat(sprintf("No STEM folder specified"))
-    #})
 
     ############################################################
     # Step 1. Load all input files
@@ -687,6 +662,11 @@ run_scstem_GUI <- function(){
         cat(sprintf("reading input files ..."))
       })
 
+      # Tell the users files are being loaded.
+      shiny::showModal(shiny::modalDialog(title = "Loading input files",
+                                          footer = NULL,
+                                          easyClose = F))
+
       # Read input files
       rv$counts <- Matrix::readMM(as.character(exp_fname$datapath))
       rv$cell_meta <- read.csv(as.character(cell_fname$datapath))
@@ -694,31 +674,44 @@ run_scstem_GUI <- function(){
 
       # Check if meta data meets the requirements
       if(!("cell_id" %in% colnames(rv$cell_meta)) | !("time_point" %in% colnames(rv$cell_meta))){
+        shiny::removeModal()
         shiny::showModal(shiny::modalDialog(title = "Error: Cell meta data table should contain at least two columns named 'cell_id' and 'time_point'",
                                             footer = modalButton("OK"),
                                             easyClose = F))
         output$loaded_status <- renderPrint({cat(sprintf("Failed to load input files"))})
       }else if(!("gene_id" %in% colnames(rv$gene_meta))){
+        shiny::removeModal()
         shiny::showModal(shiny::modalDialog(title = "Error: Gene meta data table should contain at least one column named 'gene_id'",
                                             footer = modalButton("OK"),
                                             easyClose = F))
         output$loaded_status <- renderPrint({cat(sprintf("Failed to load input files"))})
       }else if(length(rv$cell_meta$cell_id) != ncol(rv$counts)){
+        shiny::removeModal()
         shiny::showModal(shiny::modalDialog(title = "Error: Number of rows in cell meta data should be equal to number of columns in count matrix",
                                             footer = modalButton("OK"),
                                             easyClose = F))
         output$loaded_status <- renderPrint({cat(sprintf("Failed to load input files"))})
       }else if(length(rv$gene_meta$gene_id) != nrow(rv$counts)){
+        shiny::removeModal()
         shiny::showModal(shiny::modalDialog(title = "Error: Number of rows in gene meta data should be equal to number of rows in count matrix",
                                             footer = modalButton("OK"),
                                             easyClose = F))
         output$loaded_status <- renderPrint({cat(sprintf("Failed to load input files"))})
       }else if(!is.numeric(rv$cell_meta$time_point)){
+        shiny::removeModal()
         shiny::showModal(shiny::modalDialog(title = "Error: column 'time_point' in cell meta data table should only contain numeric data",
                                             footer = modalButton("OK"),
                                             easyClose = F))
         output$loaded_status <- renderPrint({cat(sprintf("Failed to load input files"))})
       }else{
+
+        # Files are loaded. Remove file loaidng pop-up window.
+        shiny::removeModal()
+
+        # Tell the users when ID conversion is going on.
+        shiny::showModal(shiny::modalDialog(title = "Converting gene IDs...",
+                                            footer = NULL,
+                                            easyClose = F))
 
         # Convert gene id to gene names (for STEM to run GO analysis)
         map_info <- list(
@@ -752,6 +745,9 @@ run_scstem_GUI <- function(){
         rownames(rv$gene_meta) <- rv$gene_meta$gene_id
         rownames(rv$counts) <- rv$gene_meta$gene_id
         colnames(rv$counts) <- rv$cell_meta$cell_id
+
+        # Gene ID conversion done. Remove pop-up window.
+        shiny::removeModal()
 
         # Generate cds object using input files
         rv$cds <- monocle3::new_cell_data_set(
@@ -802,10 +798,17 @@ run_scstem_GUI <- function(){
     })
 
     shiny::observeEvent(input$vis_partition, {
-          #shiny::showModal(shiny::modalDialog(title = "Generating plot...",
-          #                                    footer = NULL,
-          #                                    easyClose = F))
-          #shiny::removeModal()
+
+      # Check if UMAP has been done
+        if(is.null(rv$cds)){
+          shiny::showModal(shiny::modalDialog(title = "To visualize cells, please first run UMAP and clustering",
+                                              footer = modalButton("OK"),
+                                              easyClose = F))
+        }else{
+          shiny::showModal(shiny::modalDialog(title = "Generating plot...",
+                                              footer = NULL,
+                                              easyClose = F))
+          shiny::removeModal()
           output$partition_plot <- shiny::renderPlot({
             monocle3::plot_cells(
                                    rv$cds,
@@ -822,6 +825,8 @@ run_scstem_GUI <- function(){
                                  )
 
           })
+        }
+
     })
 
     ############################################################
@@ -1003,16 +1008,42 @@ run_scstem_GUI <- function(){
         shiny::updateSelectInput(inputId = 'compare1_name', choices = names(rv$all_paths))
         shiny::updateSelectInput(inputId = 'compare2_name', choices = names(rv$all_paths))
 
+        # Get a simplified trajectory tree
+        rv$traj_simp <- dynwrap::simplify_trajectory(rv$traj)
+        rv$traj_simp$directed <- rv$traj$directed
+
+        # Get coordinates of trajectory projections
+        rv$traj_proj <- dynwrap::project_trajectory(
+          trajectory = rv$traj_simp,
+          dimred = rv$traj_simp$dimred
+        )
+
+        # Get coordinates of milestones
+        rv$ms_plot_data <- as.data.frame(rv$traj_proj$dimred_milestones)
+
         shiny::removeModal()
         shiny::showModal(shiny::modalDialog(title = "Inference is done.",
                                             footer = modalButton("OK"),
                                             easyClose = F))
     })
 
-    ############################################################
-    # Step 4. Specify STEM parameters
-    ############################################################
+    ################################################################
+    # Step 4. Visualize the selected path and the selected partition
+    ################################################################
     shiny::observeEvent(input$vis_path_umap, {
+
+      # Check whether trajectory has been generated ?
+      if(is.null(rv$traj) | is.null(rv$traj_proj) | is.null(rv$traj_simp)){
+        shiny::showModal(shiny::modalDialog(title = "Trajectory has not been constructed. Please infer trajectory first.",
+                                            footer = modalButton("OK"),
+                                            easyClose = F))
+      }else{
+
+      # Tell the user that plot is being generated. Please wait.
+      shiny::showModal(shiny::modalDialog(title = "Ploting path...",
+                                          footer = NULL,
+                                          easyClose = F))
+
       # Remove cells not in the selected partition
       pars <- monocle3::partitions(rv$cds)
       cell_coord <- SingleCellExperiment::reducedDim(rv$cds,'UMAP')
@@ -1021,21 +1052,20 @@ run_scstem_GUI <- function(){
       path_nodes <- rv$all_paths[[input$vis_path_select]]
 
       # Get a simplified trajectory tree
-      traj_simp <- dynwrap::simplify_trajectory(rv$traj)
-      traj_simp$directed <- rv$traj$directed
+      # traj_simp <- dynwrap::simplify_trajectory(rv$traj)
+      # traj_simp$directed <- rv$traj$directed
 
       # Get coordinates of trajectory projections
-      traj_proj <- dynwrap::project_trajectory(
-        trajectory = traj_simp,
-        dimred = traj_simp$dimred
-      )
+      # traj_proj <- dynwrap::project_trajectory(
+      #  trajectory = traj_simp,
+      #  dimred = traj_simp$dimred
+      # )
 
       # Get coordinates of milestones
-      ms_plot_data <- as.data.frame(traj_proj$dimred_milestones)
+      # ms_plot_data <- as.data.frame(traj_proj$dimred_milestones)
 
       # Get groupings of the trajectory edges
-      traj_proj$dimred_segment_points
-      idx <- grep("BEGIN|END",rownames(traj_proj$dimred_segment_points))
+      idx <- grep("BEGIN|END",rownames(rv$traj_proj$dimred_segment_points))
       lens <- idx[seq(2,length(idx),2)] - idx[seq(1,length(idx),2)] + 1
       edge_group <- seq(1:length(lens))
       edge_group <- rep(edge_group, times = lens)
@@ -1047,7 +1077,7 @@ run_scstem_GUI <- function(){
           begin_end <- sub(
             "MILESTONE_BEGIN_W|MILESTONE_END_W",
             "",
-            rownames(traj_proj$dimred_segment_points)[idx[i]]
+            rownames(rv$traj_proj$dimred_segment_points)[idx[i]]
           )
           begin_node <- substr(begin_end,1,(nchar(begin_end)-1)/2)
           end_node <- substr(begin_end,(nchar(begin_end)-1)/2+2,nchar(begin_end))
@@ -1072,14 +1102,14 @@ run_scstem_GUI <- function(){
 
       # Make data for plotting trajectory
       traj_plot_data <- data.frame(
-        traj_proj$dimred_segment_points,
+        rv$traj_proj$dimred_segment_points,
         edge_group = edge_group,
         path_group = path_group
       ) %>%
         as_tibble()
 
       # Get cell coordinates and cells mapped to currently selected path
-      cell_plot_data <- as_tibble(traj_simp$dimred, rownames = NA)
+      cell_plot_data <- as_tibble(rv$traj_simp$dimred, rownames = NA)
       mask <- rownames(cell_plot_data) %in% path_cells
       cell_groups <- rep("other",length(mask))
       cell_groups[mask] <- "path"
@@ -1129,7 +1159,7 @@ run_scstem_GUI <- function(){
             x = comp_1,
             y = comp_2,
           ),
-          data = ms_plot_data,
+          data = rv$ms_plot_data,
           size = 3,
           colour = "#9C9C9C"
         ) +
@@ -1138,7 +1168,7 @@ run_scstem_GUI <- function(){
             x = comp_1,
             y = comp_2,
           ),
-          data = ms_plot_data,
+          data = rv$ms_plot_data,
           size = 3,
           shape = 1,
           stroke = 2,
@@ -1152,30 +1182,14 @@ run_scstem_GUI <- function(){
           panel.border = ggplot2::element_blank()
         )
 
-      output$path_plot <- shiny::renderPlot({
-        plt
-      })
-    })
+        # Plot in plot area
+        output$path_plot <- shiny::renderPlot({
+          plt
+        })
 
-    shiny::observeEvent(input$vis_path_tree, {
-
-      # Remove cells not in the selected partition
-      pars <- monocle3::partitions(rv$cds)
-      cell_coord <- SingleCellExperiment::reducedDim(rv$cds,'UMAP')
-      cell_coord <- cell_coord[pars %in% input$partition_select,]
-      path_cells <- rv$all_path_cells[[input$vis_path_select]]
-      grp <- rownames(cell_coord) %in% path_cells
-      grp[grp == T] = input$vis_path_select
-      grp[grp == F] = "other"
-
-      output$path_plot <- shiny::renderPlot({
-        dynplot::plot_graph(
-          rv$traj,
-          size_cells = 1.2,
-          grouping = grp,
-          expression_source =  rv$dataset$expression[rownames(cell_coord),]
-        )
-      })
+        # Remove the plotting reminder window
+        shiny::removeModal()
+      }
     })
 
     # Here user specifies the temporary output folder
@@ -1214,12 +1228,9 @@ run_scstem_GUI <- function(){
         shiny::showModal(shiny::modalDialog(title = "Please specify an output folder for STEM",
                                             footer = modalButton("OK"),
                                             easyClose = F))
-      #}else if(is.null(rv$stem_folder)){
-      #  shiny::showModal(shiny::modalDialog(title = "Please specify the folder where STEM java program is located",
-      #                                      footer = modalButton("OK"),
-      #                                      easyClose = F))
       }else{
-        # compute metrics as input to stem
+
+        # compute metrics as input files to stem
         shiny::withProgress(message = 'Generating input for STEM', value = 0, {
           df <- get_stem_input(
             dataset = rv$dataset,
@@ -1250,7 +1261,7 @@ run_scstem_GUI <- function(){
         }
 
         # Run STEM
-        res_table <- list()
+        # res_table <- list()
         shiny::withProgress(message = "Running STEM", value = 0, {
           shiny::incProgress(0, detail = sprintf("%g%% done",0))
           for(i in 1:length(file_names)){
@@ -1267,6 +1278,10 @@ run_scstem_GUI <- function(){
                             setting_template_path = file.path(rv$stem_folder, "stem_setting_template"),
                             species = rv$species
                           )
+
+            # After STEM clustering is done, removed the input file, setting file.
+            # unlink(file.path(rv$outdir_name, file_names[i]))
+            unlink(file.path(rv$outdir_name,gsub(".tsv$","",file_names[i])))
 
             # Read STEM output tables (profile table and gene table)
             #prof_tab_filename <- paste0(gsub(".tsv","",file_names[i]),"_profiletable.txt")
@@ -1320,6 +1335,12 @@ run_scstem_GUI <- function(){
           #          col.names = T,
           #          quote=F)
         })
+
+        # Remove GO files
+        unlink(file.path(rv$outdir_name,"go-basic.obo"))
+        go_file = grep("goa.*gaf\\.gz",list.files(rv$outdir_name),perl = T,value=T)
+        unlink(file.path(rv$outdir_name,go_file))
+
       }
     })
 
@@ -1335,10 +1356,6 @@ run_scstem_GUI <- function(){
         shiny::showModal(shiny::modalDialog(title = "Please specify an output folder for STEM",
                                             footer = modalButton("OK"),
                                             easyClose = F))
-      #}else if(is.null(rv$stem_folder)){
-      #  shiny::showModal(shiny::modalDialog(title = "Please specify the folder where STEM java program is located",
-      #                                      footer = modalButton("OK"),
-      #                                      easyClose = F))
       }else{
         compare1_path = paste0(rv$outdir_name,"/",input$compare1_name,"_",rv$metric,".tsv")
         compare2_path = paste0(rv$outdir_name,"/",input$compare2_name,"_",rv$metric,".tsv")
@@ -1355,6 +1372,16 @@ run_scstem_GUI <- function(){
         )
       }
     })
+
+    # Remove files when app is closed
+    # onStop(function(){
+    #  file_names = grep("path.*.tsv",list.files(rv$outdir_name),perl = T,value=T)
+    #  if(length(file_names) > 0){
+    #    for(i in 1:length(file_names)){
+    #      unlink(file.path(rv$outdir_name, file_names[i]))
+    #    }
+    #  }
+    #})
   }
   shiny::shinyApp(ui = ui, server = server)
 }
@@ -1409,5 +1436,4 @@ stem_analysis<-function(
 
   # remove current setting file
   unlink(setting_path)
-  #setwd(wd)
 }

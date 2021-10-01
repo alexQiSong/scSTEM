@@ -12,7 +12,7 @@ scSTEM works with R version 4.1.0 or higher (https://cran.r-project.org/). We wo
 - Dynverse
 - ROGUE
 
-To install **devtools**, simply type the following command in R:
+To install **devtools**, simply type the following code in R:
 ```R
 install.pacakges('devtools')
 ```
@@ -20,7 +20,7 @@ To install **Monocle3** for R, follow the installation steps described in **Mono
 
 To install **dynverse** for R, follow the instructions provided here: https://dynverse.org/users/1-installation.
 
-**ROGUE** can be installed from GitHub. Simply type the following command in R:
+**ROGUE** can be installed from GitHub. Simply type the following code in R:
 ```R
 devtools::install_github("PaulingLiu/ROGUE")
 ```
@@ -42,7 +42,7 @@ scSTEM output files:
 - a table file (tentative)
 - clustering plots (tentative)
 ## 5. Analysis steps
-scSTEM analysis involves running dimensionality reduction, cell clustering, trajectory inference, and gene clustering. While the functionality of dimensionality reduction and cell clustering is provided here to facilitate users to choose cells of interest, they are optional for the following steps. The steps of running analysis with GUI is described below.
+scSTEM analysis involves running dimensionality reduction, cell clustering, trajectory inference, and gene clustering. While the functionality of dimensionality reduction and cell clustering is provided here to facilitate users to choose cells of interest, they are optional for the following steps. The steps of running analysis with GUI is described below. **Note that internet connection is required as scSTEM may convert gene IDs using biomaRt which converts the gene IDs using ensembl database.**
 
 To launch the scSTEM GUI, execute the following code in R:
 
@@ -56,4 +56,12 @@ run_scSTEM_GUI()
 3. **Step 3: Infer trajectories.** In the third panel, scSTEM can perform trajectory inference. To infer trajectories for the input data, simply select cell partitions of interest from the `partition` drop-down list (generated from the second step) and then select trajectory inference method from the `Method` drop-down list. Once partition and `Method` were selected, users can click `infer trajectory` to infer trajectories.
 4. **Step 4: Visualize paths.** In the fourth panel, users may visualize the paths inferred by the previous step. Selected path is highlighted by red color and cells mapped to the path is marked by yellow color.
 5. **Step 5: Run STEM analysis.** In the fifth panel, users can perform scSTEM analysis. Currently there are two parameters `metric` and `path` to be specified for scSTEM. `metric` specifies the method to summarize expression data from trajectories. Users can select `mean`, `entropy_reduction`, or `change_rate` from the `metric` drop-down list. In the `select a path` drop-down list, users can specify a path of interest to run scSTEM clustering (which can be visualized in **step 4**). Users will need to provide an output folder where output files and temporary files can be saved. Click the `output folder` button to specify an output folder.
-6. **Step 6: Run comparative analysis.** In the sixth panel, users can perform comparison of gene clustering results from different trajectory paths. To do this, first select the two paths to be compared in the two drop-down lists `Path name 1` and `Path name 2`, then click the `Run comparison` button. scSTEM will call STEM java program to run gene clustering and comparison of clustering results for the selected paths. 
+6. **Step 6: Run comparative analysis.** In the sixth panel, users can perform comparison of gene clustering results from different trajectory paths. To do this, first select the two paths to be compared in the two drop-down lists `Path name 1` and `Path name 2`, then click the `Run comparison` button. scSTEM will call STEM java program to run gene clustering and comparison of clustering results for the selected paths.
+
+# Contact
+Contact us if you have any questions:
+Qi (Alex) Song: qisong@andrew.cmu.edu; sqsq3178@gmail.com
+Ziv Bar-Joseph: zivbj@andrew.cmu.edu
+
+# Copyright
+©2021 Qi Song, Ziv Bar-Joseph. [Systems Biology Group at Carnegie Mellon University](http://www.sb.cs.cmu.edu/). All rights reserved.
