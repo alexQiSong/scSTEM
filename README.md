@@ -31,7 +31,7 @@ After required dependencies have been successfully installed.  scSTEM can be eas
 devtools::install_github("alexQiSong/scSTEM")
 ```
 ## 3. Sample data sets
-We have provided a sample data set for running the analysis.  You may download the sampledata set from:  https://github.com/alexQiSong/scSTEMsampledata.
+We have provided a sample data set for running the analysis.  You may download the sampledata set from:  https://github.com/alexQiSong/scSTEM_sample_data.
 ## 4. Input and output files
 scSTEM uses three files as input (See also the sample data set in **3. Sample data sets**):
 - a **expression count matrix in \*.mtx format** with rows representing genes andcolumns representing cells.
