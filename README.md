@@ -14,7 +14,7 @@ scSTEM works with R version 4.1.0 or higher (https://cran.r-project.org/). We wo
 
 To install **devtools**, simply type the following code in R:
 ```R
-install.pacakges('devtools')
+install.packages('devtools')
 ```
 To install **Monocle3** for R, follow the installation steps described in **Monocle 3** github repos-itory page:  https://cole-trapnell-lab.github.io/monocle3/docs/installation/
 
