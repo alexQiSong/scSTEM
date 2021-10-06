@@ -11,15 +11,48 @@ scSTEM works with R version 4.1.0 or higher (https://cran.r-project.org/). We wo
 - Monocle3
 - Dynverse
 - ROGUE
-
+#### 2.1.1 Install devtools
 To install **devtools**, simply type the following code in R:
 ```R
 install.packages('devtools')
 ```
-To install **Monocle3** for R, follow the installation steps described in **Monocle 3** github repos-itory page:  https://cole-trapnell-lab.github.io/monocle3/docs/installation/
+#### 2.1.2 Install Monocle3
+To install **Monocle3**, execute the following in R to install **Monocle3**. For more details, please refer to the installation steps described in **Monocle 3** github repository page:  https://cole-trapnell-lab.github.io/monocle3/docs/installation/
+```R
+# Install Bioconductor (for R > 4.1.0)
+if (!requireNamespace("BiocManager", quietly = TRUE))
+install.packages("BiocManager")
+BiocManager::install(version = "3.13")
 
-To install **dynverse** for R, follow the instructions provided here: https://dynverse.org/users/1-installation.
+# Install Bioconductor dependencies
+BiocManager::install(c('BiocGenerics', 'DelayedArray', 'DelayedMatrixStats',
+                       'limma', 'S4Vectors', 'SingleCellExperiment',
+                       'SummarizedExperiment', 'batchelor', 'Matrix.utils'))
 
+# Now, install monocle3 through the cole-trapnell-lab GitHub, execute:
+install.packages("devtools")
+devtools::install_github('cole-trapnell-lab/leidenbase')
+devtools::install_github('cole-trapnell-lab/monocle3')
+
+# To ensure that Monocle 3 was installed correctly, start a new R session and run:
+library(monocle3)
+```
+**Note that MAC users may see the following error messages:**
+```shell
+make: gfortran: No such file or directory
+make: *** [cigraph/src/AMD/Source/amd.o] Error 1
+ERROR: compilation failed for package 'leidenbase'
+```
+The solutions are described below, quoted from https://cole-trapnell-lab.github.io/monocle3/docs/installation/
+> * The above error indicates that you need to install gfortran on your computer (for Mac users only). In order to do so,
+> * Make sure that you have Xcode command line tools installed on your computer.
+> * Remove other gfortran installations if they exist. For this, you can launch a terminal window and type "which gfortran". If you see a path returned (e.g. /usr/local/bin/gfortran) you have a previous installation of gfortran that needs to be removed.
+> * Download new gfortran binaries for your operating system from here and decompress the folder (eg: gunzip gfortran-8.3-bin.tar.gz).
+> * Then run, sudo tar -xvf gfortran-8.3-bin.tar -C / which will install everything in /usr/local/bin/gfortran.
+
+#### 2.1.3 Install Dynverse
+To install **Dynverse** for R, follow the instructions provided here: https://dynverse.org/users/1-installation.
+#### 2.1.4 Install ROGUE
 **ROGUE** can be installed from GitHub. Simply type the following code in R:
 ```R
 devtools::install_github("PaulingLiu/ROGUE")
