@@ -5,18 +5,35 @@
 ## 1. Introduction
 Single cell STEM (scSTEM) is a shiny app based R package for visualizing and clustering genes in pseudotime ordered single cell RNA-seq data. scSTEM is a GUI based tool and thus does not require any coding experience.  
 ## 2. Installation
-### 2.1 Dependencies
+### 2.1 (Probably) the easy way...
+1. To install scSTEM in a painless way, we recommend the users to use `renv` package to automatically install the dependencies before installing scSTEM. Additionally we will also need to install `devtools`. In R, execute the following code to install `renv` and `devtools`:
+```R
+install.packages(renv)
+if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
+```
+2. Download [this **lockfile**](https://github.com/alexQiSong/scSTEM/blob/15c6b7abf609d9f21262308fe5acfc78e426ce2a/renv.lock) which contains the dependency information.
+3. Once lock file is downloaded. execute the following code to install all dependencies:
+```R
+renv::restore("path/to/lockfile")
+# "path/to/lockfile" is the path of the downloaded lock file, e.g. /home/alex/renv.lockfile.  
+```
+4. After all dependencies have been installed, install singularity or docker as suggested here https://dynverse.org/users/1-installation.
+5. Install `scSTEM` by executing the following code:
+```R
+devtools::install_github("alexQiSong/scSTEM")
+```
+### 2.2 (Probably) the hard way...
 scSTEM works with R version 4.1.0 or higher (https://cran.r-project.org/). We would recommend installing Rstudio to interact with R in an easy-to-use GUI (https://www.rstudio.com/). scSTEM also relies on several key R packages that need to be manually installed:
 - devtools
 - Monocle3
 - Dynverse
 - ROGUE
-#### 2.1.1 Install devtools
+#### 2.2.1 Install devtools
 To install **devtools**, simply type the following code in R:
 ```R
 install.packages('devtools')
 ```
-#### 2.1.2 Install Monocle3
+#### 2.2.2 Install Monocle3
 To install **Monocle3**, execute the following in R to install **Monocle3**. For more details, please refer to the installation steps described in **Monocle 3** github repository page:  https://cole-trapnell-lab.github.io/monocle3/docs/installation/
 ```R
 # Install Bioconductor (for R > 4.1.0)
@@ -50,15 +67,15 @@ The solutions are described below, quoted from https://cole-trapnell-lab.github.
 > * Download new gfortran binaries for your operating system from here and decompress the folder (eg: gunzip gfortran-8.3-bin.tar.gz).
 > * Then run, sudo tar -xvf gfortran-8.3-bin.tar -C / which will install everything in /usr/local/bin/gfortran.
 
-#### 2.1.3 Install Dynverse
+#### 2.2.3 Install Dynverse
 To install **Dynverse** for R, follow the instructions provided here: https://dynverse.org/users/1-installation.
-#### 2.1.4 Install ROGUE
+#### 2.2.4 Install ROGUE
 **ROGUE** can be installed from GitHub. Simply type the following code in R:
 ```R
 devtools::install_github("PaulingLiu/ROGUE")
 ```
 See ROGUE GitHub repository for more details:https://github.com/PaulingLiu/ROGUE.
-### 2.2 Install scSTEM
+#### 2.2.5 Install scSTEM
 After required dependencies have been successfully installed.  scSTEM can be easily installed through github by executing the following code in R:
 ```R
 devtools::install_github("alexQiSong/scSTEM")
