@@ -11,7 +11,7 @@ Single cell STEM (scSTEM) is a shiny app based R package for visualizing and clu
 install.packages("renv")
 if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
 ```
-2. Download [this **lockfile**](https://github.com/alexQiSong/scSTEM/blob/15c6b7abf609d9f21262308fe5acfc78e426ce2a/renv.lock) which contains the dependency information.
+2. Download the `renv.lock` file in this repository. `renv.lock` is the lock file which contains the dependency information.
 3. Once lock file is downloaded. execute the following code to install all dependencies:
 ```R
 renv::restore("path/to/lockfile")
