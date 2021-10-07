@@ -27,6 +27,7 @@ devtools::install_github("alexQiSong/scSTEM")
 scSTEM works with R version 4.1.0 or higher (https://cran.r-project.org/). We would recommend installing Rstudio to interact with R in an easy-to-use GUI (https://www.rstudio.com/). scSTEM also relies on several key R packages that need to be manually installed:
 - devtools
 - Monocle3
+- biomaRt
 - Dynverse
 - ROGUE
 #### 2.2.1 Install devtools
@@ -67,16 +68,23 @@ The solutions are described below, quoted from https://cole-trapnell-lab.github.
 > * Remove other gfortran installations if they exist. For this, you can launch a terminal window and type "which gfortran". If you see a path returned (e.g. /usr/local/bin/gfortran) you have a previous installation of gfortran that needs to be removed.
 > * Download new gfortran binaries for your operating system from here and decompress the folder (eg: gunzip gfortran-8.3-bin.tar.gz).
 > * Then run, sudo tar -xvf gfortran-8.3-bin.tar -C / which will install everything in /usr/local/bin/gfortran.
-
-#### 2.2.3 Install Dynverse
+#### 2.2.3 Install biomaRt
+`biomaRt` can be installed from `bioconductor`.  Execute the following code in R (make sureR version is greater than 4.1.0) to install `biomaRt`:
+```R
+if (!requireNamespace("BiocManager", quietly = TRUE))
+install.packages("BiocManager")
+BiocManager::install(version = "3.13")
+BiocManager::install("biomaRt")
+```
+#### 2.2.4 Install Dynverse
 To install **Dynverse** for R, follow the instructions provided here: https://dynverse.org/users/1-installation.
-#### 2.2.4 Install ROGUE
+#### 2.2.5 Install ROGUE
 **ROGUE** can be installed from GitHub. Simply type the following code in R:
 ```R
 devtools::install_github("PaulingLiu/ROGUE")
 ```
 See ROGUE GitHub repository for more details:https://github.com/PaulingLiu/ROGUE.
-#### 2.2.5 Install scSTEM
+#### 2.2.6 Install scSTEM
 After required dependencies have been successfully installed.  scSTEM can be easily installed through github by executing the following code in R:
 ```R
 devtools::install_github("alexQiSong/scSTEM")
