@@ -8,7 +8,7 @@ Single cell STEM (scSTEM) is a shiny app based R package for visualizing and clu
 ### 2.1 (Probably) the easy way...
 1. To install scSTEM in a painless way, we recommend the users to use `renv` package to automatically install the dependencies before installing scSTEM. Additionally we will also need to install `devtools`. In R, execute the following code to install `renv` and `devtools`:
 ```R
-install.packages(renv)
+install.packages("renv")
 if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
 ```
 2. Download [this **lockfile**](https://github.com/alexQiSong/scSTEM/blob/15c6b7abf609d9f21262308fe5acfc78e426ce2a/renv.lock) which contains the dependency information.
