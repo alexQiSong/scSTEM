@@ -16,7 +16,7 @@ if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
 ```R
 renv::restore(project = "/home/alex/scstem/", lockfile = "/home/alex/scstem/renv.lock")
 # "/home/alex/scstem/" is the path to the directory we just created. "/home/alex/scstem/renv.lock" is the path of the lock file we just downloaded.
-# You will need to replace with your own directory and path.
+# You will need to replace them with your own directory and path.
 ```
 4. `renv` will ask if the project should be activiated. Enter `y` for all questions. After all dependencies have been installed, install `scSTEM` by executing the following code:
 ```R
