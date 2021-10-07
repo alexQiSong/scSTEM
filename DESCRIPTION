@@ -21,7 +21,7 @@ Imports:
 	shinyWidgets (>= 0.6.0),
 	R.utils (>= 2.10.1),
 	ROGUE (>= 1.0),
-	monocle3 (>=1.0.0),
+	monocle3 (>= 1.0.0),
 	biomaRt (>= 2.48.3),
 	dyno (>= 0.1.2),
 	dynwrap (>= 1.2.2),
