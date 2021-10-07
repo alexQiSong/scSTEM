@@ -98,8 +98,8 @@ scSTEM uses three files as input (See also the sample data set in **3. Sample da
 - a **gene meta data table file in \*.csv format**, in which each row represents a gene.The file should contain at least a column named ’geneid’.
 
 scSTEM output files:
-- a table file (tentative)
-- clustering plots (tentative)
+- cluster gene table (table can be saved inside STEM java GUI)
+- Enriched GO term table (table can be saved inside STEM java GUI)
 ## 5. Analysis steps
 scSTEM analysis involves running dimensionality reduction, cell clustering, trajectory inference, and gene clustering. While the functionality of dimensionality reduction and cell clustering is provided here to facilitate users to choose cells of interest, they are optional for the following steps. The steps of running analysis with GUI is described below. We will use the sample data set at https://github.com/alexQiSong/scSTEM_sample_data as an example showing the analysis functionality. This data set contains human fetal immune blood cells and was published with [Cao et al., 2020](https://www.science.org/doi/10.1126/science.aba7721). **Note that internet connection is required as scSTEM may convert gene IDs using biomaRt which converts the gene IDs using ensembl database.**
 
