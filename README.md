@@ -5,8 +5,8 @@
 ## 1. Introduction
 Single cell STEM (scSTEM) is a shiny app based R package for visualizing and clustering genes in pseudotime ordered single cell RNA-seq data. scSTEM is a GUI based tool and thus does not require any coding experience.  
 ## 2. Installation
-### 2.1 Solution one, fewer steps.
-1. To install scSTEM in a painless way, we recommend the users to use `renv` package to automatically install all dependencies before installing scSTEM. Additionally we will also need to install `devtools`. In R, execute the following code to install `renv` and `devtools`:
+### 2.1 Solution one: fewer steps, automatic installation of all dependencies.
+1. To install scSTEM in a (relatively) painless way, we recommend the users to use `renv` package to automatically install all dependencies before installing scSTEM. Additionally we will also need to install `devtools`. In R, execute the following code to install `renv` and `devtools`:
 ```R
 install.packages("renv")
 if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
@@ -23,7 +23,7 @@ renv::restore(project = "/home/alex/scstem/", lockfile = "/home/alex/scstem/renv
 devtools::install_github("alexQiSong/scSTEM")
 ```
 5. Finally, we need to install docker/singularity to run trajectory inference tool. If you are a MAC/windows user, install Docker by: [Docker for MAC](https://docs.docker.com/desktop/mac/install/) or [Docker CE for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows) 
-### 2.2 Solution two, more steps.
+### 2.2 Solution two: more steps, manual installation of all depedencies.
 scSTEM works with R version 4.1.0 or higher (https://cran.r-project.org/). We would recommend installing Rstudio to interact with R in an easy-to-use GUI (https://www.rstudio.com/). scSTEM also relies on several key R packages that need to be manually installed:
 - devtools
 - Monocle3
