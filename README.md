@@ -5,24 +5,25 @@
 ## 1. Introduction
 Single cell STEM (scSTEM) is a shiny app based R package for visualizing and clustering genes in pseudotime ordered single cell RNA-seq data. scSTEM is a GUI based tool and thus does not require any coding experience.  
 ## 2. Installation
-### 2.1 (Probably) the easy way...
-1. To install scSTEM in a painless way, we recommend the users to use `renv` package to automatically install the dependencies before installing scSTEM. Additionally we will also need to install `devtools`. In R, execute the following code to install `renv` and `devtools`:
+### 2.1 Solution one, fewer steps.
+1. To install scSTEM in a painless way, we recommend the users to use `renv` package to automatically install all dependencies before installing scSTEM. Additionally we will also need to install `devtools`. In R, execute the following code to install `renv` and `devtools`:
 ```R
 install.packages("renv")
 if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
 ```
-2. Download the `renv.lock` file in this repository. `renv.lock` is the lock file which contains the dependency information.
+2. Create a new directory to host dependency files for scSTEM (e.g. `/home/alex/scstem`). `renv` will later install dependencies into this personal folder. Download the `renv.lock` file in this repository. `renv.lock` is the lock file which contains the dependency information.
 3. Once lock file is downloaded. execute the following code to install all dependencies:
 ```R
-renv::restore(lockfile = "path/to/lockfile")
-# "path/to/lockfile" is the path of the downloaded lock file. For example, if the file is '/home/alex/renv.lock', then you should execute renv::restore(lockfile = "/home/alex/renv.lock")
+renv::restore(project = "/home/alex/scstem/", lockfile = "/home/alex/scstem/renv.lock")
+# "/home/alex/scstem/" is the path to the directory we just created. "/home/alex/scstem/renv.lock" is the path of the lock file we just downloaded.
+# You will need to replace with your own directory and path.
 ```
-4. After all dependencies have been installed, install singularity or docker as suggested here https://dynverse.org/users/1-installation.
-5. Install `scSTEM` by executing the following code:
+4. `renv` will ask if the project should be activiated. Enter `y` for all questions. After all dependencies have been installed, install `scSTEM` by executing the following code:
 ```R
 devtools::install_github("alexQiSong/scSTEM")
 ```
-### 2.2 (Probably) the hard way...
+5. Finally, we need to install docker/singularity to run trajectory inference tool. If you are a MAC/windows user, install Docker by: [Docker for MAC](https://docs.docker.com/desktop/mac/install/) or [Docker CE for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows) 
+### 2.2 Solution two, more steps.
 scSTEM works with R version 4.1.0 or higher (https://cran.r-project.org/). We would recommend installing Rstudio to interact with R in an easy-to-use GUI (https://www.rstudio.com/). scSTEM also relies on several key R packages that need to be manually installed:
 - devtools
 - Monocle3
