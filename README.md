@@ -14,8 +14,8 @@ if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
 2. Download the `renv.lock` file in this repository. `renv.lock` is the lock file which contains the dependency information.
 3. Once lock file is downloaded. execute the following code to install all dependencies:
 ```R
-renv::restore("path/to/lockfile")
-# "path/to/lockfile" is the path of the downloaded lock file, e.g. /home/alex/renv.lockfile.  
+renv::restore(lockfile = "path/to/lockfile")
+# "path/to/lockfile" is the path of the downloaded lock file. For example, if the file is '/home/alex/renv.lock', then you should execute renv::restore(lockfile = "/home/alex/renv.lock")
 ```
 4. After all dependencies have been installed, install singularity or docker as suggested here https://dynverse.org/users/1-installation.
 5. Install `scSTEM` by executing the following code:
