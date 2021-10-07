@@ -6,25 +6,37 @@
 Single cell STEM (scSTEM) is a shiny app based R package for visualizing and clustering genes in pseudotime ordered single cell RNA-seq data. scSTEM is a GUI based tool and thus does not require any coding experience.  
 ## 2. Installation
 ### 2.1 Solution one: fewer steps, automatic installation of all dependencies.
-1. To install scSTEM in a (relatively) painless way, we recommend the users to use `renv` package to automatically install all dependencies before installing scSTEM. Additionally we will also need to install `devtools`. In R, execute the following code to install `renv` and `devtools`:
+ scSTEM works with R version 4.1.0 or higher (https://cran.r-project.org/). We would recommend installing Rstudio to interact with R in an easy-to-use GUI (https://www.rstudio.com/). Below are automatic installation steps:
+1. If you want to install scSTEM in a (relatively) painless way, you may use `renv` package to automatically install all dependencies before installing scSTEM. Additionally we will also need to install `devtools`. In R, execute the following code to install `renv` and `devtools`:
 ```R
 install.packages("renv")
 if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
 ```
 2. Create a new directory to host dependency files for scSTEM (e.g. `/home/alex/scstem`). `renv` will later install dependencies into this personal folder. Download the `renv.lock` file in this repository. `renv.lock` is the lock file which contains the dependency information.
-3. Once lock file is downloaded. execute the following code to install all dependencies:
+3. Once lock file is downloaded. execute the following code to install all dependencies. This will automatically create a project under the folder `/home/alex/scstem/`. We will install all needed dependencies into this isolated, personal folder which hosts all dependencies (and thus it does not mess up your own R libraries in other locations).
 ```R
 renv::restore(project = "/home/alex/scstem/", lockfile = "/home/alex/scstem/renv.lock")
 # "/home/alex/scstem/" is the path to the directory we just created. "/home/alex/scstem/renv.lock" is the path of the lock file we just downloaded.
 # You will need to replace them with your own directory and path.
 ```
-4. `renv` will ask if the project should be activiated. Enter `y` for all questions. After all dependencies have been installed, install `scSTEM` by executing the following code:
+4. `renv` will ask a few questions. Enter `y` for all questions. After all dependencies have been installed, install `scSTEM` by executing the following code:
 ```R
 devtools::install_github("alexQiSong/scSTEM")
 ```
 5. Finally, we need to install docker/singularity to run trajectory inference tool. If you are a MAC/windows user, install Docker by: [Docker for MAC](https://docs.docker.com/desktop/mac/install/) or [Docker CE for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows). Otherwise, for linux user, [singularity](https://sylabs.io/docs/) is recommended.
+6. **How to run scSTEM.**   
+To deactivate the current project environment for `scSTEM`, simiply executing the following code:
+```R
+renv::deactivate()
+```
+To activate the project environment and run scSTEM, simply executing the following code:
+```R
+renv::activate("/home/alex/scstem")
+scSTEM::run_scstem_GUI()
+```
+Where "/home/alex/scstem" is the project folder we just created to install scSTEM.
 ### 2.2 Solution two: more steps, manual installation of all depedencies.
-scSTEM works with R version 4.1.0 or higher (https://cran.r-project.org/). We would recommend installing Rstudio to interact with R in an easy-to-use GUI (https://www.rstudio.com/). scSTEM also relies on several key R packages that need to be manually installed:
+If the automatical installation shown above failed. You may resort to the manual installation. scSTEM works with R version 4.1.0 or higher (https://cran.r-project.org/). We would recommend installing Rstudio to interact with R in an easy-to-use GUI (https://www.rstudio.com/). To manually install all dependencies, several packages are needed:
 - devtools
 - Monocle3
 - biomaRt
