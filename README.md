@@ -32,7 +32,8 @@ renv::deactivate()
 To activate the project environment and run scSTEM, simply executing the following code:
 ```R
 renv::activate("/home/alex/scstem")
-scSTEM::run_scstem_GUI()
+library("scSTEM")
+run_scstem_GUI()
 ```
 Where "/home/alex/scstem" is the project folder we just created to install scSTEM.
 ### 2.2 Solution two: more steps, manual installation of all depedencies.
