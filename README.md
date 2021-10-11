@@ -16,12 +16,12 @@ install.packages('devtools')
 # Install Bioconductor (for R > 4.1.0)
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
-BiocManager::install(version = "3.13")
+BiocManager::install(version = "3.13", ask = FALSE)
 
 # Install Bioconductor dependencies
 BiocManager::install(c('BiocGenerics', 'DelayedArray', 'DelayedMatrixStats',
                        'limma', 'S4Vectors', 'SingleCellExperiment',
-                       'SummarizedExperiment', 'batchelor', 'Matrix.utils'))
+                       'SummarizedExperiment', 'batchelor', 'Matrix.utils'), ask = FALSE)
 
 # Now, install monocle3 through the cole-trapnell-lab GitHub, execute:
 install.packages("devtools")
@@ -29,7 +29,7 @@ devtools::install_github('cole-trapnell-lab/leidenbase')
 devtools::install_github('cole-trapnell-lab/monocle3')
 
 # Install biomaRt
-BiocManager::install("biomaRt")
+BiocManager::install("biomaRt", ask = FALSE)
 
 # Install ROGUE
 devtools::install_github("PaulingLiu/ROGUE")
