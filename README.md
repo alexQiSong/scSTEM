@@ -5,7 +5,45 @@
 ## 1. Introduction
 Single cell STEM (scSTEM) is a shiny app based R package for visualizing and clustering genes in pseudotime ordered single cell RNA-seq data. scSTEM is a GUI based tool and thus does not require any coding experience.  
 ## 2. Installation
-### 2.1 Solution one: fewer steps, automatic installation of all dependencies.
+You may choose to install scSTEM by method **2.1** or **2.2** or **2.3**
+### 2.1 Install the dependencies.
+### 2.1.1 Install R dependencies.
+Make sure that you have R version >= 4.1.0. Execute the following code to install all R dependencies. 
+```R
+# Install devtools
+install.packages('devtools')
+
+# Install Bioconductor (for R > 4.1.0)
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+BiocManager::install(version = "3.13")
+
+# Install Bioconductor dependencies
+BiocManager::install(c('BiocGenerics', 'DelayedArray', 'DelayedMatrixStats',
+                       'limma', 'S4Vectors', 'SingleCellExperiment',
+                       'SummarizedExperiment', 'batchelor', 'Matrix.utils'))
+
+# Now, install monocle3 through the cole-trapnell-lab GitHub, execute:
+install.packages("devtools")
+devtools::install_github('cole-trapnell-lab/leidenbase')
+devtools::install_github('cole-trapnell-lab/monocle3')
+
+# Install biomaRt
+BiocManager::install("biomaRt")
+
+# Install ROGUE
+devtools::install_github("PaulingLiu/ROGUE")
+
+# Install Dynverse
+devtools::install_github("dynverse/dyno")
+
+# Install scSTEM
+devtools::install_github("alexQiSong/scSTEM")
+```
+### 2.1.2 Install singularity or docker.
+Finally, we need to install docker/singularity to run trajectory inference tool. If you are a MAC/windows user, install Docker by: [Docker for MAC](https://docs.docker.com/desktop/mac/install/) or [Docker CE for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows). Otherwise, for linux user, [singularity](https://sylabs.io/docs/) is recommended.
+
+### 2.2 (Alternatively) Use renv to install dependencies.
  scSTEM works with R version 4.1.0 or higher (https://cran.r-project.org/). We would recommend installing Rstudio to interact with R in an easy-to-use GUI (https://www.rstudio.com/). Below are automatic installation steps:
 1. If you want to install scSTEM in a (relatively) painless way, you may use `renv` package to automatically install all dependencies before installing scSTEM. Additionally we will also need to install `devtools`. In R, execute the following code to install `renv` and `devtools`:
 ```R
@@ -36,19 +74,19 @@ library("scSTEM")
 run_scstem_GUI()
 ```
 Where "/home/alex/scstem" is the project folder we just created to install scSTEM.
-### 2.2 Solution two: more steps, manual installation of all depedencies.
+### 2.3 (Alternatively) Manual installation of all depedencies.
 If the automatical installation shown above failed. You may resort to the manual installation. scSTEM works with R version 4.1.0 or higher (https://cran.r-project.org/). We would recommend installing Rstudio to interact with R in an easy-to-use GUI (https://www.rstudio.com/). To manually install all dependencies, several packages are needed:
 - devtools
 - Monocle3
 - biomaRt
 - Dynverse
 - ROGUE
-#### 2.2.1 Install devtools
+#### 2.3.1 Install devtools
 To install **devtools**, simply type the following code in R:
 ```R
 install.packages('devtools')
 ```
-#### 2.2.2 Install Monocle3
+#### 2.3.2 Install Monocle3
 To install **Monocle3**, execute the following in R to install **Monocle3**. For more details, please refer to the installation steps described in **Monocle 3** github repository page:  https://cole-trapnell-lab.github.io/monocle3/docs/installation/
 ```R
 # Install Bioconductor (for R > 4.1.0)
@@ -81,7 +119,7 @@ The solutions are described below, quoted from https://cole-trapnell-lab.github.
 > * Remove other gfortran installations if they exist. For this, you can launch a terminal window and type "which gfortran". If you see a path returned (e.g. /usr/local/bin/gfortran) you have a previous installation of gfortran that needs to be removed.
 > * Download new gfortran binaries for your operating system from here and decompress the folder (eg: gunzip gfortran-8.3-bin.tar.gz).
 > * Then run, sudo tar -xvf gfortran-8.3-bin.tar -C / which will install everything in /usr/local/bin/gfortran.
-#### 2.2.3 Install biomaRt
+#### 2.3.3 Install biomaRt
 `biomaRt` can be installed from `bioconductor`.  Execute the following code in R (make sureR version is greater than 4.1.0) to install `biomaRt`:
 ```R
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -89,15 +127,15 @@ install.packages("BiocManager")
 BiocManager::install(version = "3.13")
 BiocManager::install("biomaRt")
 ```
-#### 2.2.4 Install Dynverse
+#### 2.3.4 Install Dynverse
 To install **Dynverse** for R, follow the instructions provided here: https://dynverse.org/users/1-installation.
-#### 2.2.5 Install ROGUE
+#### 2.3.5 Install ROGUE
 **ROGUE** can be installed from GitHub. Simply type the following code in R:
 ```R
 devtools::install_github("PaulingLiu/ROGUE")
 ```
 See ROGUE GitHub repository for more details:https://github.com/PaulingLiu/ROGUE.
-#### 2.2.6 Install scSTEM
+#### 2.3.6 Install scSTEM
 After required dependencies have been successfully installed.  scSTEM can be easily installed through github by executing the following code in R:
 ```R
 devtools::install_github("alexQiSong/scSTEM")
