@@ -26,7 +26,6 @@ Imports:
 	dyno (>= 0.1.2),
 	dynwrap (>= 1.2.2),
 	dynplot (>= 1.1.0)
-	
 Author: Qi Song
 Maintainer: The package maintainer <sqsq3178@gmail.com>
 Description: scSTEM is an R package for clustering genes in time-series single cell RNA-seq data. scSTEM clusters genes based on their temporal expression patterns of a specific trajectory path built by trajectory inference tools. The general trajectory framework used by scSTEM allows it to work with various trajectory inference methods.   

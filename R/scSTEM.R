@@ -1416,7 +1416,11 @@ stem_analysis<-function(
     writeLines(settings, setting_path)
 
     # Perform regular clustering
-    cmd = paste("java", "-mx1024M", "-jar", stem_path, "-d", setting_path, "-a")
+    # Enclose the file paths so that the spaces would not affect.
+    cmd = paste("java", "-mx1024M", "-jar",
+                paste0('"',stem_path,'"'),
+                "-d", paste0('"',setting_path,'"'),
+                "-a")
   }else{
 
     # Specify input file path as empty (as we are running comparison now)
@@ -1426,10 +1430,12 @@ stem_analysis<-function(
     writeLines(settings, setting_path)
 
     # Perform clustering + cluster comparison
+    # Enclose the file paths so that the spaces would not affect.
     cmd = paste("java -mx1024M -jar",
-                    stem_path,
-                    "-d", setting_path,
-                    "-c", compare1_path, compare2_path,
+                    paste0('"',stem_path,'"'),
+                    "-d", paste0('"',setting_path,'"'),
+                    "-c", paste0('"',compare1_path,'"'),
+                    paste0('"',compare2_path,'"'),
                     "-a","-C")
   }
   system(cmd)
