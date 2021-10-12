@@ -25,20 +25,20 @@ BiocManager::install(c('BiocGenerics', 'DelayedArray', 'DelayedMatrixStats',
 
 # Now, install monocle3 through the cole-trapnell-lab GitHub, execute:
 install.packages("devtools")
-devtools::install_github('cole-trapnell-lab/leidenbase')
-devtools::install_github('cole-trapnell-lab/monocle3')
+devtools::install_github('cole-trapnell-lab/leidenbase', upgrade = "always")
+devtools::install_github('cole-trapnell-lab/monocle3', upgrade = "always")
 
 # Install biomaRt
 BiocManager::install("biomaRt", ask = FALSE)
 
 # Install ROGUE
-devtools::install_github("PaulingLiu/ROGUE")
+devtools::install_github("PaulingLiu/ROGUE", upgrade = "always")
 
 # Install Dynverse
-devtools::install_github("dynverse/dyno")
+devtools::install_github("dynverse/dyno", upgrade = "always")
 
 # Install scSTEM
-devtools::install_github("alexQiSong/scSTEM")
+devtools::install_github("alexQiSong/scSTEM", upgrade = "always")
 ```
 ### 2.1.2 Install singularity or docker.
 Finally, we need to install docker/singularity to run trajectory inference tool. If you are a MAC/windows user, install Docker by: [Docker for MAC](https://docs.docker.com/desktop/mac/install/) or [Docker CE for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows). Otherwise, for linux user, [singularity](https://sylabs.io/docs/) is recommended.

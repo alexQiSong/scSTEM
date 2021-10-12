@@ -141,7 +141,7 @@ get_path_cells <- function(traj, closest_ms, path_node_ids){
 # traj: dynverse trajectory object
 # all_paths: paths from root to all leave nodes
 # tmp_folder: temporary folder to save inputs for STEM.
-get_stem_input<-function(dataset, traj, all_paths, closest_ms, metric){
+get_stem_input<-function(dataset, traj, all_paths, path_names, closest_ms, metric){
 
   # Add pseudotime if metric = 'cr2'
   if(metric == 'cr2'){
@@ -232,7 +232,7 @@ get_stem_input<-function(dataset, traj, all_paths, closest_ms, metric){
   }
 
   #names(cells) <- paste0("path",1:length(cells))
-  names(df) <- paste0("path",1:length(df))
+  names(df) <- path_names
   return(df)
 }
 
@@ -374,7 +374,7 @@ run_scstem_GUI <- function(){
                                       align = "left",
                                       shinyWidgets::pickerInput(inputId = "partition_select",
                                                                 label = "Partition",
-                                                                choices = c(),
+                                                                choices = c("all"),
                                                                 multiple = T)
                                       ),
                         shiny::column(3,
@@ -572,8 +572,6 @@ run_scstem_GUI <- function(){
                          stem_folder = system.file('STEM',package = 'scSTEM'),
                          current_dir = "",
                          current_root = "")
-
-
 
     output$exp_file_status <- shiny::renderPrint({
       cat(sprintf("No file selected"))
@@ -794,7 +792,7 @@ run_scstem_GUI <- function(){
       # Update partition selector when clustering is done.
       shinyWidgets::updatePickerInput(session = shiny::getDefaultReactiveDomain(),
                                       inputId = "partition_select",
-                                      choices = unique(monocle3::partitions(rv$cds)))
+                                      choices = c(unique(monocle3::partitions(rv$cds)),"all"))
     })
 
     shiny::observeEvent(input$vis_partition, {
@@ -834,7 +832,14 @@ run_scstem_GUI <- function(){
     ############################################################
     shiny::observeEvent(input$infer, {
         pars <- monocle3::partitions(rv$cds)
-        selected_cells <- names(pars[pars %in% input$partition_select])
+
+        # If users did not run UMAP and proceed directly to run inference.
+        if("all" %in% input$partition_select){
+          selected_cells <- names(pars)
+        }else{
+          selected_cells <- names(pars[pars %in% input$partition_select])
+        }
+
         tp_table <- rv$cell_meta[selected_cells,]
         rv$dataset <- dynwrap::wrap_expression(
           counts = Matrix::t(rv$counts[, selected_cells]),
@@ -1236,6 +1241,7 @@ run_scstem_GUI <- function(){
             dataset = rv$dataset,
             traj = rv$traj,
             all_paths = rv$all_paths[input$run_path_select],
+            path_names = input$run_path_select,
             closest_ms = rv$closest_ms,
             metric = input$metric
           )
@@ -1280,60 +1286,9 @@ run_scstem_GUI <- function(){
                           )
 
             # After STEM clustering is done, removed the input file, setting file.
-            # unlink(file.path(rv$outdir_name, file_names[i]))
             unlink(file.path(rv$outdir_name,gsub(".tsv$","",file_names[i])))
-
-            # Read STEM output tables (profile table and gene table)
-            #prof_tab_filename <- paste0(gsub(".tsv","",file_names[i]),"_profiletable.txt")
-            #gene_tab_filename <- paste0(gsub(".tsv","",file_names[i]),"_genetable.txt")
-            #prof_table <- file.path(rv$outdir_name, prof_tab_filename) %>%
-            #                read.table(sep = "\t", skip = 1)
-
-            # Keep only the significant clusters in profile tables
-            #tab <- prof_table[prof_table[,3] != -1,c(1,3,4,5,6)]
-            #colnames(tab) <- c("profile_id","cluster_id","genes_assigned","genes_expected","p_value")
-            #if(nrow(tab) > 0){
-            #  tab <- tab[order(tab$cluster_id),]
-            #  genes_in_cluster <- aggregate(genes_assigned ~ cluster_id, tab, FUN=sum)$genes_assigned
-            #  genes_in_cluster <- rep(genes_in_cluster, times = table(tab$cluster_id))
-            #  tab$genes_in_cluster <- genes_in_cluster
-            #  tab <- unlist(strsplit(file_names[i],"_"))[1] %>%
-            #          rep(times = nrow(tab)) %>%
-            #          data.frame(path_name=.,tab)
-            #}
-            #res_table[[length(res_table)+1]] <- tab
-
-            # clean up
-            #unlink(file.path(rv$outdir_name, file_names[i]))
-            #unlink(file.path(rv$outdir_name, prof_tab_filename))
-            #unlink(file.path(rv$outdir_name, gene_tab_filename))
           }
-          #res_table <- do.call(rbind, res_table)
-          # res_table <- tibble(res_table)
 
-          # compute a combined pvalue for all profiles in the same cluster
-          #res_table <- res_table %>%
-          #  dplyr::group_by(path_name, cluster_id) %>%
-          #  dplyr::summarise(
-          #    comb_p_value = pchisq( -2*sum(log(p_value)),
-          #                           2*length(p_value),
-          #                           lower.tail=FALSE
-          #    )
-          #  ) %>%
-          #  dplyr::right_join(res_table, by = c("path_name","cluster_id"))
-
-          #res_table <- res_table[,c("path_name",
-          #                          "cluster_id",
-          #                          "profile_id",
-          #                          "genes_assigned",
-          #                          "genes_expected",
-          #                          "p_value",
-          #                          "comb_p_value")]
-          #write.csv(res_table,
-          #          file.path(rv$outdir_name,"cluster_info.csv"),
-          #          row.names = F,
-          #          col.names = T,
-          #          quote=F)
         })
 
         # Remove GO files
@@ -1403,8 +1358,8 @@ stem_analysis<-function(
   settings[3] <- paste0("Gene_Annotation_Source\t",species)
 
   # Run stem in command line mode
-  # wd <- getwd()
-  # setwd(tmp_folder)
+  # Decide what operating system current R is running on.
+  osname = Sys.info()['sysname']
 
   # Whether to perform regular clustering, or clustering + cluster comparison?
   if(is.null(compare1_path) | is.null(compare2_path)){
@@ -1417,10 +1372,21 @@ stem_analysis<-function(
 
     # Perform regular clustering
     # Enclose the file paths so that the spaces would not affect.
-    cmd = paste("java", "-mx1024M", "-jar",
-                paste0('"',stem_path,'"'),
-                "-d", paste0('"',setting_path,'"'),
-                "-a")
+    if(osname == "Windows"){
+      cmd = paste("java", "-mx1024M", "-jar",
+                  paste0('"',stem_path,'"'),
+                  "-d", paste0('"',setting_path,'"'),
+                  "-a")
+    }else{
+
+      # on linux/MAC we need to escape the spaces.
+      stem_path = gsub(" ","\\\ ", stem_path, fixed = TRUE)
+      setting_path = gsub(" ","\\\ ",setting_path, fixed = TRUE)
+      cmd = paste("java", "-mx1024M", "-jar",
+                  stem_path,
+                  "-d", setting_path,
+                  "-a")
+    }
   }else{
 
     # Specify input file path as empty (as we are running comparison now)
@@ -1431,12 +1397,27 @@ stem_analysis<-function(
 
     # Perform clustering + cluster comparison
     # Enclose the file paths so that the spaces would not affect.
-    cmd = paste("java -mx1024M -jar",
+    if(osname == "Windows"){
+      cmd = paste("java -mx1024M -jar",
                     paste0('"',stem_path,'"'),
                     "-d", paste0('"',setting_path,'"'),
                     "-c", paste0('"',compare1_path,'"'),
                     paste0('"',compare2_path,'"'),
                     "-a","-C")
+    }else{
+
+      # on linux/MAC we need to escape the spaces.
+      stem_path = gsub(" ","\\\ ", stem_path, fixed = TRUE)
+      setting_path = gsub(" ","\\\ ",setting_path, fixed = TRUE)
+      compare_path1 = gsub(" ","\\\ ",compare_path1, fixed = TRUE)
+      compare_path2 = gsub(" ","\\\ ",compare_path2, fixed = TRUE)
+      cmd = paste("java -mx1024M -jar",
+                  stem_path,
+                  "-d", setting_path,
+                  "-c", compare1_path,
+                  compare2_path,
+                  "-a","-C")
+    }
   }
   system(cmd)
 
