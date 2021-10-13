@@ -8,7 +8,7 @@ Single cell STEM (scSTEM) is a shiny app based R package for visualizing and clu
 You may choose to install scSTEM by method **2.1** or **2.2** or **2.3**
 ### 2.1 Install all dependencies in one shot.
 ### 2.1.1 Install R dependencies.
-Make sure that you have R version >= 4.1.0. Execute the following code to install all R dependencies. If R asks "Do you want to install from sources the package which needs compilation?", it is recommended to select No (or N).
+Make sure that you have R version >= 4.1.0 (https://cran.r-project.org/) and internet access. We would recommend installing Rstudio to interact with R in an easy-to-use GUI. Execute the following code to install all R dependencies. If R asks "Do you want to install from sources the package which needs compilation?", it is recommended to select No (or N).
 ```R
 # Install devtools
 install.packages('devtools')
@@ -44,7 +44,7 @@ devtools::install_github("alexQiSong/scSTEM", upgrade = "always")
 Finally, we need to install docker/singularity to run trajectory inference tool. If you are a MAC/windows user, install Docker by: [Docker for MAC](https://docs.docker.com/desktop/mac/install/) or [Docker CE for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows). Otherwise, for linux user, [singularity](https://sylabs.io/docs/) is recommended.
 
 ### 2.2 (Alternatively) Use renv to install dependencies.
- scSTEM works with R version 4.1.0 or higher (https://cran.r-project.org/). We would recommend installing Rstudio to interact with R in an easy-to-use GUI (https://www.rstudio.com/). Below are automatic installation steps:
+Make sure that you have R version >= 4.1.0 (https://cran.r-project.org/) and internet access. We would recommend installing Rstudio to interact with R in an easy-to-use GUI (https://www.rstudio.com/). Below are automatic installation steps:
 1. If you want to install scSTEM in a (relatively) painless way, you may use `renv` package to automatically install all dependencies before installing scSTEM. Additionally we will also need to install `devtools`. In R, execute the following code to install `renv` and `devtools`:
 ```R
 install.packages("renv")

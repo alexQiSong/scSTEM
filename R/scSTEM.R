@@ -1285,8 +1285,9 @@ run_scstem_GUI <- function(){
                             species = rv$species
                           )
 
-            # After STEM clustering is done, removed the input file, setting file.
+            # After STEM clustering is done, remove the input file, setting file.
             unlink(file.path(rv$outdir_name,gsub(".tsv$","",file_names[i])))
+            unlink(file.path(rv$outdir_name, file_names[i]))
           }
 
         })
@@ -1312,6 +1313,37 @@ run_scstem_GUI <- function(){
                                             footer = modalButton("OK"),
                                             easyClose = F))
       }else{
+
+        shiny::withProgress(message = 'Generating input for STEM', value = 0, {
+          df <- get_stem_input(
+            dataset = rv$dataset,
+            traj = rv$traj,
+            all_paths = rv$all_paths[c(input$compare1_name,input$compare2_name)],
+            path_names = c(input$compare1_name,input$compare2_name),
+            closest_ms = rv$closest_ms,
+            metric = input$metric
+          )
+        })
+
+        # Keep track of the metric method used for current STEM run.
+        rv$metric = input$metric
+
+        # save metrics as tsv files
+        file_names <- paste0(names(df),"_",input$metric,".tsv")
+        full_file_names <- file.path(rv$outdir_name, paste0(names(df),"_",input$metric,".tsv"))
+
+        for(i in 1:length(df)){
+          data <- do.call(cbind, df[[i]])
+          data <- data.frame(gene_id = rownames(data), data)
+          write.table(data,
+                      full_file_names[i],
+                      row.names = F,
+                      col.names = T,
+                      quote=F,
+                      sep = "\t",
+                      na = "")
+        }
+
         compare1_path = paste0(rv$outdir_name,"/",input$compare1_name,"_",rv$metric,".tsv")
         compare2_path = paste0(rv$outdir_name,"/",input$compare2_name,"_",rv$metric,".tsv")
 
@@ -1325,6 +1357,16 @@ run_scstem_GUI <- function(){
           compare1_path = compare1_path,
           compare2_path = compare2_path
         )
+
+        # After STEM clustering is done, removed the input file, setting file.
+        unlink(compare1_path)
+        unlink(compare2_path)
+        unlink(file.path(rv$outdir_name,"setting"))
+
+        # Remove GO files
+        unlink(file.path(rv$outdir_name,"go-basic.obo"))
+        go_file = grep("goa.*gaf\\.gz",list.files(rv$outdir_name),perl = T,value=T)
+        unlink(file.path(rv$outdir_name,go_file))
       }
     })
 
