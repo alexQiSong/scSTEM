@@ -43,8 +43,8 @@ devtools::install_github("alexQiSong/scSTEM", upgrade = "always")
 ### 2.1.2 Install singularity or docker.
 Finally, we need to install docker/singularity to run trajectory inference tool. If you are a MAC/windows user, install Docker by: [Docker for MAC](https://docs.docker.com/desktop/mac/install/) or [Docker CE for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows). Otherwise, for linux user, [singularity](https://sylabs.io/docs/) is recommended.
 
-### 2.2 (Alternatively) Use renv to install dependencies.
-Make sure that you have R version >= 4.1.0 (https://cran.r-project.org/) and internet access. We would recommend installing Rstudio to interact with R in an easy-to-use GUI (https://www.rstudio.com/). Below are automatic installation steps:
+### 2.2 (Skip this if 2.1 is successful) Use renv to install dependencies.
+If the above steps failed, you may use renv to install all dependencies. Make sure that you have R version >= 4.1.0 (https://cran.r-project.org/) and internet access. We would recommend installing Rstudio to interact with R in an easy-to-use GUI (https://www.rstudio.com/). Below are installation steps using `renv`:
 1. If you want to install scSTEM in a (relatively) painless way, you may use `renv` package to automatically install all dependencies before installing scSTEM. Additionally we will also need to install `devtools`. In R, execute the following code to install `renv` and `devtools`:
 ```R
 install.packages("renv")
@@ -53,7 +53,8 @@ if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
 2. Create a new directory to host dependency files for scSTEM (e.g. `/home/alex/scstem`). `renv` will later install dependencies into this personal folder. Download the `renv.lock` file in this repository. `renv.lock` is the lock file which contains the dependency information.
 3. Once lock file is downloaded. execute the following code to install all dependencies. This will automatically create a project under the folder `/home/alex/scstem/`. We will install all needed dependencies into this isolated, personal folder which hosts all dependencies (and thus it does not mess up your own R libraries in other locations).
 ```R
-renv::restore(project = "/home/alex/scstem/", lockfile = "/home/alex/scstem/renv.lock")
+install_folder = "/home/alex/scstem/"
+renv::restore(project = install_folder, lockfile = "/home/alex/scstem/renv.lock")
 # "/home/alex/scstem/" is the path to the directory we just created. "/home/alex/scstem/renv.lock" is the path of the lock file we just downloaded.
 # You will need to replace them with your own directory and path.
 ```
@@ -62,20 +63,20 @@ renv::restore(project = "/home/alex/scstem/", lockfile = "/home/alex/scstem/renv
 devtools::install_github("alexQiSong/scSTEM")
 ```
 5. Finally, we need to install docker/singularity to run trajectory inference tool. If you are a MAC/windows user, install Docker by: [Docker for MAC](https://docs.docker.com/desktop/mac/install/) or [Docker CE for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows). Otherwise, for linux user, [singularity](https://sylabs.io/docs/) is recommended.
-6. **How to run scSTEM.**   
+6. **How to run scSTEM.**
+To activate the project environment and run scSTEM, simply executing the following code. R will then load all dependencies from the project environment folder.
+```R
+renv::activate(install_folder)
+library("scSTEM")
+run_scstem_GUI()
+```
+Where `install_folder` is the project folder we just created to install scSTEM.
 To deactivate the current project environment for `scSTEM`, simiply executing the following code:
 ```R
 renv::deactivate()
 ```
-To activate the project environment and run scSTEM, simply executing the following code:
-```R
-renv::activate("/home/alex/scstem")
-library("scSTEM")
-run_scstem_GUI()
-```
-Where "/home/alex/scstem" is the project folder we just created to install scSTEM.
-### 2.3 (Alternatively) Manual installation of all depedencies.
-If the automatical installation shown above failed. You may resort to the manual installation. scSTEM works with R version 4.1.0 or higher (https://cran.r-project.org/). We would recommend installing Rstudio to interact with R in an easy-to-use GUI (https://www.rstudio.com/). To manually install all dependencies, several packages are needed:
+### 2.3 (Skip this if 2.1 or 2.2 is successful) Detailed step-by-step installation of all depedencies.
+scSTEM works with R version 4.1.0 or higher (https://cran.r-project.org/). We would recommend installing Rstudio to interact with R in an easy-to-use GUI (https://www.rstudio.com/). To manually install all dependencies, several packages are needed:
 - devtools
 - Monocle3
 - biomaRt
@@ -107,18 +108,6 @@ devtools::install_github('cole-trapnell-lab/monocle3')
 # To ensure that Monocle 3 was installed correctly, start a new R session and run:
 library(monocle3)
 ```
-**Note that MAC users may see the following error messages:**
-```shell
-make: gfortran: No such file or directory
-make: *** [cigraph/src/AMD/Source/amd.o] Error 1
-ERROR: compilation failed for package 'leidenbase'
-```
-The solutions are described below, quoted from https://cole-trapnell-lab.github.io/monocle3/docs/installation/
-> * The above error indicates that you need to install gfortran on your computer (for Mac users only). In order to do so,
-> * Make sure that you have Xcode command line tools installed on your computer.
-> * Remove other gfortran installations if they exist. For this, you can launch a terminal window and type "which gfortran". If you see a path returned (e.g. /usr/local/bin/gfortran) you have a previous installation of gfortran that needs to be removed.
-> * Download new gfortran binaries for your operating system from here and decompress the folder (eg: gunzip gfortran-8.3-bin.tar.gz).
-> * Then run, sudo tar -xvf gfortran-8.3-bin.tar -C / which will install everything in /usr/local/bin/gfortran.
 #### 2.3.3 Install biomaRt
 `biomaRt` can be installed from `bioconductor`.  Execute the following code in R (make sureR version is greater than 4.1.0) to install `biomaRt`:
 ```R
@@ -140,6 +129,19 @@ After required dependencies have been successfully installed.  scSTEM can be eas
 ```R
 devtools::install_github("alexQiSong/scSTEM")
 ```
+### 2.3 Trouble shooting
+**Note that MAC users may see the following error messages:**
+```shell
+make: gfortran: No such file or directory
+make: *** [cigraph/src/AMD/Source/amd.o] Error 1
+ERROR: compilation failed for package 'leidenbase'
+```
+The solutions are described below, quoted from https://cole-trapnell-lab.github.io/monocle3/docs/installation/
+> * The above error indicates that you need to install gfortran on your computer (for Mac users only). In order to do so,
+> * Make sure that you have Xcode command line tools installed on your computer.
+> * Remove other gfortran installations if they exist. For this, you can launch a terminal window and type "which gfortran". If you see a path returned (e.g. /usr/local/bin/gfortran) you have a previous installation of gfortran that needs to be removed.
+> * Download new gfortran binaries for your operating system from here and decompress the folder (eg: gunzip gfortran-8.3-bin.tar.gz).
+> * Then run, sudo tar -xvf gfortran-8.3-bin.tar -C / which will install everything in /usr/local/bin/gfortran.
 ## 3. Sample data sets
 We have provided a sample data set for running the analysis.  You may download the sampledata set from:  https://github.com/alexQiSong/scSTEM_sample_data.
 ## 4. Input and output files
