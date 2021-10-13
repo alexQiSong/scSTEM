@@ -129,7 +129,7 @@ After required dependencies have been successfully installed.  scSTEM can be eas
 ```R
 devtools::install_github("alexQiSong/scSTEM")
 ```
-### 2.3 Trouble shooting
+### 2.4 Trouble shooting
 **Note that MAC users may see the following error messages:**
 ```shell
 make: gfortran: No such file or directory
