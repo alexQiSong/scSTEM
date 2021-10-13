@@ -328,7 +328,15 @@ run_scstem_GUI <- function(){
                                                                           label = "Load files",
                                                                           icon = shiny::icon("folder-open",lib = "glyphicon"))
                                                       ),
-                                        ),
+                                        shiny::column(3,
+                                                      align = "left",
+                                                      shiny::actionButton(inputId = "load_sample",
+                                                                          style = "margin-top: 24px;",
+                                                                          label = "Load sample data",
+                                                                          icon = shiny::icon("folder-open",lib = "glyphicon"))
+                                        )
+                                      ),
+
                                       shiny::fixedRow(
                                         shiny::column(12,
                                                       align = "left",
@@ -656,6 +664,127 @@ run_scstem_GUI <- function(){
       cell_fname <- shinyFiles::parseFilePaths(roots = shinyFiles::getVolumes(), input$cell_file)
       gene_fname <- shinyFiles::parseFilePaths(roots = shinyFiles::getVolumes(), input$gene_file)
 
+      # Check if files are already specified
+      if(length(exp_fname$datapath) == 0 | length(cell_fname$datapath) == 0 | length(gene_fname$datapath) == 0){
+        shiny::showModal(shiny::modalDialog(title = "All input files should be specified before loading input files.",
+                                            footer = modalButton("OK"),
+                                            easyClose = F))
+      }else{
+
+        output$loaded_status <- shiny::renderPrint({
+          cat(sprintf("reading input files ..."))
+        })
+
+        # Tell the users files are being loaded.
+        shiny::showModal(shiny::modalDialog(title = "Loading input files",
+                                            footer = NULL,
+                                            easyClose = F))
+
+        # Read input files
+        rv$counts <- Matrix::readMM(as.character(exp_fname$datapath))
+        rv$cell_meta <- read.csv(as.character(cell_fname$datapath))
+        rv$gene_meta <- read.csv(as.character(gene_fname$datapath))
+
+        # Check if meta data meets the requirements
+        if(!("cell_id" %in% colnames(rv$cell_meta)) | !("time_point" %in% colnames(rv$cell_meta))){
+          shiny::removeModal()
+          shiny::showModal(shiny::modalDialog(title = "Error: Cell meta data table should contain at least two columns named 'cell_id' and 'time_point'",
+                                              footer = modalButton("OK"),
+                                              easyClose = F))
+          output$loaded_status <- renderPrint({cat(sprintf("Failed to load input files"))})
+        }else if(!("gene_id" %in% colnames(rv$gene_meta))){
+          shiny::removeModal()
+          shiny::showModal(shiny::modalDialog(title = "Error: Gene meta data table should contain at least one column named 'gene_id'",
+                                              footer = modalButton("OK"),
+                                              easyClose = F))
+          output$loaded_status <- renderPrint({cat(sprintf("Failed to load input files"))})
+        }else if(length(rv$cell_meta$cell_id) != ncol(rv$counts)){
+          shiny::removeModal()
+          shiny::showModal(shiny::modalDialog(title = "Error: Number of rows in cell meta data should be equal to number of columns in count matrix",
+                                              footer = modalButton("OK"),
+                                              easyClose = F))
+          output$loaded_status <- renderPrint({cat(sprintf("Failed to load input files"))})
+        }else if(length(rv$gene_meta$gene_id) != nrow(rv$counts)){
+          shiny::removeModal()
+          shiny::showModal(shiny::modalDialog(title = "Error: Number of rows in gene meta data should be equal to number of rows in count matrix",
+                                              footer = modalButton("OK"),
+                                              easyClose = F))
+          output$loaded_status <- renderPrint({cat(sprintf("Failed to load input files"))})
+        }else if(!is.numeric(rv$cell_meta$time_point)){
+          shiny::removeModal()
+          shiny::showModal(shiny::modalDialog(title = "Error: column 'time_point' in cell meta data table should only contain numeric data",
+                                              footer = modalButton("OK"),
+                                              easyClose = F))
+          output$loaded_status <- renderPrint({cat(sprintf("Failed to load input files"))})
+        }else{
+
+          # Files are loaded. Remove file loaidng pop-up window.
+          shiny::removeModal()
+
+          # Tell the users when ID conversion is going on.
+          shiny::showModal(shiny::modalDialog(title = "Converting gene IDs...",
+                                              footer = NULL,
+                                              easyClose = F))
+
+          # Convert gene id to gene names (for STEM to run GO analysis)
+          map_info <- list(
+            "homo sapiens" = list(dataset="hsapiens_gene_ensembl",
+                                  stem_species="Human (EBI)",
+                                  attr="hgnc_symbol"),
+            "mus musculus" = list(dataset="mmusculus_gene_ensembl",
+                                  stem_species="Mouse (EBI)",
+                                  attr="mgi_symbol")
+          )
+
+          if(input$id_type == "ensembl ID"){
+            rv$gene_meta$gene_id <- gsub("[.].*$","",rv$gene_meta$gene_id)
+            mart <- biomaRt::useDataset(map_info[[input$species]]$dataset, biomaRt::useMart("ensembl"))
+            converted <- biomaRt::getBM(filters= "ensembl_gene_id",
+                                        attributes= c("ensembl_gene_id",map_info[[input$species]]$attr),
+                                        values = rv$gene_meta$gene_id, # The version number along with '.' will be stripped off
+                                        mart= mart)
+
+            # Remove genes with duplicated gene symbols
+            converted <- converted[!(duplicated(converted[,2]) | duplicated(converted[,2], fromLast = T)),]
+
+            res <- dplyr::left_join(rv$gene_meta,
+                                    converted,
+                                    by = c("gene_id" = "ensembl_gene_id"))
+            replace_ensembl <- !(is.na(res[,2]) | res[,2] == "")
+            res$gene_id[replace_ensembl] <- res[replace_ensembl,2]
+            rv$gene_meta$gene_id <- res$gene_id
+          }
+          rownames(rv$cell_meta) <- rv$cell_meta$cell_id
+          rownames(rv$gene_meta) <- rv$gene_meta$gene_id
+          rownames(rv$counts) <- rv$gene_meta$gene_id
+          colnames(rv$counts) <- rv$cell_meta$cell_id
+
+          # Gene ID conversion done. Remove pop-up window.
+          shiny::removeModal()
+
+          # Generate cds object using input files
+          rv$cds <- monocle3::new_cell_data_set(
+              expression_data = rv$counts,
+              cell_metadata = rv$cell_meta,
+              gene_metadata = rv$gene_meta
+            )
+
+          # Tell STEM what species is used for GO annotations.
+          rv$species <- map_info[[input$species]]$stem_species
+
+          output$loaded_status <- renderPrint({
+            cat(sprintf("All files successfully loaded"))
+          })
+        }
+      }
+    })
+
+    # If user chooses to load sample data set.
+    shiny::observeEvent(input$load_sample, {
+
+      # Get sample data folder
+      sample_folder <- system.file('sample_data',package = 'scSTEM')
+
       output$loaded_status <- shiny::renderPrint({
         cat(sprintf("reading input files ..."))
       })
@@ -666,101 +795,81 @@ run_scstem_GUI <- function(){
                                           easyClose = F))
 
       # Read input files
-      rv$counts <- Matrix::readMM(as.character(exp_fname$datapath))
-      rv$cell_meta <- read.csv(as.character(cell_fname$datapath))
-      rv$gene_meta <- read.csv(as.character(gene_fname$datapath))
+      rv$counts <- Matrix::readMM(file.path(sample_folder,"counts_3kgenes_final.mtx"))
+      rv$cell_meta <- read.csv(file.path(sample_folder,"cell_meta_3kgenes_final.csv"))
+      rv$gene_meta <- read.csv(file.path(sample_folder,"gene_meta_3kgenes_final.csv"))
 
-      # Check if meta data meets the requirements
-      if(!("cell_id" %in% colnames(rv$cell_meta)) | !("time_point" %in% colnames(rv$cell_meta))){
-        shiny::removeModal()
-        shiny::showModal(shiny::modalDialog(title = "Error: Cell meta data table should contain at least two columns named 'cell_id' and 'time_point'",
-                                            footer = modalButton("OK"),
-                                            easyClose = F))
-        output$loaded_status <- renderPrint({cat(sprintf("Failed to load input files"))})
-      }else if(!("gene_id" %in% colnames(rv$gene_meta))){
-        shiny::removeModal()
-        shiny::showModal(shiny::modalDialog(title = "Error: Gene meta data table should contain at least one column named 'gene_id'",
-                                            footer = modalButton("OK"),
-                                            easyClose = F))
-        output$loaded_status <- renderPrint({cat(sprintf("Failed to load input files"))})
-      }else if(length(rv$cell_meta$cell_id) != ncol(rv$counts)){
-        shiny::removeModal()
-        shiny::showModal(shiny::modalDialog(title = "Error: Number of rows in cell meta data should be equal to number of columns in count matrix",
-                                            footer = modalButton("OK"),
-                                            easyClose = F))
-        output$loaded_status <- renderPrint({cat(sprintf("Failed to load input files"))})
-      }else if(length(rv$gene_meta$gene_id) != nrow(rv$counts)){
-        shiny::removeModal()
-        shiny::showModal(shiny::modalDialog(title = "Error: Number of rows in gene meta data should be equal to number of rows in count matrix",
-                                            footer = modalButton("OK"),
-                                            easyClose = F))
-        output$loaded_status <- renderPrint({cat(sprintf("Failed to load input files"))})
-      }else if(!is.numeric(rv$cell_meta$time_point)){
-        shiny::removeModal()
-        shiny::showModal(shiny::modalDialog(title = "Error: column 'time_point' in cell meta data table should only contain numeric data",
-                                            footer = modalButton("OK"),
-                                            easyClose = F))
-        output$loaded_status <- renderPrint({cat(sprintf("Failed to load input files"))})
-      }else{
+      # Files are loaded. Remove file loaidng pop-up window.
+      shiny::removeModal()
 
-        # Files are loaded. Remove file loaidng pop-up window.
-        shiny::removeModal()
+      # Tell the users when ID conversion is going on.
+      shiny::showModal(shiny::modalDialog(title = "Converting gene IDs...",
+                                          footer = NULL,
+                                          easyClose = F))
 
-        # Tell the users when ID conversion is going on.
-        shiny::showModal(shiny::modalDialog(title = "Converting gene IDs...",
-                                            footer = NULL,
-                                            easyClose = F))
+      # Convert gene id to gene names (for STEM to run GO analysis)
+      map_info <- list(
+        "homo sapiens" = list(dataset="hsapiens_gene_ensembl",
+                              stem_species="Human (EBI)",
+                              attr="hgnc_symbol"),
+        "mus musculus" = list(dataset="mmusculus_gene_ensembl",
+                              stem_species="Mouse (EBI)",
+                              attr="mgi_symbol")
+      )
 
-        # Convert gene id to gene names (for STEM to run GO analysis)
-        map_info <- list(
-          "homo sapiens" = list(dataset="hsapiens_gene_ensembl",
-                                stem_species="Human (EBI)",
-                                attr="hgnc_symbol"),
-          "mus musculus" = list(dataset="mmusculus_gene_ensembl",
-                                stem_species="Mouse (EBI)",
-                                attr="mgi_symbol")
-        )
+      if(input$id_type == "ensembl ID"){
+        rv$gene_meta$gene_id <- gsub("[.].*$","",rv$gene_meta$gene_id)
+        mart <- biomaRt::useDataset(map_info[[input$species]]$dataset, biomaRt::useMart("ensembl"))
+        converted <- biomaRt::getBM(filters= "ensembl_gene_id",
+                                    attributes= c("ensembl_gene_id",map_info[[input$species]]$attr),
+                                    values = rv$gene_meta$gene_id, # The version number along with '.' will be stripped off
+                                    mart= mart)
 
-        if(input$id_type == "ensembl ID"){
-          rv$gene_meta$gene_id <- gsub("[.].*$","",rv$gene_meta$gene_id)
-          mart <- biomaRt::useDataset(map_info[[input$species]]$dataset, biomaRt::useMart("ensembl"))
-          converted <- biomaRt::getBM(filters= "ensembl_gene_id",
-                                      attributes= c("ensembl_gene_id",map_info[[input$species]]$attr),
-                                      values = rv$gene_meta$gene_id, # The version number along with '.' will be stripped off
-                                      mart= mart)
+        # Remove genes with duplicated gene symbols
+        converted <- converted[!(duplicated(converted[,2]) | duplicated(converted[,2], fromLast = T)),]
 
-          # Remove genes with duplicated gene symbols
-          converted <- converted[!(duplicated(converted[,2]) | duplicated(converted[,2], fromLast = T)),]
-
-          res <- dplyr::left_join(rv$gene_meta,
-                                  converted,
-                                  by = c("gene_id" = "ensembl_gene_id"))
-          replace_ensembl <- !(is.na(res[,2]) | res[,2] == "")
-          res$gene_id[replace_ensembl] <- res[replace_ensembl,2]
-          rv$gene_meta$gene_id <- res$gene_id
-        }
-        rownames(rv$cell_meta) <- rv$cell_meta$cell_id
-        rownames(rv$gene_meta) <- rv$gene_meta$gene_id
-        rownames(rv$counts) <- rv$gene_meta$gene_id
-        colnames(rv$counts) <- rv$cell_meta$cell_id
-
-        # Gene ID conversion done. Remove pop-up window.
-        shiny::removeModal()
-
-        # Generate cds object using input files
-        rv$cds <- monocle3::new_cell_data_set(
-            expression_data = rv$counts,
-            cell_metadata = rv$cell_meta,
-            gene_metadata = rv$gene_meta
-          )
-
-        # Tell STEM what species is used for GO annotations.
-        rv$species <- map_info[[input$species]]$stem_species
-
-        output$loaded_status <- renderPrint({
-          cat(sprintf("All files successfully loaded"))
-        })
+        res <- dplyr::left_join(rv$gene_meta,
+                                converted,
+                                by = c("gene_id" = "ensembl_gene_id"))
+        replace_ensembl <- !(is.na(res[,2]) | res[,2] == "")
+        res$gene_id[replace_ensembl] <- res[replace_ensembl,2]
+        rv$gene_meta$gene_id <- res$gene_id
       }
+      rownames(rv$cell_meta) <- rv$cell_meta$cell_id
+      rownames(rv$gene_meta) <- rv$gene_meta$gene_id
+      rownames(rv$counts) <- rv$gene_meta$gene_id
+      colnames(rv$counts) <- rv$cell_meta$cell_id
+
+      # Gene ID conversion done. Remove pop-up window.
+      shiny::removeModal()
+
+      # Generate cds object using input files
+      rv$cds <- monocle3::new_cell_data_set(
+        expression_data = rv$counts,
+        cell_metadata = rv$cell_meta,
+        gene_metadata = rv$gene_meta
+      )
+
+      # Tell STEM what species is used for GO annotations.
+      rv$species <- map_info[[input$species]]$stem_species
+
+      output$loaded_status <- renderPrint({
+        cat(sprintf("All files successfully loaded"))
+      })
+
+      # Update the file selection status
+      output$exp_file_status <- shiny::renderPrint({
+        cat(sprintf("Selected: %s","counts_3kgenes_final.mtx"))
+      })
+
+      output$cell_file_status <- shiny::renderPrint({
+        cat(sprintf("Selected: %s","cell_meta_3kgenes_final.csv"))
+      })
+
+      output$gene_file_status <- shiny::renderPrint({
+        cat(sprintf("Selected: %s","counts_3kgenes_final.mtx"))
+      })
+
     })
 
     ############################################################
@@ -1208,18 +1317,6 @@ run_scstem_GUI <- function(){
         })
       }
     })
-
-    # Here user specifies the folder where STEM program is located
-    #shiny::observeEvent(input$stem_folder,{
-    #  rv$stem_folder <- shinyFiles::parseDirPath(roots = shinyFiles::getVolumes(), input$stem_folder)
-    #  if(length(rv$stem_folder) == 0){
-    #    shinyFiles::shinyDirChoose(input = input, id = 'stem_folder', roots = shinyFiles::getVolumes()())
-    #  }else{
-    #    output$stem_folder <- shiny::renderPrint({
-    #      cat(sprintf("Output folder selected: %s.", rv$stem_folder))
-    #    })
-    #  }
-    #})
 
     ############################################################
     # Step 5. RUN STEM program
