@@ -129,7 +129,7 @@ After required dependencies have been successfully installed.  scSTEM can be eas
 ```R
 devtools::install_github("alexQiSong/scSTEM")
 ```
-### 2.4 Trouble shooting
+### 2.4 (Skip this if installation is successful) Trouble shooting
 **Note that MAC users may see the following error messages:**
 ```shell
 make: gfortran: No such file or directory
@@ -143,7 +143,7 @@ The solutions are described below, quoted from https://cole-trapnell-lab.github.
 > * Download new gfortran binaries for your operating system from here and decompress the folder (eg: gunzip gfortran-8.3-bin.tar.gz).
 > * Then run, sudo tar -xvf gfortran-8.3-bin.tar -C / which will install everything in /usr/local/bin/gfortran.
 ## 3. Sample data sets
-We have provided a sample data set for running the analysis.  You may download the sampledata set from:  https://github.com/alexQiSong/scSTEM_sample_data.
+We have provided a sample data set for running the analysis. You may click `Load sample data` in the GUI to automatically load the sample data set. Alternatively, you may also download the sample data set (https://github.com/alexQiSong/scSTEM_sample_data) and load it manually.
 ## 4. Input and output files
 scSTEM uses three files as input (See also the sample data set in **3. Sample data sets**):
 - a **expression count matrix in \*.mtx format** with rows representing genes andcolumns representing cells.
