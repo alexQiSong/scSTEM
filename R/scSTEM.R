@@ -1490,6 +1490,11 @@ stem_analysis<-function(
   compare1_path = NULL, # file path for the first set of stem clusters
   compare2_path = NULL # file path for the second set of stem clusters
 ){
+
+  # Change working dir to the tmp folder
+  wd = getwd()
+  setwd(tmp_folder)
+
   # Read setting file template
   settings <- readLines(setting_template_path)
 
@@ -1562,4 +1567,7 @@ stem_analysis<-function(
 
   # remove current setting file
   unlink(setting_path)
+
+  # Change back the working dir
+  setwd(wd)
 }
