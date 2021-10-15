@@ -1436,8 +1436,8 @@ run_scstem_GUI <- function(){
         )
 
         # After STEM clustering is done, removed the input file, setting file.
-        unlink(compare1_name)
-        unlink(compare2_name)
+        unlink(file.path(rv$outdir_name,compare1_name))
+        unlink(file.path(rv$outdir_name,compare2_name))
         unlink(file.path(rv$outdir_name,"setting"))
 
         # Remove GO files
@@ -1473,6 +1473,7 @@ stem_analysis<-function(
   osname = Sys.info()['sysname']
 
   # Whether to perform regular clustering, or clustering + cluster comparison?
+  # Run regular clustering
   if(is.null(compare1_name) | is.null(compare2_name)){
 
     # Specify input file path
@@ -1499,6 +1500,7 @@ stem_analysis<-function(
     }
   }else{
 
+    # Run clustering + comparison
     # Specify input file path as empty (as we are running comparison now)
     settings[2] <- ""
 
