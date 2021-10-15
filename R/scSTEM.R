@@ -1049,25 +1049,6 @@ run_scstem_GUI <- function(){
               root_milestone_id = root_id
             )
         }else{
-          ######################################################################
-          # saveRDS(rv,"C:/Users/sqsq3/Documents/stem_analysis/tmp/mouse_data_neural_crest2/slingshot/rv.rds")
-          # rr <- readRDS("C:/Users/sqsq3/Documents/stem_analysis/tmp/human_data_immune/slingshot/rv.rds")
-          # rv$all_paths <- rr$all_paths
-          # rv$dataset <- rr$dataset
-          # rv$cds <- rr$cds
-          # rv$traj <- rr$traj
-          # rv$all_path_cells <- rr$all_path_cells
-          # rv$dir_name <- '/home/alex/tmp/'
-          # rv$counts <- rr$counts
-          # rv$species <- rr$species
-          # rv$closest_ms <- rr$closest_ms
-          # mp <- rv$traj$milestone_percentages
-          # mp <- mp[with(mp, order(cell_id,percentage,decreasing = T)),]
-          # rv$closest_ms <- mp[match(unique(mp$cell_id), mp$cell_id),]
-          # shiny::updateSelectInput(inputId = 'partition_select',
-          #                         choices = unique(monocle3::partitions(rv$cds)))
-          #####################################################################
-          #saveRDS(rv,"C:/Users/sqsq3/Documents/stem_analysis/tmp/mouse_data_neural_crest2/slingshot/rv.rds")
 
           # Use dimred results from UMAP step for visualization later
           dimred <- SingleCellExperiment::reducedDim(rv$cds, "UMAP") %>%
@@ -1374,10 +1355,10 @@ run_scstem_GUI <- function(){
                                detail = sprintf("%g%% done",round(100*i/length(file_names),2)))
             # Run STEM and get output table
             stem_analysis(
-                            input_path = paste0(rv$outdir_name,"/",file_names[i]),
+                            input_name = file_names[i],
                             tmp_folder = rv$outdir_name,
                             stem_path = file.path(rv$stem_folder,"stem-jt.jar"),
-                            setting_path = file.path(rv$outdir_name,gsub(".tsv$","",file_names[i])),
+                            #setting_path = file.path(rv$outdir_name,gsub(".tsv$","",file_names[i])),
                             setting_template_path = file.path(rv$stem_folder, "stem_setting_template"),
                             species = rv$species
                           )
@@ -1441,23 +1422,22 @@ run_scstem_GUI <- function(){
                       na = "")
         }
 
-        compare1_path = paste0(rv$outdir_name,"/",input$compare1_name,"_",rv$metric,".tsv")
-        compare2_path = paste0(rv$outdir_name,"/",input$compare2_name,"_",rv$metric,".tsv")
+        compare1_name = paste0(input$compare1_name,"_",rv$metric,".tsv")
+        compare2_name = paste0(input$compare2_name,"_",rv$metric,".tsv")
 
         stem_analysis(
-          input_path = NULL,
+          input_name = NULL,
           tmp_folder = rv$outdir_name,
           stem_path = file.path(rv$stem_folder,"stem-jt.jar"),
-          setting_path = file.path(rv$outdir_name,"setting"),
           setting_template_path = file.path(rv$stem_folder, "stem_setting_template"),
           species = rv$species,
-          compare1_path = compare1_path,
-          compare2_path = compare2_path
+          compare1_name = compare1_name,
+          compare2_name = compare2_name
         )
 
         # After STEM clustering is done, removed the input file, setting file.
-        unlink(compare1_path)
-        unlink(compare2_path)
+        unlink(compare1_name)
+        unlink(compare2_name)
         unlink(file.path(rv$outdir_name,"setting"))
 
         # Remove GO files
@@ -1466,31 +1446,18 @@ run_scstem_GUI <- function(){
         unlink(file.path(rv$outdir_name,go_file))
       }
     })
-
-    # Remove files when app is closed
-    # onStop(function(){
-    #  file_names = grep("path.*.tsv",list.files(rv$outdir_name),perl = T,value=T)
-    #  if(length(file_names) > 0){
-    #    for(i in 1:length(file_names)){
-    #      unlink(file.path(rv$outdir_name, file_names[i]))
-    #    }
-    #  }
-    #})
   }
   shiny::shinyApp(ui = ui, server = server)
 }
-
 stem_analysis<-function(
-  input_path, # stem input file path (when STEM is used to run a single file)
-  tmp_folder, # temporary output folder
-  stem_path, # stem program path
-  setting_path, # stem current setting file path
-  setting_template_path, # stem setting template file path
-  species, # species for GO Annotations
-  compare1_path = NULL, # file path for the first set of stem clusters
-  compare2_path = NULL # file path for the second set of stem clusters
+  input_name,
+  tmp_folder,
+  stem_path,
+  setting_template_path,
+  species,
+  compare1_name = NULL,
+  compare2_name = NULL
 ){
-
   # Change working dir to the tmp folder
   wd = getwd()
   setwd(tmp_folder)
@@ -1506,29 +1473,28 @@ stem_analysis<-function(
   osname = Sys.info()['sysname']
 
   # Whether to perform regular clustering, or clustering + cluster comparison?
-  if(is.null(compare1_path) | is.null(compare2_path)){
+  if(is.null(compare1_name) | is.null(compare2_name)){
 
     # Specify input file path
-    settings[2] <- paste0("Data_File\t",input_path)
+    settings[2] <- paste0("Data_File\t",input_name)
 
     # Write current setting file
-    writeLines(settings, setting_path)
+    writeLines(settings, "setting")
 
     # Perform regular clustering
     # Enclose the file paths so that the spaces would not affect.
     if(osname == "Windows"){
       cmd = paste("java", "-mx1024M", "-jar",
                   paste0('"',stem_path,'"'),
-                  "-d", paste0('"',setting_path,'"'),
+                  "-d", paste0('"',"setting",'"'),
                   "-a")
     }else{
 
       # on linux/MAC we need to escape the spaces.
       stem_path = gsub(" ","\\\ ", stem_path, fixed = TRUE)
-      setting_path = gsub(" ","\\\ ",setting_path, fixed = TRUE)
       cmd = paste("java", "-mx1024M", "-jar",
                   stem_path,
-                  "-d", setting_path,
+                  "-d", "setting",
                   "-a")
     }
   }else{
@@ -1537,36 +1503,33 @@ stem_analysis<-function(
     settings[2] <- ""
 
     # Write current setting file
-    writeLines(settings, setting_path)
+    writeLines(settings, "setting")
 
     # Perform clustering + cluster comparison
     # Enclose the file paths so that the spaces would not affect.
     if(osname == "Windows"){
       cmd = paste("java -mx1024M -jar",
-                    paste0('"',stem_path,'"'),
-                    "-d", paste0('"',setting_path,'"'),
-                    "-c", paste0('"',compare1_path,'"'),
-                    paste0('"',compare2_path,'"'),
-                    "-a","-C")
+                  paste0('"',stem_path,'"'),
+                  "-d", paste0('"',"setting",'"'),
+                  "-c", compare1_name,
+                  compare2_name,
+                  "-a","-C")
     }else{
 
       # on linux/MAC we need to escape the spaces.
       stem_path = gsub(" ","\\\ ", stem_path, fixed = TRUE)
-      setting_path = gsub(" ","\\\ ",setting_path, fixed = TRUE)
-      compare_path1 = gsub(" ","\\\ ",compare_path1, fixed = TRUE)
-      compare_path2 = gsub(" ","\\\ ",compare_path2, fixed = TRUE)
       cmd = paste("java -mx1024M -jar",
                   stem_path,
-                  "-d", setting_path,
-                  "-c", compare1_path,
-                  compare2_path,
+                  "-d", "setting",
+                  "-c", compare1_name,
+                  compare2_name,
                   "-a","-C")
     }
   }
   system(cmd)
 
   # remove current setting file
-  unlink(setting_path)
+  unlink("setting")
 
   # Change back the working dir
   setwd(wd)
