@@ -160,7 +160,7 @@ To launch the scSTEM GUI, execute the following code in R:
 
 ```R
 library(scSTEM)
-run_scSTEM_GUI()
+run_scstem_GUI()
 ```
 
 1. **Step 1:  Load input files.** Click each of the three buttons on the top of the GUI to select corresponding input files. Click `Load files` to load all selected files. If files were successfully loaded, there will be a line of text showing `All files successfully loaded` in the top panel. Once the sample data set is downloaded, select the path for each input file and select the gene ID type and species. For ID type, gene symbol and ensmebl ID are supported and for species, human and mouse are supported. 
