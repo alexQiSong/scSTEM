@@ -6,8 +6,35 @@
 Single cell STEM (scSTEM) is a shiny app based R package for visualizing and clustering genes in pseudotime ordered single cell RNA-seq data. scSTEM is a GUI based tool and thus does not require any coding experience.  
 ## 2. Installation
 You may choose to install scSTEM by method **2.1** or **2.2** or **2.3**
-### 2.1 Install all dependencies in one shot.
-### 2.1.1 Install R dependencies.
+### 2.1 Use renv to install scSTEM.
+For easy installation and reproducibility, you may use `renv` to install all dependencies and `scSTEM`. Make sure that you have 1) **R version >= 4.1.0, [download R here](https://cran.r-project.org/)**, 2) **Java, [download Java here](https://java.com/en/download/help/download_options.html)** installed and 3) **internet access**. We would recommend installing Rstudio to interact with R in an easy-to-use GUI. If R asks "Do you want to install from sources the package which needs compilation?", it is recommended to select No (or N). If windows users are seeing "Rtools is required to build R packages but is not currently installed" during installation, you may instal Rtools from https://cran.r-project.org/bin/windows/Rtools/ Below are installation steps using `renv`:
+1.In R, execute the following code to install `renv`:
+```R
+install.packages("renv")
+```
+2. Create a new directory to host dependency files for scSTEM (e.g. `/home/alex/scstem`). `renv` will later install dependencies into this personal folder. Download the `renv.lock` file in this repository. `renv.lock` is the lock file which contains the dependency information.
+3. Once lock file is downloaded. execute the following code to install all dependencies. This will automatically create a project under the folder `/home/alex/scstem/`. We will install all needed dependencies and scSTEM package into this isolated, personal folder (so it won't mess up your own R libraries in other locations).
+```R
+install_folder = "/home/alex/scstem/"
+renv::restore(project = install_folder, lockfile = "/home/alex/scstem/renv.lock", prompt = F)
+# "/home/alex/scstem/" is the path to the directory we just created. "/home/alex/scstem/renv.lock" is the path of the lock file we just downloaded.
+# You will need to replace them with your own directory and path. This will install scSTEM and all its dependencies.
+```
+4. Finally, we need to install docker/singularity to run trajectory inference tool. If you are a MAC/windows user, install Docker by: [Docker for MAC](https://docs.docker.com/desktop/mac/install/) or [Docker CE for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows). Otherwise, for linux user, [singularity](https://sylabs.io/docs/) is recommended.
+5. **How to run and exit scSTEM.**
+To activate the project environment and run scSTEM, simply executing the following code. R will then load all dependencies from the folder we just created.
+```R
+renv::activate(install_folder)
+library("scSTEM")
+run_scstem_GUI()
+```
+Where `install_folder` is the project folder we just created to install scSTEM.
+After analysis is done, you may deactivate the project environment for `scSTEM`, simiply executing the following code:
+```R
+renv::deactivate()
+```
+### 2.2 Install all dependencies in one shot (but manually).
+### 2.2.1 Install R dependencies.
 Make sure that you have 1) **R version >= 4.1.0, [download R here](https://cran.r-project.org/)**, 2) **Java, [download Java here](https://java.com/en/download/help/download_options.html)** installed and 3) **internet access**. We would recommend installing Rstudio to interact with R in an easy-to-use GUI. Execute the following code to install all R dependencies. If R asks "Do you want to install from sources the package which needs compilation?", it is recommended to select No (or N). If windows users are seeing "Rtools is required to build R packages but is not currently installed" during installation, you may instal Rtools from https://cran.r-project.org/bin/windows/Rtools/
 ```R
 # Install devtools
@@ -40,41 +67,9 @@ devtools::install_github("dynverse/dyno", upgrade = "always")
 # Install scSTEM
 devtools::install_github("alexQiSong/scSTEM", upgrade = "always")
 ```
-### 2.1.2 Install singularity or docker.
+### 2.2.2 Install singularity or docker.
 Finally, we need to install docker/singularity to run trajectory inference tool. If you are a MAC/windows user, install Docker by: [Docker for MAC](https://docs.docker.com/desktop/mac/install/) or [Docker CE for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows). Otherwise, for linux user, [singularity](https://sylabs.io/docs/) is recommended.
 
-### 2.2 (Skip this if 2.1 is successful) Use renv to install dependencies.
-If the above steps failed, you may use renv to install all dependencies. Make sure that you have 1) **R version >= 4.1.0, [download R here](https://cran.r-project.org/)**, 2) **Java, [download Java here](https://java.com/en/download/help/download_options.html)** installed and 3) **internet access**. We would recommend installing Rstudio to interact with R in an easy-to-use GUI. If R asks "Do you want to install from sources the package which needs compilation?", it is recommended to select No (or N). If windows users are seeing "Rtools is required to build R packages but is not currently installed" during installation, you may instal Rtools from https://cran.r-project.org/bin/windows/Rtools/ Below are installation steps using `renv`:
-1. If you want to install scSTEM in a (relatively) painless way, you may use `renv` package to automatically install all dependencies before installing scSTEM. Additionally we will also need to install `devtools`. In R, execute the following code to install `renv` and `devtools`:
-```R
-install.packages("renv")
-if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
-```
-2. Create a new directory to host dependency files for scSTEM (e.g. `/home/alex/scstem`). `renv` will later install dependencies into this personal folder. Download the `renv.lock` file in this repository. `renv.lock` is the lock file which contains the dependency information.
-3. Once lock file is downloaded. execute the following code to install all dependencies. This will automatically create a project under the folder `/home/alex/scstem/`. We will install all needed dependencies into this isolated, personal folder which hosts all dependencies (and thus it does not mess up your own R libraries in other locations).
-```R
-install_folder = "/home/alex/scstem/"
-renv::restore(project = install_folder, lockfile = "/home/alex/scstem/renv.lock")
-# "/home/alex/scstem/" is the path to the directory we just created. "/home/alex/scstem/renv.lock" is the path of the lock file we just downloaded.
-# You will need to replace them with your own directory and path.
-```
-4. `renv` will ask a few questions. Enter `y` for all questions. After all dependencies have been installed, install `scSTEM` by executing the following code:
-```R
-devtools::install_github("alexQiSong/scSTEM")
-```
-5. Finally, we need to install docker/singularity to run trajectory inference tool. If you are a MAC/windows user, install Docker by: [Docker for MAC](https://docs.docker.com/desktop/mac/install/) or [Docker CE for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows). Otherwise, for linux user, [singularity](https://sylabs.io/docs/) is recommended.
-6. **How to run scSTEM.**
-To activate the project environment and run scSTEM, simply executing the following code. R will then load all dependencies from the project environment folder.
-```R
-renv::activate(install_folder)
-library("scSTEM")
-run_scstem_GUI()
-```
-Where `install_folder` is the project folder we just created to install scSTEM.
-To deactivate the current project environment for `scSTEM`, simiply executing the following code:
-```R
-renv::deactivate()
-```
 ### 2.3 (Skip this if 2.1 or 2.2 is successful) Detailed step-by-step instructions for installing all depedencies.
 Make sure that you have 1) **R version >= 4.1.0, [download R here](https://cran.r-project.org/)**, 2) **Java, [download Java here](https://java.com/en/download/help/download_options.html)** installed and 3) **internet access**. We would recommend installing Rstudio to interact with R in an easy-to-use GUI. Execute the following code to install all R dependencies. If R asks "Do you want to install from sources the package which needs compilation?", it is recommended to select No (or N). If windows users are seeing "Rtools is required to build R packages but is not currently installed" during installation, you may instal Rtools from https://cran.r-project.org/bin/windows/Rtools/. To manually install all dependencies, several packages are needed:
 - devtools
