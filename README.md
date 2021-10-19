@@ -5,7 +5,7 @@
 ## 1. Introduction
 Single cell STEM (scSTEM) is a shiny app based R package for visualizing and clustering genes in pseudotime ordered single cell RNA-seq data. scSTEM is a GUI based tool and thus does not require any coding experience.  
 ## 2. Installation
-You may choose to install scSTEM by method **2.1** or **2.2** or **2.3**
+You may choose to install scSTEM by method **2.1** or **2.2** or **2.3**. If you have encountered any issues during installation, you may refer to **2.3 Trouble shootings** or create a new `issue` under this repository.
 ### 2.1 Use renv to install scSTEM.
 For easy installation and reproducibility, you may use `renv` to install all dependencies and `scSTEM`. Make sure that you have 1) **R version >= 4.1.0, [download R here](https://cran.r-project.org/)**, 2) **Java, [download Java here](https://java.com/en/download/help/download_options.html)** installed and 3) **internet access**. We would recommend installing Rstudio to interact with R in an easy-to-use GUI. If R asks "Do you want to install from sources the package which needs compilation?", it is recommended to select No (or N). If windows users are seeing "Rtools is required to build R packages but is not currently installed" during installation, you may instal Rtools from https://cran.r-project.org/bin/windows/Rtools/ Below are installation steps using `renv`:
 1.In R, execute the following code to install `renv`:
@@ -33,14 +33,14 @@ After analysis is done, you may deactivate the project environment for `scSTEM`,
 ```R
 renv::deactivate()
 ```
-### 2.2 Install all dependencies in one shot (but manually).
+### 2.2 (Skip this if 2.1 is successful) Manually install all dependencies.
 ### 2.2.1 Install R dependencies.
 Make sure that you have 1) **R version >= 4.1.0, [download R here](https://cran.r-project.org/)**, 2) **Java, [download Java here](https://java.com/en/download/help/download_options.html)** installed and 3) **internet access**. We would recommend installing Rstudio to interact with R in an easy-to-use GUI. Execute the following code to install all R dependencies. If R asks "Do you want to install from sources the package which needs compilation?", it is recommended to select No (or N). If windows users are seeing "Rtools is required to build R packages but is not currently installed" during installation, you may instal Rtools from https://cran.r-project.org/bin/windows/Rtools/
 ```R
 # Install devtools
 install.packages('devtools')
 
-# Install Bioconductor (for R > 4.1.0)
+# Install Bioconductor (for R >= 4.1.0)
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install(version = "3.13", ask = FALSE)
@@ -70,62 +70,8 @@ devtools::install_github("alexQiSong/scSTEM", upgrade = "always")
 ### 2.2.2 Install singularity or docker.
 Finally, we need to install docker/singularity to run trajectory inference tool. If you are a MAC/windows user, install Docker by: [Docker for MAC](https://docs.docker.com/desktop/mac/install/) or [Docker CE for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows). Otherwise, for linux user, [singularity](https://sylabs.io/docs/) is recommended.
 
-### 2.3 (Skip this if 2.1 or 2.2 is successful) Detailed step-by-step instructions for installing all depedencies.
-Make sure that you have 1) **R version >= 4.1.0, [download R here](https://cran.r-project.org/)**, 2) **Java, [download Java here](https://java.com/en/download/help/download_options.html)** installed and 3) **internet access**. We would recommend installing Rstudio to interact with R in an easy-to-use GUI. Execute the following code to install all R dependencies. If R asks "Do you want to install from sources the package which needs compilation?", it is recommended to select No (or N). If windows users are seeing "Rtools is required to build R packages but is not currently installed" during installation, you may instal Rtools from https://cran.r-project.org/bin/windows/Rtools/. To manually install all dependencies, several packages are needed:
-- devtools
-- Monocle3
-- biomaRt
-- Dynverse
-- ROGUE
-#### 2.3.1 Install devtools
-To install **devtools**, simply type the following code in R:
-```R
-install.packages('devtools')
-```
-#### 2.3.2 Install Monocle3
-To install **Monocle3**, execute the following in R to install **Monocle3**. For more details, please refer to the installation steps described in **Monocle 3** github repository page:  https://cole-trapnell-lab.github.io/monocle3/docs/installation/
-```R
-# Install Bioconductor (for R > 4.1.0)
-if (!requireNamespace("BiocManager", quietly = TRUE))
-install.packages("BiocManager")
-BiocManager::install(version = "3.13")
-
-# Install Bioconductor dependencies
-BiocManager::install(c('BiocGenerics', 'DelayedArray', 'DelayedMatrixStats',
-                       'limma', 'S4Vectors', 'SingleCellExperiment',
-                       'SummarizedExperiment', 'batchelor', 'Matrix.utils'))
-
-# Now, install monocle3 through the cole-trapnell-lab GitHub, execute:
-install.packages("devtools")
-devtools::install_github('cole-trapnell-lab/leidenbase')
-devtools::install_github('cole-trapnell-lab/monocle3')
-
-# To ensure that Monocle 3 was installed correctly, start a new R session and run:
-library(monocle3)
-```
-#### 2.3.3 Install biomaRt
-`biomaRt` can be installed from `bioconductor`.  Execute the following code in R (make sureR version is greater than 4.1.0) to install `biomaRt`:
-```R
-if (!requireNamespace("BiocManager", quietly = TRUE))
-install.packages("BiocManager")
-BiocManager::install(version = "3.13")
-BiocManager::install("biomaRt")
-```
-#### 2.3.4 Install Dynverse
-To install **Dynverse** for R, follow the instructions provided here: https://dynverse.org/users/1-installation.
-#### 2.3.5 Install ROGUE
-**ROGUE** can be installed from GitHub. Simply type the following code in R:
-```R
-devtools::install_github("PaulingLiu/ROGUE")
-```
-See ROGUE GitHub repository for more details:https://github.com/PaulingLiu/ROGUE.
-#### 2.3.6 Install scSTEM
-After required dependencies have been successfully installed.  scSTEM can be easily installed through github by executing the following code in R:
-```R
-devtools::install_github("alexQiSong/scSTEM")
-```
-### 2.4 (Skip this if installation is successful) Trouble shooting
-**Note that MAC users may see the following error messages:**
+### 2.3 (Skip this if installation is successful) Trouble shootings
+1. `make: gfortran: No such file or directory`. MAC users may see the following error message:
 ```shell
 make: gfortran: No such file or directory
 make: *** [cigraph/src/AMD/Source/amd.o] Error 1
@@ -137,6 +83,15 @@ The solutions are described below, quoted from https://cole-trapnell-lab.github.
 > * Remove other gfortran installations if they exist. For this, you can launch a terminal window and type "which gfortran". If you see a path returned (e.g. /usr/local/bin/gfortran) you have a previous installation of gfortran that needs to be removed.
 > * Download new gfortran binaries for your operating system from here and decompress the folder (eg: gunzip gfortran-8.3-bin.tar.gz).
 > * Then run, sudo tar -xvf gfortran-8.3-bin.tar -C / which will install everything in /usr/local/bin/gfortran.
+2. `API rate limit exceeded`. This is because the dependent packages for `scSTEM` use `GitHub` API, which has been limited 60 requests by default. To increase the limit, you can execute the following code in R:
+```R
+usethis::create_github_token()
+```
+This will take you to your `GitHub` account page (you may register a new account if you haven't done so), where you can generate a new token. Once this new token has been created. You may run the following code in R:
+```R
+usethis::edit_r_environ()
+```
+This will take you to the R environment variable editor, where you can specify your token by `GITHUB_PAT = 'your_token'`. Replace `your_token` by the token you just created then close restart R and resume the installation steps. 
 ## 3. Sample data sets
 We have provided a sample data set for running the analysis. You may click `Load sample data` in the GUI to automatically load the sample data set. Alternatively, you may also download the sample data set (https://github.com/alexQiSong/scSTEM_sample_data) and load it manually.
 ## 4. Input and output files
