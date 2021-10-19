@@ -138,7 +138,10 @@ Users may further click the profile to have a detailed view of gene expression p
 ![Alt text](img/stem_plot2.png?raw=true "stem_plot2")   
 
 6. **Step 6: Run comparative analysis.** In the sixth panel, users can perform comparison of gene clustering results from different trajectory paths. To do this, first select the two paths to be compared in the two drop-down lists `Path name 1` and `Path name 2`, then click the `Run comparison` button. scSTEM will call STEM java program to run gene clustering and comparison of clustering results for the selected paths. For this sample data set, let's select `path2` and `path3` from the drop-down lists to compare. After clustering is done, STEM java program will show a cluster comparison plot with each row representing the matched clusters from the two paths.  
+
 ![Alt text](img/comparison.png?raw=true "comparison")  
+
+To zoom-in the plot, you may hold and drag the right mouse. To move the plot in the window, you may hold and drag the left mouse.
 # Contact
 Contact us if you have any questions:  
 Qi (Alex) Song: qisong@andrew.cmu.edu; sqsq3178@gmail.com  
