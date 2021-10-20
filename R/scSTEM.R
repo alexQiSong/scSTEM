@@ -799,6 +799,15 @@ run_scstem_GUI <- function(){
       rv$cell_meta <- read.csv(file.path(sample_folder,"cell_meta_3kgenes_final.csv"))
       rv$gene_meta <- read.csv(file.path(sample_folder,"gene_meta_3kgenes_final.csv"))
 
+      # Specify gene ID type and species
+      shiny::updateSelectInput(inputId = 'id_type',
+                               choices = c("gene symbol","ensembl ID"),
+                               selected = names("ensembl ID"))
+
+      shiny::updateSelectInput(inputId = 'species',
+                               choices = c("homo sapiens","mus musculus"),
+                               selected = names("homo sapiens"))
+
       # Files are loaded. Remove file loaidng pop-up window.
       shiny::removeModal()
 
@@ -1357,7 +1366,7 @@ run_scstem_GUI <- function(){
             stem_analysis(
                             input_name = file_names[i],
                             tmp_folder = rv$outdir_name,
-                            stem_path = file.path(rv$stem_folder,"stem-jt.jar"),
+                            stem_path = file.path(rv$stem_folder,"stem.jar"),
                             #setting_path = file.path(rv$outdir_name,gsub(".tsv$","",file_names[i])),
                             setting_template_path = file.path(rv$stem_folder, "stem_setting_template"),
                             species = rv$species
@@ -1428,7 +1437,7 @@ run_scstem_GUI <- function(){
         stem_analysis(
           input_name = NULL,
           tmp_folder = rv$outdir_name,
-          stem_path = file.path(rv$stem_folder,"stem-jt.jar"),
+          stem_path = file.path(rv$stem_folder,"stem.jar"),
           setting_template_path = file.path(rv$stem_folder, "stem_setting_template"),
           species = rv$species,
           compare1_name = compare1_name,
