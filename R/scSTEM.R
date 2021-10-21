@@ -311,7 +311,7 @@ run_scstem_GUI <- function(){
                                         shiny::column(3,
                                                       align = 'left',
                                                       shiny::selectInput(inputId = "id_type",
-                                                                         choices = c("gene symbol","ensembl ID"),
+                                                                         choices = c("ensembl ID", "gene symbol"),
                                                                          label = "Gene ID type"),
                                                                          icon = shiny::icon("folder-open",lib = "glyphicon")),
                                         shiny::column(3,
@@ -801,14 +801,14 @@ run_scstem_GUI <- function(){
 
       # Specify gene ID type and species
       shiny::updateSelectInput(inputId = 'id_type',
-                               choices = c("gene symbol","ensembl ID"),
-                               selected = names("ensembl ID"))
+                               choices = c("ensembl ID", "gene symbol"),
+                               selected = c("ensembl ID"))
 
       shiny::updateSelectInput(inputId = 'species',
                                choices = c("homo sapiens","mus musculus"),
-                               selected = names("homo sapiens"))
+                               selected = "homo sapiens")
 
-      # Files are loaded. Remove file loaidng pop-up window.
+      # Files are loaded. Remove file loading pop-up window.
       shiny::removeModal()
 
       # Tell the users when ID conversion is going on.
@@ -825,7 +825,6 @@ run_scstem_GUI <- function(){
                               stem_species="Mouse (EBI)",
                               attr="mgi_symbol")
       )
-
       if(input$id_type == "ensembl ID"){
         rv$gene_meta$gene_id <- gsub("[.].*$","",rv$gene_meta$gene_id)
         mart <- biomaRt::useDataset(map_info[[input$species]]$dataset, biomaRt::useMart("ensembl"))
