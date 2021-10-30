@@ -142,6 +142,10 @@ Users may further click the profile to have a detailed view of gene expression p
 ![Alt text](img/comparison.png?raw=true "comparison")  
 
 To zoom-in the plot, you may hold and drag the right mouse. To move the plot in the window, you may hold and drag the left mouse.
+
+# STEM Java program
+We have made changes to original STEM Java prgram as in https://github.com/jernst98/STEM_DREM. The modified version of STEM, along with its source code, can be downloaded from: https://github.com/alexQiSong/scSTEM-STEM-java 
+
 # Contact
 Contact us if you have any questions:  
 Qi (Alex) Song: qisong@andrew.cmu.edu; sqsq3178@gmail.com  
