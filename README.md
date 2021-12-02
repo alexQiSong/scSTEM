@@ -144,11 +144,11 @@ Users may further click the profile to have a detailed view of gene expression p
 To zoom-in the plot, you may hold and drag the right mouse. To move the plot in the window, you may hold and drag the left mouse.
 
 ## 6. Upgrade to new version of scSTEM
-Upgrade existing version of scSTEM is quite easy with a single line of code in R"
+Upgrade existing version of scSTEM is quite easy with a single line of code in R:
 ```R
 devtools::install_github("alexQiSong/scSTEM", upgrade = "always")
 ```
-Note that you will need to activate the corresponding environment if you installed by `renv` (**See 2.1, 5**):
+Note that you will need to activate the corresponding environment before upgrading scSTEM if you installed it by `renv` (**See 2.1, 5**):
 ```R
 renv::activate(install_folder)
 ```
