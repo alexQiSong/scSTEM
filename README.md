@@ -16,7 +16,7 @@ install.packages("renv")
 3. Once lock file is downloaded. execute the following code to install all dependencies. This will automatically create a project under the folder `/home/alex/scstem/`. We will install all needed dependencies and scSTEM package into this isolated, personal folder (so it won't mess up your own R libraries in other locations).
 ```R
 install_folder = "/home/alex/scstem/"
-renv::restore(project = install_folder, lockfile = "/home/alex/scstem/renv.lock", prompt = F)
+renv::restore(project = install_folder, lockfile = paste0(install_folder,"renv.lock"), prompt = F)
 # "/home/alex/scstem/" is the path to the directory we just created. "/home/alex/scstem/renv.lock" is the path of the lock file we just downloaded.
 # You will need to replace them with your own directory and path. This will install scSTEM and all its dependencies.
 ```
