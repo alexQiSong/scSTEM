@@ -143,6 +143,16 @@ Users may further click the profile to have a detailed view of gene expression p
 
 To zoom-in the plot, you may hold and drag the right mouse. To move the plot in the window, you may hold and drag the left mouse.
 
+## 6. Upgrade to new version of scSTEM
+Upgrade existing version of scSTEM is quite easy with a single line of code in R"
+```R
+devtools::install_github("alexQiSong/scSTEM", upgrade = "always")
+```
+Note that you will need to activate the corresponding environment if you installed by `renv` (**See 2.1, 5**):
+```R
+renv::activate(install_folder)
+```
+
 # STEM Java program
 We have made changes to original STEM Java prgram as in https://github.com/jernst98/STEM_DREM. The modified version of STEM, along with its source code, can be downloaded from: https://github.com/alexQiSong/scSTEM-STEM-java 
 
