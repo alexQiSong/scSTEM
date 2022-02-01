@@ -13,15 +13,19 @@ For easy installation and reproducibility, you may use `renv` to install all dep
 install.packages("renv")
 ```
 2. Create a new directory to host dependency files for scSTEM (e.g. `/home/alex/scstem`). `renv` will later install dependencies into this personal folder. Download the `renv.lock` file in this repository. `renv.lock` is the lock file which contains the dependency information.
-3. Once lock file is downloaded. execute the following code to install all dependencies. This will automatically create a project under the folder `/home/alex/scstem/`. We will install all needed dependencies and scSTEM package into this isolated, personal folder (so it won't mess up your own R libraries in other locations).
+3. Once lock file is downloaded, execute the following code to activate the environment in this personal folder.
 ```R
 install_folder = "/home/alex/scstem/"
-renv::restore(project = install_folder, lockfile = paste0(install_folder,"renv.lock"), prompt = F)
-# "/home/alex/scstem/" is the path to the directory we just created. "/home/alex/scstem/renv.lock" is the path of the lock file we just downloaded.
-# You will need to replace them with your own directory and path. This will install scSTEM and all its dependencies.
+renv::activate(install_folder)
+# "/home/alex/scstem/" is the path to the directory we just created (The direcotry where the renv.lock file should be saved.)
+# You will need to replace them with your own directory and path.
 ```
-4. Finally, we need to install docker/singularity to run trajectory inference tool. If you are a MAC/windows user, install Docker by: [Docker for MAC](https://docs.docker.com/desktop/mac/install/) or [Docker CE for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows). Otherwise, for linux user, [singularity](https://sylabs.io/docs/) is recommended.
-5. **How to run and exit scSTEM.**
+4. Once the environment is activated. Install all necessary files into this personal folder simply by using the following code.
+```
+renv::restore(prompt = F)
+```
+5. Finally, we need to install docker/singularity to run trajectory inference tool. If you are a MAC/windows user, install Docker by: [Docker for MAC](https://docs.docker.com/desktop/mac/install/) or [Docker CE for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows). Otherwise, for linux user, [singularity](https://sylabs.io/docs/) is recommended.
+7. **How to run and exit scSTEM.**
 To activate the project environment and run scSTEM, simply executing the following code. R will then load all dependencies from the folder we just created.
 ```R
 renv::activate(install_folder)
@@ -29,7 +33,7 @@ library("scSTEM")
 run_scstem_GUI()
 ```
 Where `install_folder` is the project folder we just created to install scSTEM.
-After analysis is done, you may deactivate the project environment for `scSTEM`, simiply executing the following code:
+After analysis is done, you may deactivate the project environment for `scSTEM`, simiply by executing the following code:
 ```R
 renv::deactivate()
 ```
