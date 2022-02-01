@@ -1,13 +1,4 @@
 {
-  "R": {
-    "Version": "4.1.0",
-    "Repositories": [
-      {
-        "Name": "CRAN",
-        "URL": "https://cran.rstudio.com"
-      }
-    ]
-  },
   "Bioconductor": {
     "Version": "3.13"
   },
