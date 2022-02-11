@@ -745,13 +745,13 @@ run_scstem_GUI <- function(){
                                         mart= mart)
 
             # Remove genes with duplicated gene symbols
-            converted <- converted[!(duplicated(converted[,2]) | duplicated(converted[,2], fromLast = T)),]
+            converted <- converted[!(duplicated(converted$hgnc_symbol) | duplicated(converted$hgnc_symbol, fromLast = T)),]
 
             res <- dplyr::left_join(rv$gene_meta,
                                     converted,
                                     by = c("gene_id" = "ensembl_gene_id"))
-            replace_ensembl <- !(is.na(res[,2]) | res[,2] == "")
-            res$gene_id[replace_ensembl] <- res[replace_ensembl,2]
+            replace_ensembl <- !(is.na(res$hgnc_symbol) | res$hgnc_symbol == "")
+            res$gene_id[replace_ensembl] <- res[replace_ensembl,]$hgnc_symbol
             rv$gene_meta$gene_id <- res$gene_id
           }
           rownames(rv$cell_meta) <- rv$cell_meta$cell_id
