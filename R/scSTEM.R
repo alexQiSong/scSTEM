@@ -742,10 +742,12 @@ run_scstem_GUI <- function(){
             converted <- biomaRt::getBM(filters= "ensembl_gene_id",
                                         attributes= c("ensembl_gene_id",map_info[[input$species]]$attr),
                                         values = rv$gene_meta$gene_id, # The version number along with '.' will be stripped off
+                                        uniqueRows = T,
                                         mart= mart)
 
-            # Remove genes with duplicated gene symbols
+            # Remove genes with duplicated gene symbols and duplicated ensembl gene IDs.
             converted <- converted[!(duplicated(converted$hgnc_symbol) | duplicated(converted$hgnc_symbol, fromLast = T)),]
+            converted <- converted[!(duplicated(converted$ensembl_gene_id) | duplicated(converted$ensembl_gene_id, fromLast = T)),]
 
             res <- dplyr::left_join(rv$gene_meta,
                                     converted,
