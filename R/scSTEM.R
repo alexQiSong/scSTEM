@@ -246,6 +246,7 @@ get_stem_input<-function(dataset, traj, all_paths, path_names, closest_ms, metri
 run_scstem_GUI <- function(){
 
   ui <- shiny::fluidPage(
+    shinyjs::useShinyjs(),
     shiny::fluidRow(
       # The left side panel
       shiny::column(6,
@@ -356,18 +357,35 @@ run_scstem_GUI <- function(){
                                       ),
                         shiny::column(3,
                                       align = "left",
-                                      shiny::actionButton(inputId = "umap",
-                                                          label = "Run UMAP",
-                                                          )),
+                                      shinyjs::disabled(shiny::actionButton(inputId = "umap",
+                                                                            label = "Run UMAP"
+                                                                            )
+                                                        )
+                                      ),
                         shiny::column(3,
                                       align = "left",
-                                      shiny::actionButton(inputId = "cluster",
-                                                          label = "Run Clustering",
-                                                         )),
+                                      shinyjs::disabled(shiny::actionButton(inputId = "cluster",
+                                                          label = "Run Clustering"
+                                                         ))
+                                      ),
                         shiny::column(3,
                                       align = "left",
-                                      shiny::actionButton(inputId = "vis_partition",
-                                                          label = "Visualize Results",icon = shiny::icon("sunglasses",lib = "glyphicon")))
+                                      shinyjs::disabled(shiny::actionButton(inputId = "vis_partition",
+                                                          label = "Visualize Results",icon = shiny::icon("sunglasses",lib = "glyphicon")
+                                                          ))),
+                        shiny::column(3,
+                                      align = "left",
+                                      shinyWidgets::dropdownButton(circle = F,
+                                                                   label = "Column to visualize",
+                                                                   width = 120,
+                                                                   shiny::radioButtons(
+                                                                     inputId = "col_to_vis",
+                                                                     label = "Cell labels",
+                                                                     choices = c("partition")
+                                                                   )
+                                                                   )
+                                      ),
+
                         )
                     ),
 
@@ -423,9 +441,15 @@ run_scstem_GUI <- function(){
                         shiny::column(3,
                                       align = "left",
                                       style = "margin-top: 25px;",
-                                      shiny::actionButton(inputId = "infer",
-                                                          label = "Infer trajectory",
-                                                          icon = shiny::icon("folder-open",lib = "glyphicon"))
+                                      #shiny::actionButton(inputId = "infer",
+                                      #                    label = "Infer trajectory",
+                                      #                    icon = shiny::icon("folder-open",lib = "glyphicon"))
+                                      shinyWidgets::dropdownButton(circle = F,
+                                                                   label = "Infer trajectory",
+                                                                   width = 120,
+                                                                   shiny::textInput(inputId = "bran_len", label = "(Monocle3 only) minimal branch length", value = 10),
+                                                                   shinyjs::disabled(shiny::actionButton(inputId = "infer",
+                                                                                       label = "infer")))
                         ),
                       )
                     ),
@@ -449,9 +473,10 @@ run_scstem_GUI <- function(){
                           shiny::column(3,
                                         align = 'left',
                                         style = "margin-top: 25px;",
-                                        shiny::actionButton(inputId = "vis_path_umap",
+                                        shinyjs::disabled(shiny::actionButton(inputId = "vis_path_umap",
                                                             label = "View by UMAP",
                                                             ))
+                                        )
 
                         )
                       ),
@@ -504,11 +529,11 @@ run_scstem_GUI <- function(){
                         shiny::column(3,
                                       align = "left",
                                       style = "margin-top: 25px",
-                                      shiny::actionButton(
+                                      shinyjs::disabled(shiny::actionButton(
                                         inputId = "run_stem",
                                         label = "Run STEM",
                                         icon = shiny::icon("play",lib = "glyphicon")
-                                      )
+                                      ))
                         )
                       )
                       ),
@@ -543,11 +568,11 @@ run_scstem_GUI <- function(){
                           shiny::column(3,
                                         align = "left",
                                         style = "margin-top: 25px",
-                                        shiny::actionButton(
+                                        shinyjs::disabled(shiny::actionButton(
                                           inputId = "run_comparison",
                                           label = "Run comparison",
                                           icon = shiny::icon("play",lib = "glyphicon")
-                                        )
+                                        ))
                                       )
                         )
                       )
@@ -556,7 +581,7 @@ run_scstem_GUI <- function(){
       shiny::column(6,
                     shiny::fluidRow(shiny::plotOutput("partition_plot")),
                     shiny::fluidRow(shiny::plotOutput("path_plot"))
-      )
+                    )
     )
   )
 
@@ -771,12 +796,21 @@ run_scstem_GUI <- function(){
               gene_metadata = rv$gene_meta
             )
 
+          # Cell meta data columns are shown here onece files are loaded
+          shiny::updateRadioButtons(inputId = 'col_to_vis',
+                                    choices = c('partition',colnames(colData(rv$cds))))
+
           # Tell STEM what species is used for GO annotations.
           rv$species <- map_info[[input$species]]$stem_species
 
           output$loaded_status <- renderPrint({
             cat(sprintf("All files successfully loaded"))
           })
+
+          # Now enable UMAP and cell clustering and trajectory inference
+          shinyjs::enable(id = "umap")
+          shinyjs::enable(id = "cluster")
+          shinyjs::enable(id = "infer")
         }
       }
     })
@@ -860,12 +894,21 @@ run_scstem_GUI <- function(){
         gene_metadata = rv$gene_meta
       )
 
+      # Cell meta data columns are shown here onece files are loaded
+      shiny::updateRadioButtons(inputId = 'col_to_vis',
+                                choices = c('partition',colnames(colData(rv$cds))))
+
       # Tell STEM what species is used for GO annotations.
       rv$species <- map_info[[input$species]]$stem_species
 
       output$loaded_status <- renderPrint({
         cat(sprintf("All files successfully loaded"))
       })
+
+      # Now enable UMAP and cell clustering and trajectory inference
+      shinyjs::enable(id = "umap")
+      shinyjs::enable(id = "cluster")
+      shinyjs::enable(id = "infer")
 
       # Update the file selection status
       output$exp_file_status <- shiny::renderPrint({
@@ -896,6 +939,7 @@ run_scstem_GUI <- function(){
       shiny::showModal(shiny::modalDialog(title = "UMAP is done.",
                                           footer = modalButton("OK"),
                                           easyClose = F))
+      shinyjs::enable("vis_partition")
     })
 
     shiny::observeEvent(input$cluster, {
@@ -929,11 +973,12 @@ run_scstem_GUI <- function(){
           output$partition_plot <- shiny::renderPlot({
             monocle3::plot_cells(
                                    rv$cds,
-                                   color_cells_by = "partition",
-                                   group_cells_by = "partition",
+                                   #color_cells_by = "partition",
+                                   color_cells_by = input$col_to_vis,
+                                   #group_cells_by = "partition",
                                    show_trajectory_graph = F,
                                    label_cell_groups = T,
-                                   group_label_size = 15,
+                                   group_label_size = 6,
                                    label_leaves=TRUE,
                                    cell_size = 0.8,
                                    label_branch_points=TRUE,
@@ -950,9 +995,11 @@ run_scstem_GUI <- function(){
     # Step 3. Infer trajectories
     ############################################################
     shiny::observeEvent(input$infer, {
+
+        # Get cell cluster assignments
         pars <- monocle3::partitions(rv$cds)
 
-        # If users did not run UMAP and proceed directly to run inference.
+        # If users did not run UMAP and proceed directly to run inference with all cells.
         if("all" %in% input$partition_select){
           selected_cells <- names(pars)
         }else{
@@ -973,93 +1020,104 @@ run_scstem_GUI <- function(){
                                             footer = NULL,
                                             easyClose = F))
         if(input$method == "monocle3"){
-          rv$cds <- monocle3::learn_graph(rv$cds,
-                                          use_partition = ifelse(input$use_partition == "Yes",T,F),
-                                          close_loop = F)
-          gr <- monocle3::principal_graph(rv$cds)[["UMAP"]]
 
-          closest_nodes <- rv$cds@principal_graph_aux$UMAP$pr_graph_cell_proj_closest_vertex[selected_cells,] %>%
-                           as.character() %>%
-                           paste0("Y_",.)
+          # Check if parameter is valid
+          if(is.na(as.numeric(input$bran_len))){
+            shiny::showModal(shiny::modalDialog(title = "Minimal branch length should be a numeric value (If you are using Monocle3 as inference method)",
+                                                footer = modalButton("OK"),
+                                                easyClose = F))
+          }else{
+            # Infer trajectories
+            rv$cds <- monocle3::learn_graph(rv$cds,
+                                            use_partition = ifelse(input$use_partition == "Yes",T,F),
+                                            close_loop = F,
+                                            learn_graph_control = list(minimal_branch_len = as.numeric(input$bran_len)))
+            gr <- monocle3::principal_graph(rv$cds)[["UMAP"]]
 
-          # Use the connected components that have nodes mapped to the selected cells
-          selected_comp <- igraph::components(gr)$membership %>%
-          .[unique(closest_nodes)] %>%
-          unique()
+            closest_nodes <- rv$cds@principal_graph_aux$UMAP$pr_graph_cell_proj_closest_vertex[selected_cells,] %>%
+              as.character() %>%
+              paste0("Y_",.)
 
-          selected_nodes <- igraph::components(gr)$membership %in% selected_comp %>%
-                            igraph::components(gr)$membership[.] %>%
-                            names()
+            # Use the connected components that have nodes mapped to the selected cells
+            selected_comp <- igraph::components(gr)$membership %>%
+              .[unique(closest_nodes)] %>%
+              unique()
 
-          # Get UMAP coordinates for cells and milestone nodes
-          # Use only the nodes and cells for current selected partitions
-          dimred <- SingleCellExperiment::reducedDim(rv$cds, "UMAP") %>%
-            magrittr::set_colnames(c("comp_1","comp_2"))
-          dimred <- dimred[rownames(dimred) %in% selected_cells,]
+            selected_nodes <- igraph::components(gr)$membership %in% selected_comp %>%
+              igraph::components(gr)$membership[.] %>%
+              names()
 
-          dimred_milestones <- t(rv$cds@principal_graph_aux$UMAP$dp_mst) %>%
-            magrittr::set_colnames(colnames(dimred))
-          dimred_milestones <- dimred_milestones[rownames(dimred_milestones) %in% selected_nodes,]
+            # Get UMAP coordinates for cells and milestone nodes
+            # Use only the nodes and cells for current selected partitions
+            dimred <- SingleCellExperiment::reducedDim(rv$cds, "UMAP") %>%
+              magrittr::set_colnames(c("comp_1","comp_2"))
+            dimred <- dimred[rownames(dimred) %in% selected_cells,]
 
-          # Get milestone network
-          milestone_network <-
-            igraph::induced_subgraph(gr, v = selected_nodes) %>%
-            igraph::as_data_frame() %>%
-            dplyr::transmute(
-              from,
-              to,
-              length = sqrt(rowSums((dimred_milestones[from, ] - dimred_milestones[to, ])^2)),
-              directed = FALSE
-            )
+            dimred_milestones <- t(rv$cds@principal_graph_aux$UMAP$dp_mst) %>%
+              magrittr::set_colnames(colnames(dimred))
+            dimred_milestones <- dimred_milestones[rownames(dimred_milestones) %in% selected_nodes,]
 
-          # Milestone percentage as 1 for all cell-node pairs.
-          milestone_percentages <- data.frame(cell_id = selected_cells,
-                                              milestone_id = closest_nodes,
-                                              percentage = 1,
-                                              stringsAsFactors = F) %>%
-                                      as_tibble()
+            # Get milestone network
+            milestone_network <-
+              igraph::induced_subgraph(gr, v = selected_nodes) %>%
+              igraph::as_data_frame() %>%
+              dplyr::transmute(
+                from,
+                to,
+                length = sqrt(rowSums((dimred_milestones[from, ] - dimred_milestones[to, ])^2)),
+                directed = FALSE
+              )
+
+            # Milestone percentage as 1 for all cell-node pairs.
+            milestone_percentages <- data.frame(cell_id = selected_cells,
+                                                milestone_id = closest_nodes,
+                                                percentage = 1,
+                                                stringsAsFactors = F) %>%
+              as_tibble()
             #tibble::as_tibble()
 
-          dimred_segment_progressions <-
-            milestone_network %>%
-            dplyr::select(from, to) %>%
-            dplyr::mutate(percentage = purrr::map(seq_len(dplyr::n()), ~ c(0, 1))) %>%
-            tidyr::unnest(percentage) %>%
-            as_tibble(rownames = NA)
+            dimred_segment_progressions <-
+              milestone_network %>%
+              dplyr::select(from, to) %>%
+              dplyr::mutate(percentage = purrr::map(seq_len(dplyr::n()), ~ c(0, 1))) %>%
+              tidyr::unnest(percentage) %>%
+              as_tibble(rownames = NA)
 
-          dsp_names <-
-            dimred_segment_progressions %>%
-            {ifelse(.$percentage == 0, .$from, .$to)}
-          dimred_segment_points <- dimred_milestones[dsp_names, , drop = FALSE]
+            dsp_names <-
+              dimred_segment_progressions %>%
+              {ifelse(.$percentage == 0, .$from, .$to)}
+            dimred_segment_points <- dimred_milestones[dsp_names, , drop = FALSE]
 
-          # Wrap up trajectory as dynverse trajectory object
-          rv$traj <- dynwrap::wrap_data(cell_ids = selected_cells) %>%
-          dynwrap::add_trajectory(
-              milestone_ids = selected_nodes,
-              milestone_network = milestone_network,
-              milestone_percentages = milestone_percentages
+            # Wrap up trajectory as dynverse trajectory object
+            rv$traj <- dynwrap::wrap_data(cell_ids = selected_cells) %>%
+              dynwrap::add_trajectory(
+                milestone_ids = selected_nodes,
+                milestone_network = milestone_network,
+                milestone_percentages = milestone_percentages
+              ) %>%
+              dynwrap::add_dimred(
+                dimred = dimred,
+                dimred_milestones = dimred_milestones,
+                dimred_segment_progressions = dimred_segment_progressions,
+                dimred_segment_points = dimred_segment_points,
+                project_trajectory = F
+              )
+
+            # add pseudotime to the model
+            root_id <- get_root_node(rv$traj, tp_table)
+            rv$cds <- monocle3::order_cells(rv$cds,
+                                            root_pr_nodes = root_id)
+            rv$traj <- dynwrap::add_pseudotime(
+              rv$traj,
+              monocle3::pseudotime(rv$cds)[selected_cells]
             ) %>%
-          dynwrap::add_dimred(
-            dimred = dimred,
-            dimred_milestones = dimred_milestones,
-            dimred_segment_progressions = dimred_segment_progressions,
-            dimred_segment_points = dimred_segment_points,
-            project_trajectory = F
-          )
-
-          # add pseudotime to the model
-          root_id <- get_root_node(rv$traj, tp_table)
-          rv$cds <- monocle3::order_cells(rv$cds,
-                                          root_pr_nodes = root_id)
-          rv$traj <- dynwrap::add_pseudotime(
-            rv$traj,
-            monocle3::pseudotime(rv$cds)[selected_cells]
-            ) %>%
-            dynwrap::add_root(
-              root_milestone_id = root_id
-            )
+              dynwrap::add_root(
+                root_milestone_id = root_id
+              )
+            }
         }else{
 
+          # If inference method is not monocle3
           # Use dimred results from UMAP step for visualization later
           dimred <- SingleCellExperiment::reducedDim(rv$cds, "UMAP") %>%
             magrittr::set_colnames(c("comp_1","comp_2"))
@@ -1071,65 +1129,74 @@ run_scstem_GUI <- function(){
             input$method,
             give_priors = c("start_id"),
             verbose = T
+          ) %>%
+            dynwrap::add_root(
+              root_milestone_id = get_root_node(., tp_table)
             ) %>%
-          dynwrap::add_root(
-            root_milestone_id = get_root_node(., tp_table)
+            dynwrap::add_pseudotime(
+              pseudotime = dynwrap::calculate_pseudotime(.)
             ) %>%
-          dynwrap::add_pseudotime(
-            pseudotime = dynwrap::calculate_pseudotime(.)
-            ) %>%
-          dynwrap::add_dimred(
-            dimred = dimred
+            dynwrap::add_dimred(
+              dimred = dimred
+            )
+        }
+
+        if(!is.null(rv$traj)){
+
+          # Use this root node to rewire the trajectory network
+          if(rv$traj$directed){
+            rv$traj <- rewire_by_root(rv$traj, rv$traj$root_milestone_id)
+          }
+
+          # Get paths
+          rv$all_paths <- get_all_paths(traj = rv$traj, root_id = rv$traj$root_milestone_id)
+
+          # Assign cells to closest milestone node (highest percentage)
+          mp <- rv$traj$milestone_percentages
+          mp <- mp[with(mp, order(cell_id,percentage,decreasing = T)),]
+          rv$closest_ms <- mp[match(unique(mp$cell_id), mp$cell_id),]
+
+          # Get cells mapped to each path
+          rv$all_path_cells <- list()
+          for(path_node_ids in rv$all_paths){
+            rv$all_path_cells[[length(rv$all_path_cells)+1]] <- rv$closest_ms$cell_id[rv$closest_ms$milestone_id %in% path_node_ids]
+          }
+          names(rv$all_path_cells) <- names(rv$all_paths)
+
+          # Update path info when inference is done
+          shiny::updateSelectInput(inputId = 'vis_path_select', choices = names(rv$all_paths))
+
+          shinyWidgets::updatePickerInput(session = shiny::getDefaultReactiveDomain(),
+                                          inputId = 'run_path_select',
+                                          choices = names(rv$all_paths))
+
+          shiny::updateSelectInput(inputId = 'compare1_name', choices = names(rv$all_paths))
+          shiny::updateSelectInput(inputId = 'compare2_name', choices = names(rv$all_paths))
+
+          # Get a simplified trajectory tree
+          rv$traj_simp <- dynwrap::simplify_trajectory(rv$traj)
+          rv$traj_simp$directed <- rv$traj$directed
+
+          # Get coordinates of trajectory projections
+          rv$traj_proj <- dynwrap::project_trajectory(
+            trajectory = rv$traj_simp,
+            dimred = rv$traj_simp$dimred
           )
+
+          # Get coordinates of milestones
+          rv$ms_plot_data <- as.data.frame(rv$traj_proj$dimred_milestones)
+
+          shiny::removeModal()
+          shiny::showModal(shiny::modalDialog(title = "Inference is done.",
+                                              footer = modalButton("OK"),
+                                              easyClose = F))
+          # Enable UMAP visualiztion
+          shinyjs::enable("vis_path_umap")
+
+          # Enable STEM running buttons
+          shinyjs::enable("run_stem")
+          shinyjs::enable("run_comparison")
         }
-
-        # Use this root node to rewire the trajectory network
-        if(rv$traj$directed){
-          rv$traj <- rewire_by_root(rv$traj, rv$traj$root_milestone_id)
-        }
-
-        # Get paths
-        rv$all_paths <- get_all_paths(traj = rv$traj, root_id = rv$traj$root_milestone_id)
-
-        # Assign cells to closest milestone node (highest percentage)
-        mp <- rv$traj$milestone_percentages
-        mp <- mp[with(mp, order(cell_id,percentage,decreasing = T)),]
-        rv$closest_ms <- mp[match(unique(mp$cell_id), mp$cell_id),]
-
-        # Get cells mapped to each path
-        rv$all_path_cells <- list()
-        for(path_node_ids in rv$all_paths){
-           rv$all_path_cells[[length(rv$all_path_cells)+1]] <- rv$closest_ms$cell_id[rv$closest_ms$milestone_id %in% path_node_ids]
-        }
-        names(rv$all_path_cells) <- names(rv$all_paths)
-
-        # Update path info when inference is done
-        shiny::updateSelectInput(inputId = 'vis_path_select', choices = names(rv$all_paths))
-
-        shinyWidgets::updatePickerInput(session = shiny::getDefaultReactiveDomain(),
-                                        inputId = 'run_path_select',
-                                        choices = names(rv$all_paths))
-
-        shiny::updateSelectInput(inputId = 'compare1_name', choices = names(rv$all_paths))
-        shiny::updateSelectInput(inputId = 'compare2_name', choices = names(rv$all_paths))
-
-        # Get a simplified trajectory tree
-        rv$traj_simp <- dynwrap::simplify_trajectory(rv$traj)
-        rv$traj_simp$directed <- rv$traj$directed
-
-        # Get coordinates of trajectory projections
-        rv$traj_proj <- dynwrap::project_trajectory(
-          trajectory = rv$traj_simp,
-          dimred = rv$traj_simp$dimred
-        )
-
-        # Get coordinates of milestones
-        rv$ms_plot_data <- as.data.frame(rv$traj_proj$dimred_milestones)
-
-        shiny::removeModal()
-        shiny::showModal(shiny::modalDialog(title = "Inference is done.",
-                                            footer = modalButton("OK"),
-                                            easyClose = F))
     })
 
     ################################################################
@@ -1498,7 +1565,8 @@ stem_analysis<-function(
       cmd = paste("java", "-mx1024M", "-jar",
                   paste0('"',stem_path,'"'),
                   "-d", paste0('"',"setting",'"'),
-                  "-a")
+                  "-a",
+                  "-bh")
     }else{
 
       # on linux/MAC we need to escape the spaces.
@@ -1506,7 +1574,8 @@ stem_analysis<-function(
       cmd = paste("java", "-mx1024M", "-jar",
                   stem_path,
                   "-d", "setting",
-                  "-a")
+                  "-a",
+                  "-bh")
     }
   }else{
 
@@ -1546,3 +1615,4 @@ stem_analysis<-function(
   # Change back the working dir
   setwd(wd)
 }
+
