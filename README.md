@@ -1,12 +1,58 @@
 # scSTEM 0.1.0
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+- [Getting Started](#getting-started)
+  * [1. Introduction](#1-introduction)
+  * [2. Installation](#2-installation)
+    + [2.1 OS specific reqiurements](#21-os-specific-reqiurements)
+      - [Windows](#windows)
+      - [Linux](#linux)
+      - [MacOS](#macos)
+      - [Next steps](#next-steps)
+    + [2.2 Use renv to install scSTEM.](#22-use-renv-to-install-scstem)
+    + [2.3 (Skip this if 2.1 is successful) Manually install all dependencies.](#23--skip-this-if-21-is-successful--manually-install-all-dependencies)
+      - [2.3.1 Install R dependencies.](#231-install-r-dependencies)
+    + [2.4 (Skip this if installation is successful) Trouble shootings](#24--skip-this-if-installation-is-successful--trouble-shootings)
+  * [3. Sample data sets](#3-sample-data-sets)
+  * [4. Input and output files](#4-input-and-output-files)
+  * [5. Analysis steps](#5-analysis-steps)
+  * [6. Upgrade to new version of scSTEM](#6-upgrade-to-new-version-of-scstem)
+- [STEM Java program](#stem-java-program)
+- [Contact](#contact)
+- [Copyright](#copyright)
 
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 # Getting Started
 ## 1. Introduction
 Single cell STEM (scSTEM) is a shiny app based R package for visualizing and clustering genes in pseudotime ordered single cell RNA-seq data. scSTEM is a GUI based tool and thus does not require any coding experience.  
 ## 2. Installation
-You may choose to install scSTEM by method **2.1** or **2.2** or **2.3**. If you have encountered any issues during installation, you may refer to **2.3 Trouble shootings** or create a new `issue` under this repository.
-### 2.1 Use renv to install scSTEM.
+### 2.1 OS specific reqiurements
+scSTEM may have system dependencies that differ for different OS. Different requirments for different OS are described here.
+#### Windows
+Install docker from https://docs.docker.com/get-docker/.
+#### Linux
+Run the following commands to install Docker and other system depedencies (tested with Ubuntu 18.04):
+```bash
+# Install docker
+sudo apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates curl gnupg lsb-release
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update && sudo apt-get install -y --no-install-recommends docker-ce docker-ce-cli containerd.io
+
+# Install system dependencies
+sudo apt-get install -y --no-install-recommends \
+      	imagemagick libgdal-dev libhdf5-dev libudunits2-dev \
+        libgeos-dev libproj-dev libgmp3-dev
+
+```
+#### MacOS
+Install docker from https://docs.docker.com/get-docker/. During installation, if you encounter errors related to Xcode or gfortran. Please refer to **2.4 Trouble shootings** 
+
+#### Next steps
+Once system dependencies have been installed, you may choose to install scSTEM by method **2.2** or **2.3** or **2.4**. If you have encountered any issues during installation, you may refer to **2.4 Trouble shootings** or create a new `issue` under this repository.
+### 2.2 Use renv to install scSTEM.
 For easy installation and reproducibility, you may use `renv` to install all dependencies and `scSTEM`. Make sure that you have 1) **R version >= 4.1.0, [download R here](https://cran.r-project.org/)**, 2) **Java, [download Java here](https://java.com/en/download/help/download_options.html)** installed and 3) **internet access**. We would recommend installing Rstudio to interact with R in an easy-to-use GUI. If R asks "Do you want to install from sources the package which needs compilation?", it is recommended to select No (or N). If windows users are seeing "Rtools is required to build R packages but is not currently installed" during installation, you may instal Rtools from https://cran.r-project.org/bin/windows/Rtools/ Below are installation steps using `renv`:
 1.In R, execute the following code to install `renv`:
 ```R
@@ -24,8 +70,7 @@ renv::activate(install_folder)
 ```
 renv::restore(prompt = F)
 ```
-5. Finally, we need to install docker/singularity to run trajectory inference tool. If you are a MAC/windows user, install Docker by: [Docker for MAC](https://docs.docker.com/desktop/mac/install/) or [Docker CE for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows). Otherwise, for linux user, [singularity](https://sylabs.io/docs/) is recommended.
-7. **How to run and exit scSTEM.**
+5. **How to run and exit scSTEM.**
 To activate the project environment and run scSTEM, simply executing the following code. R will then load all dependencies from the folder we just created.
 ```R
 renv::activate(install_folder)
@@ -37,8 +82,8 @@ After analysis is done, you may deactivate the project environment for `scSTEM`,
 ```R
 renv::deactivate()
 ```
-### 2.2 (Skip this if 2.1 is successful) Manually install all dependencies.
-### 2.2.1 Install R dependencies.
+### 2.3 (Skip this if 2.1 is successful) Manually install all dependencies.
+#### 2.3.1 Install R dependencies.
 Make sure that you have 1) **R version >= 4.1.0, [download R here](https://cran.r-project.org/)**, 2) **Java, [download Java here](https://java.com/en/download/help/download_options.html)** installed and 3) **internet access**. We would recommend installing Rstudio to interact with R in an easy-to-use GUI. Execute the following code to install all R dependencies. If R asks "Do you want to install from sources the package which needs compilation?", it is recommended to select No (or N). If windows users are seeing "Rtools is required to build R packages but is not currently installed" during installation, you may instal Rtools from https://cran.r-project.org/bin/windows/Rtools/
 ```R
 # Install devtools
@@ -71,10 +116,7 @@ devtools::install_github("dynverse/dyno", upgrade = "always")
 # Install scSTEM
 devtools::install_github("alexQiSong/scSTEM", upgrade = "always")
 ```
-### 2.2.2 Install singularity or docker.
-Finally, we need to install docker/singularity to run trajectory inference tool. If you are a MAC/windows user, install Docker by: [Docker for MAC](https://docs.docker.com/desktop/mac/install/) or [Docker CE for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows). Otherwise, for linux user, [singularity](https://sylabs.io/docs/) is recommended.
-
-### 2.3 (Skip this if installation is successful) Trouble shootings
+### 2.4 (Skip this if installation is successful) Trouble shootings
 1. `make: gfortran: No such file or directory`. MAC users may see the following error message:
 ```shell
 make: gfortran: No such file or directory
@@ -96,6 +138,7 @@ This will take you to your `GitHub` account page (you may register a new account
 usethis::edit_r_environ()
 ```
 This will take you to the R environment variable editor, where you can specify your token by `GITHUB_PAT = 'your_token'`. Replace `your_token` by the token you just created then close restart R and resume the installation steps. 
+3. If you encounter error message related to Xcode, open terminal and type xcode-select --install and then follow the prompts. This is required by Monocle 3
 ## 3. Sample data sets
 We have provided a sample data set for running the analysis. You may click `Load sample data` in the GUI to automatically load the sample data set. Alternatively, you may also download the sample data set (https://github.com/alexQiSong/scSTEM_sample_data) and load it manually.
 ## 4. Input and output files
