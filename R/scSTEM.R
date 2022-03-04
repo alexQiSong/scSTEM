@@ -1524,7 +1524,7 @@ run_scstem_GUI <- function(){
       }
     })
   }
-  shiny::shinyApp(ui = ui, server = server, options = list(port = 3000, host = "0.0.0.0", launch.browser = F))
+  shiny::shinyApp(ui = ui, server = server)
 }
 stem_analysis<-function(
   input_name,
