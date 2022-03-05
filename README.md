@@ -176,11 +176,11 @@ Alternatively, you may load sample data set by clicking the "Load sample data" b
 
 ![Alt text](img/step2.png?raw=true "umap1")
 
-Further, `scSTEM` also allows for coloring the cell clusters using different column information from the `cell_meta_data` file other than the cell partition numbers from clustering. This would allow you to view the cells by cell type or experimental batches or other meta data information. But make sure the number of unique labels to visualize is not too many otherwise the application may crash. In this tutorial, we visualize the cell cluster by selecting `Blood_cell_name` from `column_to_visualize` dropdown-list.  
+Further, `scSTEM` also allows for coloring the cell clusters using different column information from the `cell_meta_data` file other than the cell partition numbers from clustering. This would allow you to view the cells by cell type or experimental batches or other meta data information. But make sure the number of unique labels to visualize is not too many otherwise the application may crash. In this tutorial, we visualize the cell cluster by selecting `Blood_cell_name` from the `column_to_visualize` dropdown list.  
 
 ![Alt text](img/step2_vis_col1.png?raw=true "step2_vis_col1")
 
-Then you will see the UMAP plot has been colored and labeled by blood cell type name.
+Now you will see that instead of showing cell partition number (default option), the UMAP plot is colored and labeled by blood cell type name.
 
 ![Alt text](img/step2_vis_col2.png?raw=true "step2_vis_col2")
 
