@@ -28,7 +28,8 @@ Single cell STEM (scSTEM) is a shiny app based R package for visualizing and clu
 ### 2.1 OS specific reqiurements
 scSTEM may have system dependencies that differ for different OS. Different requirments for different OS are described here.
 #### Windows
-Install docker from https://docs.docker.com/get-docker/. You may install scSTEM without installing docker. However, many trajectory inference methods might not be running correctly except for Monocle3.
+- Install docker from https://docs.docker.com/get-docker/. You may install scSTEM without installing docker. However, many trajectory inference methods might not be running correctly except for Monocle3.
+- Instal Rtools from https://cran.r-project.org/bin/windows/Rtools/  
 #### Linux
 Run the following commands to install Docker and other system depedencies (tested with Ubuntu 18.04):
 ```bash
@@ -54,7 +55,7 @@ Install docker from https://docs.docker.com/get-docker/. You may install scSTEM 
 #### Next steps
 Once system dependencies have been installed, you may choose to install scSTEM by method **2.2** or **2.3** or **2.4**. If you encounter any issues during installation, you may refer to **2.4 Trouble shootings** or create a new `issue` under this repository.
 ### 2.2 Use renv to install scSTEM.
-For easy installation and reproducibility, you may use `renv` to install all dependencies and `scSTEM`. Make sure that you have 1) **R version >= 4.1.0, [download R here](https://cran.r-project.org/)**, 2) **Java, [download Java here](https://java.com/en/download/help/download_options.html)** installed and 3) **internet access**. We would recommend installing Rstudio to interact with R in an easy-to-use GUI. If R asks "Do you want to install from sources the package which needs compilation?", it is recommended to select No (or N). If windows users are seeing "Rtools is required to build R packages but is not currently installed" during installation, you may instal Rtools from https://cran.r-project.org/bin/windows/Rtools/ Below are installation steps using `renv`:
+For easy installation and reproducibility, you may use `renv` to install all dependencies and `scSTEM`. Make sure that you have 1) **R version >= 4.1.0, [download R here](https://cran.r-project.org/)**, 2) **Java, [download Java here](https://java.com/en/download/help/download_options.html)** installed and 3) **internet access**. We would recommend installing Rstudio to interact with R in an easy-to-use GUI. If R asks "Do you want to install from sources the package which needs compilation?", it is recommended to select No (or N). Below are installation steps using `renv`:
 1.In R, execute the following code to install `renv`:
 ```R
 install.packages("renv")
