@@ -170,9 +170,10 @@ run_scstem_GUI()
  
 ![Alt text](img/step1.png?raw=true "Load input files")  
 
+Alternatively, you may load sample data set by clicking the "Load sample data set" button. It automatically loads the sample data set for this tutorial. This is the data set from a publised research[Cao et el., 2020](https://www.science.org/doi/10.1126/science.aba7721).
 2. **Step 2: Visualizing and clustering cells.** In the second panel, scSTEM can perform dimensionality reduction and cell clustering. However, this step is optional. This step is only intended to assist users to  select cells of interest by 2D UMAP visualization. If this step is skipped, scSTEM will take all cells from the input expression count matrix. To visualize dimensionality reduction results, first  click  `Run  UMAP`. After UMAP  is  done,  click `Run Clustering` and then `Visualize Results`. For the sample data set, we can see the cell partition number is displayed along with the cells. Let's focus on partition 4 highlited by green color here. For the sample data set, partitions may bi numbered differently on different OS. You may find the partition shown in the figure below numbered by a different number. 
 
-![Alt text](img/UMAP1.png?raw=true "umap1")
+![Alt text](img/step2.png?raw=true "umap1")
 
 Further, `scSTEM` also allows for coloring the cell clusters using different column information from the `cell_meta_data` file other than the cell partition numbers from clustering. This would allow you to view the cells by cell type or experimental batches or other meta data information. But make sure the number of unique labels to visualize is not too many otherwise the application may crash. In this tutorial, we visualize the cell cluster by selecting `Blood_cell_name` from `column_to_visualize` dropdown-list.  
 
@@ -188,7 +189,7 @@ Then you will see the UMAP plot has been colored and labeled by blood cell type 
 
 Note that for monocle3, you may prune the trajectory to avoid having too may small branches. You could do this by tunning the parameter in the `Infer trajectory` dropdown list, where you can enter a value of minimal branch length (Larger value will result in less small branches, default value = 10, only effective for `Monocle3` is the inference method).
 
-![Alt text](img/step3_prune?raw=true "step3_prune")
+![Alt text](img/step3_prune.png?raw=true "step3_prune")
 
 4. **Step 4: Visualize paths.** In the fourth panel, users may visualize the paths inferred by the previous step. Selected path is highlighted by red color and cells mapped to the path is marked by yellow color. Let's select `path1` to visualize. Selected path will be shown on the right part of the GUI.  
 
