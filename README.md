@@ -28,7 +28,7 @@ Single cell STEM (scSTEM) is a shiny app based R package for visualizing and clu
 ### 2.1 OS specific reqiurements
 scSTEM may have system dependencies that differ for different OS. Different requirments for different OS are described here.
 #### Windows
-- Install docker from https://docs.docker.com/get-docker/. You may install scSTEM without installing docker. However, many trajectory inference methods might not be running correctly except for Monocle3.
+- Install docker from https://docs.docker.com/get-docker/. You may install scSTEM without installing docker. However, many trajectory inference methods might not be running correctly except for **Monocle3**.
 - Instal Rtools from https://cran.r-project.org/bin/windows/Rtools/  
 #### Linux
 Run the following commands to install Docker and other system depedencies (tested with Ubuntu 18.04):
@@ -50,7 +50,9 @@ sudo apt-get install -y --no-install-recommends \
 ```
 You may install scSTEM without installing docker. However, many trajectory inference methods might not be running correctly except for Monocle3.
 #### MacOS
-Install docker from https://docs.docker.com/get-docker/. You may install scSTEM without installing docker. However, many trajectory inference methods might not be running correctly except for Monocle3.
+- Install docker from https://docs.docker.com/get-docker/. You may install scSTEM without installing docker. However, many trajectory inference methods might not be running correctly except for **Monocle3**.
+- Install xcode if xcode has not been installed yet. To install, open terminal and type `xcode-select --install` and then follow the prompts.
+- Install gfortran if gfortran has not been installed yet. You may find the gfortran version corresponding to your macOS [here](https://github.com/fxcoudert/gfortran-for-macOS/releases) and download and install the package.
 
 #### Next steps
 Once system dependencies have been installed, you may choose to install scSTEM by method **2.2** or **2.3** or **2.4**. If you encounter any issues during installation, you may refer to **2.4 Trouble shootings** or create a new `issue` under this repository.
@@ -60,8 +62,8 @@ For easy installation and reproducibility, you may use `renv` to install all dep
 ```R
 install.packages("renv")
 ```
-2. Create a new directory to host dependency files for scSTEM (e.g. `/home/alex/scstem`). `renv` will later install dependencies into this personal folder. Download the `renv.lock` file in this repository. `renv.lock` is the lock file which contains the dependency information.
-3. Once lock file is downloaded, execute the following code to activate the environment in this personal folder.
+2. Create a new directory to store dependency files for scSTEM (e.g. `/home/alex/scstem`). `renv` will later install dependencies into this personal folder. Download the `renv.lock` file in this repository or right click and 'save as' from this [link](https://raw.githubusercontent.com/alexQiSong/scSTEM/master/renv.lock). `renv.lock` is the lock file which contains the dependency information.
+3. Once lock file is downloaded, copy the file into the folder you just created. Make sure the file name is 'renv.lock'. Then in R, execute the following code to activate the environment in this personal folder.
 ```R
 install_folder = "/home/alex/scstem/"
 renv::activate(install_folder)
