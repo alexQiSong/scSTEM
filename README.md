@@ -28,7 +28,7 @@ Single cell STEM (scSTEM) is a shiny app based R package for visualizing and clu
 ### 2.1 OS specific reqiurements
 scSTEM may have system dependencies that differ for different OS. Different requirments for different OS are described here.
 #### Windows
-Install docker from https://docs.docker.com/get-docker/.
+Install docker from https://docs.docker.com/get-docker/. You may install scSTEM without installing docker. However, many trajectory inference methods might not be running correctly except for Monocle3.
 #### Linux
 Run the following commands to install Docker and other system depedencies (tested with Ubuntu 18.04):
 ```bash
@@ -47,8 +47,9 @@ sudo apt-get install -y --no-install-recommends \
         libgeos-dev libproj-dev libgmp3-dev
 
 ```
+You may install scSTEM without installing docker. However, many trajectory inference methods might not be running correctly except for Monocle3.
 #### MacOS
-Install docker from https://docs.docker.com/get-docker/. 
+Install docker from https://docs.docker.com/get-docker/. You may install scSTEM without installing docker. However, many trajectory inference methods might not be running correctly except for Monocle3.
 
 #### Next steps
 Once system dependencies have been installed, you may choose to install scSTEM by method **2.2** or **2.3** or **2.4**. If you encounter any issues during installation, you may refer to **2.4 Trouble shootings** or create a new `issue` under this repository.
