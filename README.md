@@ -188,7 +188,7 @@ Now you will see that instead of showing cell partition number (default option),
 
 ![Alt text](img/step3.png?raw=true "step3")
 
-Note that for monocle3, you may prune the trajectory to avoid having too may small branches. You could do this by tunning the parameter in the `Infer trajectory` dropdown list, where you can enter a value of minimal branch length (Larger value will result in less small branches, default value = 10, only effective when `Monocle3` is the inference method).
+Note that for monocle3, you may prune the trajectory to avoid having too may small branches. You could do this by tunning the parameter in the `Infer trajectory` dropdown list, where you can enter a value of minimal branch length (Larger value will result in less small branches, default value = 10, only effective when `Monocle3` is the inference method). After this is done, you may click `infer` button to infer the trajectory.
 
 ![Alt text](img/step3_prune.png?raw=true "step3_prune")
 
