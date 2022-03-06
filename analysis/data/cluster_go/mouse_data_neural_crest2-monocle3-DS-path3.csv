@@ -1,0 +1,11 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0051239","regulation of multicellular organismal process",813,18,6.3,11.7,1.1e-05,0.006,2.8
+"2","GO:0051130","positive regulation of cellular component organization",316,11,2.5,8.5,1.8e-05,0.01,4.5
+"3","GO:0007154","cell communication",1443,24,11.3,12.7,2.1e-05,0.012,2.1
+"4","GO:0007275","multicellular organism development",1469,24,11.5,12.5,2.9e-05,0.016,2.1
+"5","GO:0048731","system development",1424,23,11.1,11.9,6.3e-05,0.028,2.1
+"6","GO:0048856","anatomical structure development",1574,24,12.3,11.7,9.9e-05,0.042,2
+"7","GO:0051240","positive regulation of multicellular organismal process",454,12,3.5,8.5,0.00011,0.044,3.4
+"8","GO:0007165","signal transduction",1260,21,9.8,11.2,0.00012,0.044,2.1
+"9","GO:0035556","intracellular signal transduction",622,14,4.9,9.1,0.00014,0.048,2.9
+"10","GO:0030154","cell differentiation",1176,20,9.2,10.8,0.00015,0.048,2.2

@@ -1,0 +1,9 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:1901700","response to oxygen-containing compound",524,24,8.9,15.1,3.5e-06,0.002,2.7
+"2","GO:1902494","catalytic complex",142,12,2.4,9.6,3.8e-06,0.002,5
+"3","GO:0051716","cellular response to stimulus",1852,52,31.5,20.5,4.5e-06,0.004,1.7
+"4","GO:0007165","signal transduction",1551,46,26.4,19.6,7e-06,0.006,1.7
+"5","GO:0005819","spindle",46,7,0.8,6.2,1e-05,0.008,9
+"6","GO:0007154","cell communication",1712,48,29.1,18.9,1.9e-05,0.01,1.6
+"7","GO:0035556","intracellular signal transduction",760,28,12.9,15.1,3e-05,0.02,2.2
+"8","GO:1901701","cellular response to oxygen-containing compound",370,18,6.3,11.7,3.5e-05,0.022,2.9

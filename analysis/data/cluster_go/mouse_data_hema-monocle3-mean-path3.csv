@@ -1,0 +1,7 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0097485","neuron projection guidance",134,8,1.2,6.8,1.7e-05,0.012,6.8
+"2","GO:0007411","axon guidance",134,8,1.2,6.8,1.7e-05,0.012,6.8
+"3","GO:0061564","axon development",233,10,2.1,7.9,2.4e-05,0.016,4.9
+"4","GO:0031224","intrinsic component of membrane",1404,25,12.4,12.6,5.6e-05,0.028,2
+"5","GO:0007409","axonogenesis",218,9,1.9,7.1,9e-05,0.044,4.7
+"6","GO:0016021","integral component of membrane",1350,24,11.9,12.1,9.5e-05,0.046,2

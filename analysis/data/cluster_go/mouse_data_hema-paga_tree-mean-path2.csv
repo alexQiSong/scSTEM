@@ -1,0 +1,6 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0031966","mitochondrial membrane",83,9,1.5,7.5,1.2e-05,0.002,6.2
+"2","GO:0005743","mitochondrial inner membrane",46,7,0.8,6.2,1.3e-05,0.002,8.6
+"3","GO:0005740","mitochondrial envelope",88,9,1.5,7.5,2e-05,0.006,5.8
+"4","GO:0010565","regulation of cellular ketone metabolic process",35,6,0.6,5.4,2.7e-05,0.014,9.7
+"5","GO:0019866","organelle inner membrane",54,7,1,6,3.7e-05,0.022,7.4

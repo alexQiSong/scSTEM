@@ -1,0 +1,15 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0070013","intracellular organelle lumen",746,29,11.3,17.7,4.9e-07,"<0.001",2.6
+"2","GO:0043233","organelle lumen",747,29,11.4,17.6,5e-07,"<0.001",2.6
+"3","GO:0031974","membrane-enclosed lumen",747,29,11.4,17.6,5e-07,"<0.001",2.6
+"4","GO:0031981","nuclear lumen",667,27,10.1,16.9,6.5e-07,"<0.001",2.7
+"5","GO:0005634","nucleus",1236,38,18.8,19.2,1.5e-06,"<0.001",2
+"6","GO:0043231","intracellular membrane-bounded organelle",2080,52,31.6,20.4,1.8e-06,"<0.001",1.6
+"7","GO:0043227","membrane-bounded organelle",2167,53,32.9,20.1,2.5e-06,"<0.001",1.6
+"8","GO:0043229","intracellular organelle",2323,55,35.3,19.7,3.6e-06,"<0.001",1.6
+"9","GO:0043226","organelle",2424,56,36.8,19.2,5.9e-06,"2E-3",1.5
+"10","GO:0140513","nuclear protein-containing complex",128,10,1.9,8.1,1.9e-05,"1.6E-2",5.1
+"11","GO:0005622","intracellular anatomical structure",2645,58,40.2,17.8,2e-05,"1.6E-2",1.4
+"12","GO:0005730","nucleolus",129,10,2,8,2.1e-05,"1.7999999999999999E-2",5.1
+"13","GO:0060271","cilium assembly",66,7,1,6,5.4e-05,"4.2000000000000003E-2",7
+"14","GO:1901363","heterocyclic compound binding",1007,30,15.3,14.7,7.6e-05,"4.8000000000000001E-2",2

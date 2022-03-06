@@ -1,0 +1,101 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0048856","anatomical structure development",1574,36,16.4,19.6,2.2e-08,"<0.001",2.2
+"2","GO:0009653","anatomical structure morphogenesis",895,27,9.3,17.7,2.3e-08,"<0.001",2.9
+"3","GO:0060429","epithelium development",360,17,3.7,13.3,5.5e-08,"<0.001",4.5
+"4","GO:0022603","regulation of anatomical structure morphogenesis",337,16,3.5,12.5,1.4e-07,"2E-3",4.6
+"5","GO:0048646","anatomical structure formation involved in morphogenesis",386,17,4,13,1.5e-07,"2E-3",4.2
+"6","GO:0061138","morphogenesis of a branching epithelium",87,9,0.9,8.1,1.9e-07,"2E-3",9.9
+"7","GO:0000902","cell morphogenesis",393,17,4.1,12.9,2e-07,"2E-3",4.2
+"8","GO:0051674","localization of cell",508,19,5.3,13.7,3e-07,"2E-3",3.6
+"9","GO:0048870","cell motility",508,19,5.3,13.7,3e-07,"2E-3",3.6
+"10","GO:0007275","multicellular organism development",1469,33,15.3,17.7,3.2e-07,"2E-3",2.2
+"11","GO:0007399","nervous system development",815,24,8.5,15.5,3.9e-07,"2E-3",2.8
+"12","GO:0048729","tissue morphogenesis",234,13,2.4,10.6,4.6e-07,"2E-3",5.3
+"13","GO:0002009","morphogenesis of an epithelium",196,12,2,10,4.9e-07,"2E-3",5.9
+"14","GO:0008285","negative regulation of cell population proliferation",196,12,2,10,4.9e-07,"2E-3",5.9
+"15","GO:0001763","morphogenesis of a branching structure",97,9,1,8,4.9e-07,"2E-3",8.9
+"16","GO:2000145","regulation of cell motility",326,15,3.4,11.6,5.8e-07,"2E-3",4.4
+"17","GO:0030111","regulation of Wnt signaling pathway",99,9,1,8,5.9e-07,"2E-3",8.7
+"18","GO:0048731","system development",1424,32,14.8,17.2,6.1e-07,"2E-3",2.2
+"19","GO:0006928","movement of cell or subcellular component",648,21,6.7,14.3,6.4e-07,"2E-3",3.1
+"20","GO:0071772","response to BMP",51,7,0.5,6.5,7.1e-07,"2E-3",13.2
+"21","GO:0071773","cellular response to BMP stimulus",51,7,0.5,6.5,7.1e-07,"2E-3",13.2
+"22","GO:1905114","cell surface receptor signaling pathway involved in cell-cell signaling",167,11,1.7,9.3,7.6e-07,"2E-3",6.3
+"23","GO:0040012","regulation of locomotion",339,15,3.5,11.5,9.6e-07,"2E-3",4.3
+"24","GO:0016043","cellular component organization",1397,31,14.5,16.5,1.6e-06,"4.0000000000000001E-3",2.1
+"25","GO:0050793","regulation of developmental process",751,22,7.8,14.2,1.7e-06,"4.0000000000000001E-3",2.8
+"26","GO:0051270","regulation of cellular component movement",358,15,3.7,11.3,1.9e-06,"4.0000000000000001E-3",4
+"27","GO:0030154","cell differentiation",1176,28,12.2,15.8,2e-06,"4.0000000000000001E-3",2.3
+"28","GO:0071840","cellular component organization or biogenesis",1413,31,14.7,16.3,2e-06,"4.0000000000000001E-3",2.1
+"29","GO:0071944","cell periphery",1496,32,15.6,16.4,2.1e-06,"4.0000000000000001E-3",2.1
+"30","GO:0008283","cell population proliferation",519,18,5.4,12.6,2.1e-06,"4.0000000000000001E-3",3.3
+"31","GO:0048869","cellular developmental process",1186,28,12.3,15.7,2.4e-06,"4.0000000000000001E-3",2.3
+"32","GO:0035107","appendage morphogenesis",61,7,0.6,6.4,2.5e-06,"4.0000000000000001E-3",11
+"33","GO:0035108","limb morphogenesis",61,7,0.6,6.4,2.5e-06,"4.0000000000000001E-3",11
+"34","GO:0016477","cell migration",473,17,4.9,12.1,2.8e-06,"6.0000000000000001E-3",3.5
+"35","GO:0009888","tissue development",596,19,6.2,12.8,3.6e-06,"6.0000000000000001E-3",3.1
+"36","GO:0035239","tube morphogenesis",327,14,3.4,10.6,3.6e-06,"6.0000000000000001E-3",4.1
+"37","GO:0016055","Wnt signaling pathway",125,9,1.3,7.7,4.2e-06,"6.0000000000000001E-3",6.9
+"38","GO:0198738","cell-cell signaling by wnt",125,9,1.3,7.7,4.2e-06,"6.0000000000000001E-3",6.9
+"39","GO:0010646","regulation of cell communication",859,23,8.9,14.1,4.4e-06,"6.0000000000000001E-3",2.6
+"40","GO:0050673","epithelial cell proliferation",126,9,1.3,7.7,4.5e-06,"6.0000000000000001E-3",6.9
+"41","GO:0051716","cellular response to stimulus",1547,32,16.1,15.9,4.6e-06,"6.0000000000000001E-3",2
+"42","GO:0023051","regulation of signaling",863,23,9,14,4.8e-06,"6.0000000000000001E-3",2.6
+"43","GO:0048468","cell development",733,21,7.6,13.4,5e-06,"6.0000000000000001E-3",2.8
+"44","GO:0035295","tube development",387,15,4,11,5.1e-06,"6.0000000000000001E-3",3.7
+"45","GO:0048754","branching morphogenesis of an epithelial tube",68,7,0.7,6.3,5.2e-06,"6.0000000000000001E-3",9.9
+"46","GO:0001822","kidney development",131,9,1.4,7.6,6.3e-06,"6.0000000000000001E-3",6.6
+"47","GO:0060173","limb development",70,7,0.7,6.3,6.3e-06,"6.0000000000000001E-3",9.6
+"48","GO:0048736","appendage development",70,7,0.7,6.3,6.3e-06,"6.0000000000000001E-3",9.6
+"49","GO:0060562","epithelial tube morphogenesis",134,9,1.4,7.6,7.5e-06,"6.0000000000000001E-3",6.5
+"50","GO:0072164","mesonephric tubule development",48,6,0.5,5.5,8.3e-06,"6.0000000000000001E-3",12
+"51","GO:0072163","mesonephric epithelium development",48,6,0.5,5.5,8.3e-06,"6.0000000000000001E-3",12
+"52","GO:0001657","ureteric bud development",48,6,0.5,5.5,8.3e-06,"6.0000000000000001E-3",12
+"53","GO:0060828","regulation of canonical Wnt signaling pathway",73,7,0.8,6.2,8.4e-06,"6.0000000000000001E-3",9.2
+"54","GO:0042127","regulation of cell population proliferation",458,16,4.8,11.2,8.8e-06,"6.0000000000000001E-3",3.4
+"55","GO:0030177","positive regulation of Wnt signaling pathway",49,6,0.5,5.5,9.4e-06,"6.0000000000000001E-3",11.8
+"56","GO:0001823","mesonephros development",50,6,0.5,5.5,1.1e-05,"6.0000000000000001E-3",11.5
+"57","GO:0072001","renal system development",140,9,1.5,7.5,1.1e-05,"6.0000000000000001E-3",6.2
+"58","GO:0009966","regulation of signal transduction",705,20,7.3,12.7,1.1e-05,"6.0000000000000001E-3",2.7
+"59","GO:0007155","cell adhesion",468,16,4.9,11.1,1.2e-05,"6.0000000000000001E-3",3.3
+"60","GO:2000027","regulation of animal organ morphogenesis",51,6,0.5,5.5,1.2e-05,"8.0000000000000002E-3",11.3
+"61","GO:0007154","cell communication",1443,30,15,15,1.2e-05,"0.01",2
+"62","GO:0050678","regulation of epithelial cell proliferation",108,8,1.1,6.9,1.2e-05,"0.01",7.1
+"63","GO:0002064","epithelial cell development",78,7,0.8,6.2,1.3e-05,"0.01",8.6
+"64","GO:0030182","neuron differentiation",531,17,5.5,11.5,1.4e-05,"1.2E-2",3.1
+"65","GO:0030334","regulation of cell migration",317,13,3.3,9.7,1.4e-05,"1.2E-2",3.9
+"66","GO:1902531","regulation of intracellular signal transduction",368,14,3.8,10.2,1.4e-05,"1.2E-2",3.7
+"67","GO:0001667","ameboidal-type cell migration",146,9,1.5,7.5,1.5e-05,"1.2E-2",5.9
+"68","GO:0001655","urogenital system development",150,9,1.6,7.4,1.9e-05,"1.4E-2",5.8
+"69","GO:0007166","cell surface receptor signaling pathway",668,19,6.9,12.1,1.9e-05,"1.6E-2",2.7
+"70","GO:0040013","negative regulation of locomotion",116,8,1.2,6.8,2.1e-05,"1.6E-2",6.6
+"71","GO:0090263","positive regulation of canonical Wnt signaling pathway",34,5,0.4,4.6,2.2e-05,"0.02",14.1
+"72","GO:0098609","cell-cell adhesion",283,12,2.9,9.1,2.3e-05,"0.02",4.1
+"73","GO:0007224","smoothened signaling pathway",35,5,0.4,4.6,2.6e-05,"2.1999999999999999E-2",13.7
+"74","GO:0060070","canonical Wnt signaling pathway",88,7,0.9,6.1,2.9e-05,"2.4E-2",7.6
+"75","GO:0007165","signal transduction",1260,27,13.1,13.9,3e-05,"2.8000000000000001E-2",2.1
+"76","GO:0010647","positive regulation of cell communication",447,15,4.6,10.4,3e-05,"2.8000000000000001E-2",3.2
+"77","GO:0023056","positive regulation of signaling",447,15,4.6,10.4,3e-05,"2.8000000000000001E-2",3.2
+"78","GO:0120036","plasma membrane bounded cell projection organization",504,16,5.2,10.8,3e-05,"2.8000000000000001E-2",3.1
+"79","GO:0048583","regulation of response to stimulus",889,22,9.2,12.8,3e-05,"2.8000000000000001E-2",2.4
+"80","GO:0022008","neurogenesis",625,18,6.5,11.5,3e-05,"2.8000000000000001E-2",2.8
+"81","GO:0016331","morphogenesis of embryonic epithelium",60,6,0.6,5.4,3.1e-05,"0.03",9.6
+"82","GO:0005886","plasma membrane",1343,28,14,14,3.1e-05,"0.03",2
+"83","GO:0051128","regulation of cellular component organization",627,18,6.5,11.5,3.1e-05,"0.03",2.8
+"84","GO:0008064","regulation of actin polymerization or depolymerization",37,5,0.4,4.6,3.4e-05,"0.03",13
+"85","GO:0030030","cell projection organization",511,16,5.3,10.7,3.5e-05,"3.2000000000000001E-2",3
+"86","GO:0000904","cell morphogenesis involved in differentiation",296,12,3.1,8.9,3.6e-05,"3.2000000000000001E-2",3.9
+"87","GO:0030832","regulation of actin filament length",38,5,0.4,4.6,3.9e-05,"3.4000000000000002E-2",12.7
+"88","GO:0048598","embryonic morphogenesis",209,10,2.2,7.8,4.5e-05,"3.5999999999999997E-2",4.6
+"89","GO:0048699","generation of neurons",586,17,6.1,10.9,5e-05,"3.7999999999999999E-2",2.8
+"90","GO:0050680","negative regulation of epithelial cell proliferation",40,5,0.4,4.6,5e-05,"0.04",12
+"91","GO:0010631","epithelial cell migration",97,7,1,6,5.5e-05,"0.04",6.9
+"92","GO:0090132","epithelium migration",97,7,1,6,5.5e-05,"0.04",6.9
+"93","GO:0090130","tissue migration",99,7,1,6,6.2e-05,"4.5999999999999999E-2",6.8
+"94","GO:0048585","negative regulation of response to stimulus",420,14,4.4,9.6,6.3e-05,"4.5999999999999999E-2",3.2
+"95","GO:0009968","negative regulation of signal transduction",316,12,3.3,8.7,6.8e-05,"4.5999999999999999E-2",3.7
+"96","GO:0030509","BMP signaling pathway",43,5,0.4,4.6,7.1e-05,"4.5999999999999999E-2",11.2
+"97","GO:0043009","chordate embryonic development",221,10,2.3,7.7,7.2e-05,"4.5999999999999999E-2",4.4
+"98","GO:0009967","positive regulation of signal transduction",370,13,3.8,9.2,7.2e-05,"4.5999999999999999E-2",3.4
+"99","GO:0072073","kidney epithelium development",70,6,0.7,5.3,7.4e-05,"4.8000000000000001E-2",8.2
+"100","GO:0048522","positive regulation of cellular process",1323,27,13.8,13.2,7.5e-05,"4.8000000000000001E-2",2

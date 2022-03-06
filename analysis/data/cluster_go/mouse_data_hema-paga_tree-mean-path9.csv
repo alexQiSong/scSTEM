@@ -1,0 +1,12 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:2000177","regulation of neural precursor cell proliferation",56,12,1.8,10.2,1.1e-07,"<0.001",6.8
+"2","GO:0061351","neural precursor cell proliferation",80,13,2.5,10.5,9.6e-07,"<0.001",5.1
+"3","GO:0035239","tube morphogenesis",388,30,12.3,17.7,2.8e-06,"2E-3",2.4
+"4","GO:0072359","circulatory system development",460,32,14.5,17.5,1.2e-05,"1.2E-2",2.2
+"5","GO:0048514","blood vessel morphogenesis",276,23,8.7,14.3,1.4e-05,"1.6E-2",2.6
+"6","GO:0001944","vasculature development",317,25,10,15,1.5e-05,"1.6E-2",2.5
+"7","GO:0009888","tissue development",675,41,21.3,19.7,1.6e-05,"1.6E-2",1.9
+"8","GO:0001568","blood vessel development",304,24,9.6,14.4,2.3e-05,"2.8000000000000001E-2",2.5
+"9","GO:0035295","tube development",455,31,14.4,16.6,2.6e-05,"3.2000000000000001E-2",2.2
+"10","GO:0030335","positive regulation of cell migration",268,22,8.5,13.5,2.9e-05,"3.4000000000000002E-2",2.6
+"11","GO:0048646","anatomical structure formation involved in morphogenesis",441,30,13.9,16.1,3.6e-05,"4.3999999999999997E-2",2.2

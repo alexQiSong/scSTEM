@@ -1,0 +1,12 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0005737","cytoplasm",2301,60,38.7,21.3,1.8e-06,0.002,1.6
+"2","GO:0005622","intracellular anatomical structure",2697,66,45.3,20.7,2e-06,0.002,1.5
+"3","GO:0006807","nitrogen compound metabolic process",1759,50,29.6,20.4,3.9e-06,0.002,1.7
+"4","GO:0044237","cellular metabolic process",1878,52,31.6,20.4,4.4e-06,0.004,1.6
+"5","GO:0044238","primary metabolic process",1846,51,31,20,6.9e-06,0.01,1.6
+"6","GO:0071704","organic substance metabolic process",2022,54,34,20,7.4e-06,0.01,1.6
+"7","GO:0043231","intracellular membrane-bounded organelle",2059,54,34.6,19.4,1.4e-05,0.012,1.6
+"8","GO:1901576","organic substance biosynthetic process",1048,34,17.6,16.4,3.3e-05,0.028,1.9
+"9","GO:0005634","nucleus",1226,37,20.6,16.4,6.2e-05,0.044,1.8
+"10","GO:0009058","biosynthetic process",1082,34,18.2,15.8,6.6e-05,0.044,1.9
+"11","GO:0043227","membrane-bounded organelle",2159,54,36.3,17.7,6.9e-05,0.046,1.5

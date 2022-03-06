@@ -1,0 +1,8 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0005829","cytosol",658,105,71.5,33.5,3.3e-06,0.002,1.5
+"2","GO:0005515","protein binding",1751,227,190.3,36.7,6.1e-06,0.012,1.2
+"3","GO:0043226","organelle",1622,213,176.3,36.7,8.4e-06,0.012,1.2
+"4","GO:0035794","positive regulation of mitochondrial membrane permeability",7,6,0.8,5.2,1e-05,0.016,7.9
+"5","GO:1905710","positive regulation of membrane permeability",7,6,0.8,5.2,1e-05,0.016,7.9
+"6","GO:0005622","intracellular anatomical structure",1735,224,188.5,35.5,1.3e-05,0.018,1.2
+"7","GO:1902686","mitochondrial outer membrane permeabilization involved in programmed cell death",5,5,0.5,4.5,1.5e-05,0.024,9.2

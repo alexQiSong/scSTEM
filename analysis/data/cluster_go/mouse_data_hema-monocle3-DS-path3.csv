@@ -1,0 +1,6 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0050794","regulation of cellular process",2568,80,56,24,1.7e-06,0.004,1.4
+"2","GO:0050789","regulation of biological process",2675,80,58.3,21.7,1.3e-05,0.018,1.4
+"3","GO:0006996","organelle organization",731,33,15.9,17.1,1.9e-05,0.024,2.1
+"4","GO:0016043","cellular component organization",1494,53,32.6,20.4,2.5e-05,0.03,1.6
+"5","GO:0071840","cellular component organization or biogenesis",1499,53,32.7,20.3,2.8e-05,0.03,1.6

@@ -1,0 +1,3 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0043231","intracellular membrane-bounded organelle",1348,28,16.2,11.8,5.6e-05,0.016,1.7
+"2","GO:0043229","intracellular organelle",1482,29,17.8,11.2,0.00011,0.026,1.6

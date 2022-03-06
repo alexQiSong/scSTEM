@@ -1,0 +1,15 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0005634","nucleus",1236,29,13.3,15.7,4.2e-06,"<0.001",2.2
+"2","GO:0070013","intracellular organelle lumen",746,21,8.1,12.9,1.3e-05,"0.01",2.6
+"3","GO:0043233","organelle lumen",747,21,8.1,12.9,1.4e-05,"0.01",2.6
+"4","GO:0031974","membrane-enclosed lumen",747,21,8.1,12.9,1.4e-05,"0.01",2.6
+"5","GO:0044238","primary metabolic process",1817,35,19.6,15.4,1.8e-05,"1.2E-2",1.8
+"6","GO:0044260","cellular macromolecule metabolic process",1434,30,15.5,14.5,2.9e-05,"1.4E-2",1.9
+"7","GO:0031981","nuclear lumen",667,19,7.2,11.8,3.5e-05,"0.02",2.6
+"8","GO:0044237","cellular metabolic process",1871,35,20.2,14.8,3.7e-05,"2.1999999999999999E-2",1.7
+"9","GO:0071704","organic substance metabolic process",1968,36,21.3,14.7,4.1e-05,"2.4E-2",1.7
+"10","GO:0019222","regulation of metabolic process",1307,28,14.1,13.9,4.5e-05,"2.4E-2",2
+"11","GO:0043170","macromolecule metabolic process",1669,32,18,14,7.8e-05,"0.04",1.8
+"12","GO:0080090","regulation of primary metabolic process",1128,25,12.2,12.8,9.2e-05,"4.3999999999999997E-2",2.1
+"13","GO:0005654","nucleoplasm",591,17,6.4,10.6,9.5e-05,"4.5999999999999999E-2",2.7
+"14","GO:0043229","intracellular organelle",2323,39,25.1,13.9,1e-04,"4.8000000000000001E-2",1.6

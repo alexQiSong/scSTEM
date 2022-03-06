@@ -1,0 +1,6 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0005925","focal adhesion",84,5,0.2,4.8,5.1e-07,"<0.001",27.1
+"2","GO:0030055","cell-substrate junction",92,5,0.2,4.8,8e-07,"<0.001",24.7
+"3","GO:0070161","anchoring junction",267,6,0.6,5.4,8.1e-06,"<0.001",10.2
+"4","GO:0045785","positive regulation of cell adhesion",205,5,0.5,4.5,4.2e-05,"8.0000000000000002E-3",11.1
+"5","GO:0030155","regulation of cell adhesion",335,5,0.7,4.3,0.00043,"3.5999999999999997E-2",6.8

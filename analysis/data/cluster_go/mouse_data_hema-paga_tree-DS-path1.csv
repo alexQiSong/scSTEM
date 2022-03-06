@@ -1,0 +1,4 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0043167","ion binding",1328,149,108.1,40.9,2.1e-06,0.002,1.4
+"2","GO:0046872","metal ion binding",948,110,77.2,32.8,2e-05,0.04,1.4
+"3","GO:0043169","cation binding",974,112,79.3,32.7,2.5e-05,0.048,1.4

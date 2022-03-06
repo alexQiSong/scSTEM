@@ -1,0 +1,3 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0006464","cellular protein modification process",451,15,5.6,9.4,0.00014,0.044,2.7
+"2","GO:0036211","protein modification process",451,15,5.6,9.4,0.00014,0.044,2.7

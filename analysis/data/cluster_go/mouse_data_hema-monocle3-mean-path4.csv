@@ -1,0 +1,117 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0005737","cytoplasm",2301,246,172.6,73.4,1.7e-15,"<0.001",1.4
+"2","GO:0006955","immune response",463,80,34.7,45.3,1.1e-13,"<0.001",2.3
+"3","GO:0043207","response to external biotic stimulus",386,71,28.9,42,1.4e-13,"<0.001",2.5
+"4","GO:0051707","response to other organism",386,71,28.9,42,1.4e-13,"<0.001",2.5
+"5","GO:0005622","intracellular anatomical structure",2694,268,202.1,65.9,3.4e-13,"<0.001",1.3
+"6","GO:0009607","response to biotic stimulus",397,71,29.8,41.2,6.2e-13,"<0.001",2.4
+"7","GO:0098542","defense response to other organism",280,57,21,36,6.8e-13,"<0.001",2.7
+"8","GO:0043226","organelle",2417,240,181.3,58.7,1.7e-10,"<0.001",1.3
+"9","GO:0006952","defense response",469,73,35.2,37.8,3e-10,"<0.001",2.1
+"10","GO:0045087","innate immune response",226,45,16.9,28.1,5.1e-10,"<0.001",2.7
+"11","GO:0043229","intracellular organelle",2307,230,173,57,5.9e-10,"<0.001",1.3
+"12","GO:0005515","protein binding",2234,224,167.6,56.4,8.4e-10,"<0.001",1.3
+"13","GO:0009605","response to external stimulus",862,109,64.7,44.3,2.4e-09,"<0.001",1.7
+"14","GO:0030695","GTPase regulator activity",152,33,11.4,21.6,1.3e-08,"<0.001",2.9
+"15","GO:0009617","response to bacterium",227,42,17,25,2e-08,"<0.001",2.5
+"16","GO:0060589","nucleoside-triphosphatase regulator activity",155,33,11.6,21.4,2.2e-08,"<0.001",2.8
+"17","GO:0005096","GTPase activator activity",148,32,11.1,20.9,2.5e-08,"<0.001",2.9
+"18","GO:0051716","cellular response to stimulus",1851,189,138.8,50.2,2.7e-08,"<0.001",1.4
+"19","GO:0050789","regulation of biological process",2675,251,200.6,50.4,2.8e-08,"<0.001",1.3
+"20","GO:0065009","regulation of molecular function",877,107,65.8,41.2,2.9e-08,"<0.001",1.6
+"21","GO:0016020","membrane",2139,211,160.4,50.6,3.3e-08,"<0.001",1.3
+"22","GO:0032879","regulation of localization",964,114,72.3,41.7,5.1e-08,"<0.001",1.6
+"23","GO:0031410","cytoplasmic vesicle",500,70,37.5,32.5,7.5e-08,"<0.001",1.9
+"24","GO:0097708","intracellular vesicle",502,70,37.6,32.4,8.8e-08,"<0.001",1.9
+"25","GO:0044237","cellular metabolic process",1878,189,140.8,48.2,9.6e-08,"<0.001",1.3
+"26","GO:0043231","intracellular membrane-bounded organelle",2059,203,154.4,48.6,1e-07,"<0.001",1.3
+"27","GO:0002831","regulation of response to biotic stimulus",105,25,7.9,17.1,1.2e-07,"<0.001",3.2
+"28","GO:0035556","intracellular signal transduction",760,94,57,37,1.5e-07,"<0.001",1.6
+"29","GO:0006950","response to stress",926,109,69.5,39.5,1.5e-07,"<0.001",1.6
+"30","GO:0044093","positive regulation of molecular function",479,67,35.9,31.1,1.6e-07,"<0.001",1.9
+"31","GO:0002221","pattern recognition receptor signaling pathway",54,17,4,12.9,1.9e-07,"<0.001",4.2
+"32","GO:0050776","regulation of immune response",246,42,18.4,23.6,2.2e-07,"<0.001",2.3
+"33","GO:0071310","cellular response to organic substance",747,92,56,36,2.6e-07,"<0.001",1.6
+"34","GO:0001817","regulation of cytokine production",284,46,21.3,24.7,2.8e-07,"<0.001",2.2
+"35","GO:1903555","regulation of tumor necrosis factor superfamily cytokine production",81,21,6.1,14.9,2.8e-07,"<0.001",3.5
+"36","GO:0071706","tumor necrosis factor superfamily cytokine production",81,21,6.1,14.9,2.8e-07,"<0.001",3.5
+"37","GO:1901701","cellular response to oxygen-containing compound",369,55,27.7,27.3,3e-07,"<0.001",2
+"38","GO:0031982","vesicle",541,72,40.6,31.4,3.8e-07,"<0.001",1.8
+"39","GO:0002684","positive regulation of immune system process",334,51,25.1,25.9,4.1e-07,"<0.001",2
+"40","GO:0016192","vesicle-mediated transport",441,62,33.1,28.9,4.2e-07,"<0.001",1.9
+"41","GO:0001816","cytokine production",289,46,21.7,24.3,4.7e-07,"<0.001",2.1
+"42","GO:0007165","signal transduction",1551,160,116.3,43.7,5e-07,"<0.001",1.4
+"43","GO:0071216","cellular response to biotic stimulus",84,21,6.3,14.7,5.5e-07,"<0.001",3.3
+"44","GO:0048584","positive regulation of response to stimulus",684,85,51.3,33.7,5.8e-07,"<0.001",1.7
+"45","GO:0050794","regulation of cellular process",2568,238,192.6,45.4,6.1e-07,"<0.001",1.2
+"46","GO:0001819","positive regulation of cytokine production",186,34,13.9,20.1,6.7e-07,"<0.001",2.4
+"47","GO:0032680","regulation of tumor necrosis factor production",79,20,5.9,14.1,8.2e-07,"<0.001",3.4
+"48","GO:0071219","cellular response to molecule of bacterial origin",79,20,5.9,14.1,8.2e-07,"<0.001",3.4
+"49","GO:0032640","tumor necrosis factor production",79,20,5.9,14.1,8.2e-07,"<0.001",3.4
+"50","GO:0050790","regulation of catalytic activity",670,83,50.2,32.8,9.4e-07,"<0.001",1.7
+"51","GO:1901564","organonitrogen compound metabolic process",1250,134,93.8,40.2,9.5e-07,"<0.001",1.4
+"52","GO:0071704","organic substance metabolic process",2022,196,151.7,44.3,1e-06,"<0.001",1.3
+"53","GO:0030234","enzyme regulator activity",243,40,18.2,21.8,1.2e-06,"<0.001",2.2
+"54","GO:0003018","vascular process in circulatory system",95,22,7.1,14.9,1.2e-06,"<0.001",3.1
+"55","GO:0043227","membrane-bounded organelle",2159,206,161.9,44.1,1.3e-06,"2E-3",1.3
+"56","GO:0005829","cytosol",752,90,56.4,33.6,1.3e-06,"2E-3",1.6
+"57","GO:0070887","cellular response to chemical stimulus",945,107,70.9,36.1,1.6e-06,"2E-3",1.5
+"58","GO:0006909","phagocytosis",105,23,7.9,15.1,1.9e-06,"2E-3",2.9
+"59","GO:0032101","regulation of response to external stimulus",352,51,26.4,24.6,2.1e-06,"2E-3",1.9
+"60","GO:0044267","cellular protein metabolic process",941,106,70.6,35.4,2.3e-06,"2E-3",1.5
+"61","GO:0071222","cellular response to lipopolysaccharide",77,19,5.8,13.2,2.4e-06,"4.0000000000000001E-3",3.3
+"62","GO:0051239","regulation of multicellular organismal process",988,110,74.1,35.9,2.4e-06,"4.0000000000000001E-3",1.5
+"63","GO:0006810","transport",1142,123,85.7,37.3,2.8e-06,"4.0000000000000001E-3",1.4
+"64","GO:0043412","macromolecule modification",787,92,59,33,2.9e-06,"4.0000000000000001E-3",1.6
+"65","GO:0048583","regulation of response to stimulus",1132,122,84.9,37.1,3e-06,"4.0000000000000001E-3",1.4
+"66","GO:0002682","regulation of immune system process",467,62,35,27,3.1e-06,"4.0000000000000001E-3",1.8
+"67","GO:0002753","cytoplasmic pattern recognition receptor signaling pathway",11,7,0.8,6.2,3.2e-06,"4.0000000000000001E-3",8.5
+"68","GO:0030334","regulation of cell migration",427,58,32,26,3.3e-06,"4.0000000000000001E-3",1.8
+"69","GO:0002237","response to molecule of bacterial origin",124,25,9.3,15.7,3.5e-06,"4.0000000000000001E-3",2.7
+"70","GO:0038187","pattern recognition receptor activity",15,8,1.1,6.9,3.7e-06,"4.0000000000000001E-3",7.1
+"71","GO:0007154","cell communication",1712,169,128.4,40.6,4.1e-06,"4.0000000000000001E-3",1.3
+"72","GO:1901700","response to oxygen-containing compound",523,67,39.2,27.8,4.2e-06,"4.0000000000000001E-3",1.7
+"73","GO:0051240","positive regulation of multicellular organismal process",587,73,44,29,4.4e-06,"4.0000000000000001E-3",1.7
+"74","GO:0010628","positive regulation of gene expression",381,53,28.6,24.4,4.5e-06,"4.0000000000000001E-3",1.9
+"75","GO:0019538","protein metabolic process",1095,118,82.1,35.9,4.9e-06,"4.0000000000000001E-3",1.4
+"76","GO:0016043","cellular component organization",1494,151,112,39,5.3e-06,"4.0000000000000001E-3",1.3
+"77","GO:0030335","positive regulation of cell migration",268,41,20.1,20.9,5.9e-06,"4.0000000000000001E-3",2
+"78","GO:1903557","positive regulation of tumor necrosis factor superfamily cytokine production",48,14,3.6,10.4,6.4e-06,"4.0000000000000001E-3",3.9
+"79","GO:0071840","cellular component organization or biogenesis",1499,151,112.4,38.6,6.5e-06,"4.0000000000000001E-3",1.3
+"80","GO:0032675","regulation of interleukin-6 production",68,17,5.1,11.9,6.7e-06,"4.0000000000000001E-3",3.3
+"81","GO:0032635","interleukin-6 production",68,17,5.1,11.9,6.7e-06,"4.0000000000000001E-3",3.3
+"82","GO:0000165","MAPK cascade",260,40,19.5,20.5,6.7e-06,"4.0000000000000001E-3",2.1
+"83","GO:2000145","regulation of cell motility",437,58,32.8,25.2,7e-06,"4.0000000000000001E-3",1.8
+"84","GO:0051270","regulation of cellular component movement",468,61,35.1,25.9,7e-06,"4.0000000000000001E-3",1.7
+"85","GO:0010033","response to organic substance",918,102,68.8,33.2,7.4e-06,"6.0000000000000001E-3",1.5
+"86","GO:0002833","positive regulation of response to biotic stimulus",62,16,4.7,11.3,8.1e-06,"6.0000000000000001E-3",3.4
+"87","GO:0030029","actin filament-based process",331,47,24.8,22.2,9.6e-06,"6.0000000000000001E-3",1.9
+"88","GO:0040012","regulation of locomotion",452,59,33.9,25.1,9.8e-06,"6.0000000000000001E-3",1.7
+"89","GO:0051234","establishment of localization",1170,123,87.8,35.2,1e-05,"6.0000000000000001E-3",1.4
+"90","GO:0003013","circulatory system process",219,35,16.4,18.6,1.1e-05,"6.0000000000000001E-3",2.1
+"91","GO:0032608","interferon-beta production",17,8,1.3,6.7,1.2e-05,"8.0000000000000002E-3",6.3
+"92","GO:0032648","regulation of interferon-beta production",17,8,1.3,6.7,1.2e-05,"8.0000000000000002E-3",6.3
+"93","GO:2000147","positive regulation of cell motility",276,41,20.7,20.3,1.2e-05,"8.0000000000000002E-3",2
+"94","GO:0005085","guanyl-nucleotide exchange factor activity",71,17,5.3,11.7,1.3e-05,"8.0000000000000002E-3",3.2
+"95","GO:0031347","regulation of defense response",211,34,15.8,18.2,1.3e-05,"8.0000000000000002E-3",2.1
+"96","GO:0042221","response to chemical",1211,126,90.8,35.2,1.3e-05,"8.0000000000000002E-3",1.4
+"97","GO:0006464","cellular protein modification process",770,88,57.8,30.2,1.3e-05,"8.0000000000000002E-3",1.5
+"98","GO:0036211","protein modification process",770,88,57.8,30.2,1.3e-05,"8.0000000000000002E-3",1.5
+"99","GO:0032722","positive regulation of chemokine production",27,10,2,8,1.3e-05,"1.4E-2",4.9
+"100","GO:0050778","positive regulation of immune response",186,31,13.9,17.1,1.6e-05,"0.02",2.2
+"101","GO:0032496","response to lipopolysaccharide",118,23,8.8,14.2,1.6e-05,"0.02",2.6
+"102","GO:0032755","positive regulation of interleukin-6 production",39,12,2.9,9.1,1.6e-05,"0.02",4.1
+"103","GO:0048518","positive regulation of biological process",1684,164,126.3,37.7,1.6e-05,"0.02",1.3
+"104","GO:0040017","positive regulation of locomotion",279,41,20.9,20.1,1.6e-05,"0.02",2
+"105","GO:0010941","regulation of cell death",491,62,36.8,25.2,1.6e-05,"0.02",1.7
+"106","GO:1902533","positive regulation of intracellular signal transduction",328,46,24.6,21.4,1.7e-05,"0.02",1.9
+"107","GO:0002252","immune effector process",214,34,16.1,17.9,1.7e-05,"0.02",2.1
+"108","GO:0051272","positive regulation of cellular component movement",281,41,21.1,19.9,1.9e-05,"2.5999999999999999E-2",1.9
+"109","GO:0006954","inflammatory response",272,40,20.4,19.6,2e-05,"2.8000000000000001E-2",2
+"110","GO:1901653","cellular response to peptide",104,21,7.8,13.2,2.1e-05,"0.03",2.7
+"111","GO:0045088","regulation of innate immune response",74,17,5.5,11.4,2.3e-05,"3.2000000000000001E-2",3.1
+"112","GO:0051174","regulation of phosphorus metabolic process",444,57,33.3,23.7,2.3e-05,"3.4000000000000002E-2",1.7
+"113","GO:0019220","regulation of phosphate metabolic process",444,57,33.3,23.7,2.3e-05,"3.4000000000000002E-2",1.7
+"114","GO:0043228","non-membrane-bounded organelle",804,90,60.3,29.7,2.3e-05,"3.4000000000000002E-2",1.5
+"115","GO:0032760","positive regulation of tumor necrosis factor production",47,13,3.5,9.5,2.6e-05,"3.7999999999999999E-2",3.7
+"116","GO:0017124","SH3 domain binding",47,13,3.5,9.5,2.6e-05,"3.7999999999999999E-2",3.7

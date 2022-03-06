@@ -1,0 +1,9 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0099175","regulation of postsynapse organization",45,7,0.6,6.4,2.1e-06,"<0.001",11.3
+"2","GO:0050808","synapse organization",235,14,3.2,10.8,2.7e-06,"<0.001",4.3
+"3","GO:0034330","cell junction organization",335,16,4.6,11.4,8.4e-06,"4.0000000000000001E-3",3.5
+"4","GO:0099173","postsynapse organization",89,8,1.2,6.8,2.5e-05,"0.02",6.5
+"5","GO:0099565","chemical synaptic transmission, postsynaptic",50,6,0.7,5.3,5.5e-05,"0.03",8.7
+"6","GO:0022008","neurogenesis",679,22,9.4,12.6,6.6e-05,"0.04",2.3
+"7","GO:0007275","multicellular organism development",1613,38,22.3,15.7,6.8e-05,"0.04",1.7
+"8","GO:0048731","system development",1567,37,21.6,15.4,9.1e-05,"4.5999999999999999E-2",1.7

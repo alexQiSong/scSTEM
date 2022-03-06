@@ -1,0 +1,17 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0071702","organic substance transport",544,27,9.7,17.3,3.7e-07,"<0.001",2.8
+"2","GO:0044248","cellular catabolic process",336,20,6,14,1.1e-06,"2E-3",3.3
+"3","GO:0006810","transport",1142,40,20.3,19.7,2.8e-06,"2E-3",2
+"4","GO:0071705","nitrogen compound transport",425,22,7.6,14.4,3.1e-06,"4.0000000000000001E-3",2.9
+"5","GO:0051234","establishment of localization",1170,40,20.8,19.2,5.2e-06,"8.0000000000000002E-3",1.9
+"6","GO:0005737","cytoplasm",2301,61,41,20,1.3e-05,"1.4E-2",1.5
+"7","GO:0008289","lipid binding",237,15,4.2,10.8,1.4e-05,"1.4E-2",3.6
+"8","GO:0010498","proteasomal protein catabolic process",65,8,1.2,6.8,1.6e-05,"1.7999999999999999E-2",6.9
+"9","GO:0019915","lipid storage",32,6,0.6,5.4,1.7e-05,"0.02",10.5
+"10","GO:0009056","catabolic process",403,20,7.2,12.8,1.8e-05,"0.02",2.8
+"11","GO:0051649","establishment of localization in cell",478,22,8.5,13.5,2.1e-05,"0.02",2.6
+"12","GO:0005829","cytosol",752,29,13.4,15.6,2.2e-05,"2.1999999999999999E-2",2.2
+"13","GO:0061136","regulation of proteasomal protein catabolic process",34,6,0.6,5.4,2.4e-05,"2.4E-2",9.9
+"14","GO:0060627","regulation of vesicle-mediated transport",223,14,4,10,3.2e-05,"3.2000000000000001E-2",3.5
+"15","GO:1903530","regulation of secretion by cell",228,14,4.1,9.9,4.1e-05,"4.5999999999999999E-2",3.4
+"16","GO:0051051","negative regulation of transport",171,12,3,9,4.2e-05,"4.5999999999999999E-2",3.9

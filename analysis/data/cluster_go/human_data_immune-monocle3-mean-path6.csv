@@ -1,0 +1,6 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0005515","protein binding",1751,34,22.2,11.8,2.7e-05,0.008,1.5
+"2","GO:0009966","regulation of signal transduction",446,15,5.6,9.4,0.00017,0.04,2.7
+"3","GO:0010646","regulation of cell communication",508,16,6.4,9.6,0.00021,0.046,2.5
+"4","GO:0050794","regulation of cellular process",1411,29,17.9,11.1,0.00021,0.046,1.6
+"5","GO:0023051","regulation of signaling",509,16,6.4,9.6,0.00021,0.046,2.5

@@ -1,0 +1,13 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0033036","macromolecule localization",661,18,6.1,11.9,9.2e-06,"<0.001",3
+"2","GO:0044238","primary metabolic process",1846,31,17,14,2.5e-05,"6.0000000000000001E-3",1.8
+"3","GO:0006807","nitrogen compound metabolic process",1759,30,16.2,13.8,3e-05,"8.0000000000000002E-3",1.9
+"4","GO:0005622","intracellular anatomical structure",2697,38,24.8,13.2,4.2e-05,"1.2E-2",1.5
+"5","GO:0080090","regulation of primary metabolic process",1232,24,11.3,12.7,5e-05,"2.1999999999999999E-2",2.1
+"6","GO:0008104","protein localization",549,15,5.1,9.9,6.7e-05,"0.03",3
+"7","GO:0003713","transcription coactivator activity",50,5,0.5,4.5,8.2e-05,"3.5999999999999997E-2",10.9
+"8","GO:0034645","cellular macromolecule biosynthetic process",863,19,7.9,11.1,1e-04,"0.04",2.4
+"9","GO:0031323","regulation of cellular metabolic process",1284,24,11.8,12.2,1e-04,"4.3999999999999997E-2",2
+"10","GO:0043226","organelle",2417,35,22.2,12.8,0.00011,"4.8000000000000001E-2",1.6
+"11","GO:0043170","macromolecule metabolic process",1769,29,16.3,12.7,0.00011,"0.05",1.8
+"12","GO:0009059","macromolecule biosynthetic process",871,19,8,11,0.00011,"0.05",2.4

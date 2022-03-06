@@ -1,0 +1,11 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0043227","membrane-bounded organelle",1503,44,26.6,17.4,5.3e-07,"<0.001",1.7
+"2","GO:0043231","intracellular membrane-bounded organelle",1348,41,23.8,17.2,1.3e-06,"<0.001",1.7
+"3","GO:0005737","cytoplasm",1536,43,27.1,15.9,5.2e-06,"<0.001",1.6
+"4","GO:0043229","intracellular organelle",1482,42,26.2,15.8,6.5e-06,"<0.001",1.6
+"5","GO:0043226","organelle",1622,44,28.7,15.3,7.9e-06,"2E-3",1.5
+"6","GO:0010467","gene expression",580,24,10.2,13.8,1.3e-05,"4.0000000000000001E-3",2.3
+"7","GO:0002367","cytokine production involved in immune response",20,5,0.4,4.6,1.8e-05,"6.0000000000000001E-3",14.2
+"8","GO:0002718","regulation of cytokine production involved in immune response",20,5,0.4,4.6,1.8e-05,"6.0000000000000001E-3",14.2
+"9","GO:0002702","positive regulation of production of molecular mediator of immune response",24,5,0.4,4.6,4.7e-05,"2.1999999999999999E-2",11.8
+"10","GO:0005622","intracellular anatomical structure",1735,44,30.7,13.3,7.7e-05,"0.03",1.4

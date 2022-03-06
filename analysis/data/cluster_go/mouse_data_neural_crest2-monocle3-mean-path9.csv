@@ -1,0 +1,6 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0043547","positive regulation of GTPase activity",62,7,0.7,6.3,4.6e-06,0.004,10.1
+"2","GO:0005096","GTPase activator activity",106,8,1.2,6.8,1.9e-05,0.008,6.7
+"3","GO:0060589","nucleoside-triphosphatase regulator activity",111,8,1.2,6.8,2.7e-05,0.014,6.4
+"4","GO:0030695","GTPase regulator activity",111,8,1.2,6.8,2.7e-05,0.014,6.4
+"5","GO:0043087","regulation of GTPase activity",83,7,0.9,6.1,3.2e-05,0.018,7.5

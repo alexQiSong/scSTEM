@@ -1,0 +1,116 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0071944","cell periphery",1755,563,451.7,111.3,5.2e-14,"<0.001",1.2
+"2","GO:0005737","cytoplasm",2301,705,592.3,112.7,1.7e-13,"<0.001",1.2
+"3","GO:0048731","system development",1567,509,403.3,105.7,2.2e-13,"<0.001",1.3
+"4","GO:0007275","multicellular organism development",1613,521,415.2,105.8,2.9e-13,"<0.001",1.3
+"5","GO:0005515","protein binding",2234,686,575,111,3.7e-13,"<0.001",1.2
+"6","GO:0048856","anatomical structure development",1741,554,448.1,105.9,6.8e-13,"<0.001",1.2
+"7","GO:0016020","membrane",2139,658,550.6,107.4,1.6e-12,"<0.001",1.2
+"8","GO:0005622","intracellular anatomical structure",2694,799,693.4,105.6,3.7e-12,"<0.001",1.2
+"9","GO:0009653","anatomical structure morphogenesis",1017,347,261.8,85.2,1.3e-11,"<0.001",1.3
+"10","GO:0071840","cellular component organization or biogenesis",1499,481,385.8,95.2,2.1e-11,"<0.001",1.2
+"11","GO:0050794","regulation of cellular process",2568,762,661,101,3.5e-11,"<0.001",1.2
+"12","GO:0016043","cellular component organization",1494,478,384.6,93.4,4.4e-11,"<0.001",1.2
+"13","GO:0050789","regulation of biological process",2675,788,688.5,99.5,5.9e-11,"<0.001",1.1
+"14","GO:0065008","regulation of biological quality",1175,387,302.4,84.6,1.5e-10,"<0.001",1.3
+"15","GO:0030154","cell differentiation",1334,431,343.4,87.6,1.7e-10,"<0.001",1.3
+"16","GO:0048869","cellular developmental process",1346,434,346.5,87.5,2e-10,"<0.001",1.3
+"17","GO:0048522","positive regulation of cellular process",1557,491,400.8,90.2,2.8e-10,"<0.001",1.2
+"18","GO:0030054","cell junction",768,268,197.7,70.3,5.2e-10,"<0.001",1.4
+"19","GO:0006928","movement of cell or subcellular component",812,280,209,71,8e-10,"<0.001",1.3
+"20","GO:0005886","plasma membrane",1576,490,405.7,84.3,3.8e-09,"<0.001",1.2
+"21","GO:0048518","positive regulation of biological process",1684,519,433.5,85.5,4e-09,"<0.001",1.2
+"22","GO:0000902","cell morphogenesis",478,177,123,54,6.4e-09,"<0.001",1.4
+"23","GO:0043005","neuron projection",564,203,145.2,57.8,6.4e-09,"<0.001",1.4
+"24","GO:0043226","organelle",2417,710,622.1,87.9,7.7e-09,"<0.001",1.1
+"25","GO:0048468","cell development",801,272,206.2,65.8,9e-09,"<0.001",1.3
+"26","GO:0046872","metal ion binding",948,314,244,70,9.5e-09,"<0.001",1.3
+"27","GO:0043169","cation binding",973,321,250.5,70.5,9.9e-09,"<0.001",1.3
+"28","GO:0000904","cell morphogenesis involved in differentiation",348,136,89.6,46.4,1e-08,"<0.001",1.5
+"29","GO:0007399","nervous system development",880,294,226.5,67.5,1.3e-08,"<0.001",1.3
+"30","GO:0051716","cellular response to stimulus",1851,558,476.4,81.6,3.4e-08,"<0.001",1.2
+"31","GO:0007155","cell adhesion",613,214,157.8,56.2,4.4e-08,"<0.001",1.4
+"32","GO:0048513","animal organ development",1153,368,296.8,71.2,4.4e-08,"<0.001",1.2
+"33","GO:0043167","ion binding",1328,416,341.8,74.2,5e-08,"<0.001",1.2
+"34","GO:0043229","intracellular organelle",2307,675,593.8,81.2,8.5e-08,"<0.001",1.1
+"35","GO:0030030","cell projection organization",564,198,145.2,52.8,9.8e-08,"<0.001",1.4
+"36","GO:0042221","response to chemical",1211,382,311.7,70.3,1e-07,"<0.001",1.2
+"37","GO:0120025","plasma membrane bounded cell projection",788,263,202.8,60.2,1.1e-07,"<0.001",1.3
+"38","GO:0044087","regulation of cellular component biogenesis",299,117,77,40,1.1e-07,"<0.001",1.5
+"39","GO:0034330","cell junction organization",335,128,86.2,41.8,1.3e-07,"<0.001",1.5
+"40","GO:0042995","cell projection",818,271,210.6,60.4,1.4e-07,"<0.001",1.3
+"41","GO:0051128","regulation of cellular component organization",725,244,186.6,57.4,1.6e-07,"<0.001",1.3
+"42","GO:0016477","cell migration",629,216,161.9,54.1,1.7e-07,"<0.001",1.3
+"43","GO:0070887","cellular response to chemical stimulus",945,306,243.2,62.8,2.2e-07,"<0.001",1.3
+"44","GO:0022008","neurogenesis",679,230,174.8,55.2,2.3e-07,"<0.001",1.3
+"45","GO:0044089","positive regulation of cellular component biogenesis",176,76,45.3,30.7,2.3e-07,"<0.001",1.7
+"46","GO:0044085","cellular component biogenesis",697,235,179.4,55.6,2.5e-07,"<0.001",1.3
+"47","GO:0009887","animal organ morphogenesis",423,154,108.9,45.1,2.6e-07,"<0.001",1.4
+"48","GO:0043227","membrane-bounded organelle",2159,633,555.7,77.3,2.9e-07,"<0.001",1.1
+"49","GO:0048666","neuron development",481,171,123.8,47.2,3.3e-07,"<0.001",1.4
+"50","GO:0120036","plasma membrane bounded cell projection organization",552,192,142.1,49.9,3.4e-07,"<0.001",1.4
+"51","GO:0031224","intrinsic component of membrane",1404,431,361.4,69.6,4.3e-07,"<0.001",1.2
+"52","GO:0007154","cell communication",1712,513,440.7,72.3,5.8e-07,"<0.001",1.2
+"53","GO:0071704","organic substance metabolic process",2022,595,520.5,74.5,5.8e-07,"<0.001",1.1
+"54","GO:0048519","negative regulation of biological process",1459,445,375.5,69.5,5.9e-07,"<0.001",1.2
+"55","GO:0022607","cellular component assembly",687,230,176.8,53.2,6.6e-07,"<0.001",1.3
+"56","GO:0048523","negative regulation of cellular process",1339,412,344.7,67.3,6.9e-07,"<0.001",1.2
+"57","GO:0035295","tube development",457,162,117.6,44.4,8.7e-07,"<0.001",1.4
+"58","GO:0051130","positive regulation of cellular component organization",381,139,98.1,40.9,9.2e-07,"<0.001",1.4
+"59","GO:0045202","synapse",552,190,142.1,47.9,9.3e-07,"<0.001",1.3
+"60","GO:0033043","regulation of organelle organization",284,109,73.1,35.9,9.6e-07,"<0.001",1.5
+"61","GO:0031175","neuron projection development",431,154,110.9,43.1,9.7e-07,"<0.001",1.4
+"62","GO:0035239","tube morphogenesis",388,140,99.9,40.1,1.7e-06,"<0.001",1.4
+"63","GO:0048870","cell motility",664,221,170.9,50.1,1.9e-06,"2E-3",1.3
+"64","GO:0051674","localization of cell",664,221,170.9,50.1,1.9e-06,"2E-3",1.3
+"65","GO:0044238","primary metabolic process",1846,545,475.2,69.8,1.9e-06,"2E-3",1.1
+"66","GO:0044877","protein-containing complex binding",452,159,116.3,42.7,1.9e-06,"2E-3",1.4
+"67","GO:0050793","regulation of developmental process",897,287,230.9,56.1,2e-06,"2E-3",1.2
+"68","GO:0009888","tissue development",675,224,173.7,50.3,2e-06,"2E-3",1.3
+"69","GO:0005829","cytosol",752,246,193.6,52.4,2e-06,"2E-3",1.3
+"70","GO:0048471","perinuclear region of cytoplasm",234,92,60.2,31.8,2.1e-06,"4.0000000000000001E-3",1.5
+"71","GO:0048699","generation of neurons",628,210,161.6,48.4,2.5e-06,"4.0000000000000001E-3",1.3
+"72","GO:0043231","intracellular membrane-bounded organelle",2059,600,530,70,2.6e-06,"4.0000000000000001E-3",1.1
+"73","GO:0005201","extracellular matrix structural constituent",75,38,19.3,18.7,2.8e-06,"4.0000000000000001E-3",2
+"74","GO:0030182","neuron differentiation",575,194,148,46,3.3e-06,"0.01",1.3
+"75","GO:0051239","regulation of multicellular organismal process",988,311,254.3,56.7,3.5e-06,"0.01",1.2
+"76","GO:0031012","extracellular matrix",230,90,59.2,30.8,3.5e-06,"0.01",1.5
+"77","GO:0030312","external encapsulating structure",231,90,59.5,30.5,4.3e-06,"1.4E-2",1.5
+"78","GO:0007267","cell-cell signaling",546,185,140.5,44.5,4.3e-06,"1.4E-2",1.3
+"79","GO:0032990","cell part morphogenesis",322,118,82.9,35.1,5.1e-06,"2.1999999999999999E-2",1.4
+"80","GO:0050808","synapse organization",235,91,60.5,30.5,5.1e-06,"2.1999999999999999E-2",1.5
+"81","GO:0048858","cell projection morphogenesis",319,117,82.1,34.9,5.3e-06,"2.1999999999999999E-2",1.4
+"82","GO:0048812","neuron projection morphogenesis",306,113,78.8,34.2,5.4e-06,"2.1999999999999999E-2",1.4
+"83","GO:0120039","plasma membrane bounded cell projection morphogenesis",316,116,81.3,34.7,5.6e-06,"2.1999999999999999E-2",1.4
+"84","GO:0097435","supramolecular fiber organization",261,99,67.2,31.8,5.7e-06,"2.1999999999999999E-2",1.5
+"85","GO:0006807","nitrogen compound metabolic process",1759,518,452.8,65.2,6.5e-06,"2.1999999999999999E-2",1.1
+"86","GO:0044237","cellular metabolic process",1878,549,483.4,65.6,7.5e-06,"2.1999999999999999E-2",1.1
+"87","GO:0030029","actin filament-based process",331,120,85.2,34.8,7.7e-06,"2.1999999999999999E-2",1.4
+"88","GO:0051094","positive regulation of developmental process",547,184,140.8,43.2,7.7e-06,"2.1999999999999999E-2",1.3
+"89","GO:0007156","homophilic cell adhesion via plasma membrane adhesion molecules",67,34,17.2,16.8,8.9e-06,"2.1999999999999999E-2",2
+"90","GO:0022603","regulation of anatomical structure morphogenesis",402,141,103.5,37.5,9.3e-06,"2.1999999999999999E-2",1.4
+"91","GO:0031325","positive regulation of cellular metabolic process",833,265,214.4,50.6,9.6e-06,"2.1999999999999999E-2",1.2
+"92","GO:0003008","system process",618,204,159.1,44.9,9.6e-06,"2.1999999999999999E-2",1.3
+"93","GO:0048667","cell morphogenesis involved in neuron differentiation",280,104,72.1,31.9,9.7e-06,"2.1999999999999999E-2",1.4
+"94","GO:0043170","macromolecule metabolic process",1769,519,455.3,63.7,1.1e-05,"2.4E-2",1.1
+"95","GO:0051668","localization within membrane",170,69,43.8,25.2,1.2e-05,"2.8000000000000001E-2",1.6
+"96","GO:0007015","actin filament organization",164,67,42.2,24.8,1.2e-05,"2.8000000000000001E-2",1.6
+"97","GO:0042592","homeostatic process",551,184,141.8,42.2,1.3e-05,"2.8000000000000001E-2",1.3
+"98","GO:0006996","organelle organization",731,235,188.2,46.8,1.6e-05,"0.03",1.2
+"99","GO:0072657","protein localization to membrane",153,63,39.4,23.6,1.7e-05,"3.5999999999999997E-2",1.6
+"100","GO:0048771","tissue remodeling",88,41,22.7,18.3,1.7e-05,"3.5999999999999997E-2",1.8
+"101","GO:0070848","response to growth factor",270,100,69.5,30.5,1.7e-05,"3.5999999999999997E-2",1.4
+"102","GO:0050877","nervous system process",386,135,99.4,35.6,1.7e-05,"3.7999999999999999E-2",1.4
+"103","GO:0032989","cellular component morphogenesis",350,124,90.1,33.9,2e-05,"3.7999999999999999E-2",1.4
+"104","GO:0048646","anatomical structure formation involved in morphogenesis",441,151,113.5,37.5,2e-05,"3.7999999999999999E-2",1.3
+"105","GO:0071363","cellular response to growth factor stimulus",258,96,66.4,29.6,2e-05,"3.7999999999999999E-2",1.4
+"106","GO:0036477","somatodendritic compartment",411,142,105.8,36.2,2.1e-05,"0.04",1.3
+"107","GO:0001822","kidney development",139,58,35.8,22.2,2.2e-05,"0.04",1.6
+"108","GO:0034329","cell junction assembly",195,76,50.2,25.8,2.4e-05,"0.04",1.5
+"109","GO:0023051","regulation of signaling",1019,314,262.3,51.7,2.5e-05,"0.04",1.2
+"110","GO:1901564","organonitrogen compound metabolic process",1250,377,321.8,55.2,2.6e-05,"4.3999999999999997E-2",1.2
+"111","GO:0051173","positive regulation of nitrogen compound metabolic process",782,248,201.3,46.7,2.6e-05,"4.3999999999999997E-2",1.2
+"112","GO:0007166","cell surface receptor signaling pathway",901,281,231.9,49.1,2.8e-05,"4.3999999999999997E-2",1.2
+"113","GO:0072001","renal system development",146,60,37.6,22.4,2.8e-05,"4.3999999999999997E-2",1.6
+"114","GO:0005604","basement membrane",59,30,15.2,14.8,2.9e-05,"4.8000000000000001E-2",2
+"115","GO:0051493","regulation of cytoskeleton organization",177,70,45.6,24.4,2.9e-05,"4.8000000000000001E-2",1.5

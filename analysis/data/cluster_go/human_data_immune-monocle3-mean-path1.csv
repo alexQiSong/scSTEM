@@ -1,0 +1,13 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0043169","cation binding",541,58,28.3,29.7,5.9e-09,"<0.001",2
+"2","GO:0046872","metal ion binding",527,55,27.6,27.4,4.9e-08,"<0.001",2
+"3","GO:0043167","ion binding",743,66,38.9,27.1,7.9e-07,"2E-3",1.7
+"4","GO:0050789","regulation of biological process",1467,106,76.8,29.2,1e-06,"2E-3",1.4
+"5","GO:0035556","intracellular signal transduction",414,44,21.7,22.3,1.1e-06,"4.0000000000000001E-3",2
+"6","GO:0050794","regulation of cellular process",1411,103,73.8,29.2,1.2e-06,"4.0000000000000001E-3",1.4
+"7","GO:0007154","cell communication",945,77,49.5,27.5,1.9e-06,"4.0000000000000001E-3",1.6
+"8","GO:0007165","signal transduction",866,72,45.3,26.7,2.6e-06,"4.0000000000000001E-3",1.6
+"9","GO:0048699","generation of neurons",257,31,13.4,17.6,4.9e-06,"8.0000000000000002E-3",2.3
+"10","GO:0030182","neuron differentiation",232,28,12.1,15.9,1.5e-05,"1.4E-2",2.3
+"11","GO:0048468","cell development",344,36,18,18,2.1e-05,"2.1999999999999999E-2",2
+"12","GO:0022008","neurogenesis",282,31,14.8,16.2,3.4e-05,"3.2000000000000001E-2",2.1

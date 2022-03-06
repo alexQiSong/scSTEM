@@ -1,0 +1,7 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0048813","dendrite morphogenesis",76,6,0.7,5.3,4.5e-05,0.02,9
+"2","GO:0007399","nervous system development",880,19,7.7,11.3,6.4e-05,0.03,2.5
+"3","GO:0007275","multicellular organism development",1614,27,14.2,12.8,6.5e-05,0.03,1.9
+"4","GO:0016358","dendrite development",121,7,1.1,5.9,7.4e-05,0.036,6.6
+"5","GO:0021954","central nervous system neuron development",54,5,0.5,4.5,9.6e-05,0.046,10.5
+"6","GO:0015631","tubulin binding",88,6,0.8,5.2,1e-04,0.048,7.7

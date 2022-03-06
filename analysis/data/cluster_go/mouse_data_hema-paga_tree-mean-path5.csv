@@ -1,0 +1,160 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0006952","defense response",469,114,56.4,57.6,4.5e-15,"<0.001",2
+"2","GO:0006955","immune response",471,110,56.6,53.4,2.9e-13,"<0.001",1.9
+"3","GO:0098542","defense response to other organism",280,77,33.7,43.3,3e-13,"<0.001",2.3
+"4","GO:0005737","cytoplasm",2301,359,276.6,82.4,4.6e-13,"<0.001",1.3
+"5","GO:0009605","response to external stimulus",862,167,103.6,63.4,3.5e-12,"<0.001",1.6
+"6","GO:0043207","response to external biotic stimulus",386,93,46.4,46.6,4.2e-12,"<0.001",2
+"7","GO:0051707","response to other organism",386,93,46.4,46.6,4.2e-12,"<0.001",2
+"8","GO:0032680","regulation of tumor necrosis factor production",79,33,9.5,23.5,1.6e-11,"<0.001",3.5
+"9","GO:0032640","tumor necrosis factor production",79,33,9.5,23.5,1.6e-11,"<0.001",3.5
+"10","GO:0009607","response to biotic stimulus",397,93,47.7,45.3,2.4e-11,"<0.001",1.9
+"11","GO:1903555","regulation of tumor necrosis factor superfamily cytokine production",81,33,9.7,23.3,3.7e-11,"<0.001",3.4
+"12","GO:0071706","tumor necrosis factor superfamily cytokine production",81,33,9.7,23.3,3.7e-11,"<0.001",3.4
+"13","GO:0006954","inflammatory response",272,71,32.7,38.3,4.1e-11,"<0.001",2.2
+"14","GO:0044248","cellular catabolic process",336,81,40.4,40.6,1.2e-10,"<0.001",2
+"15","GO:0001817","regulation of cytokine production",284,72,34.1,37.9,1.3e-10,"<0.001",2.1
+"16","GO:0009056","catabolic process",403,92,48.4,43.6,1.4e-10,"<0.001",1.9
+"17","GO:0001816","cytokine production",289,72,34.7,37.3,3.1e-10,"<0.001",2.1
+"18","GO:0032651","regulation of interleukin-1 beta production",40,21,4.8,16.2,4.9e-10,"<0.001",4.4
+"19","GO:0032611","interleukin-1 beta production",40,21,4.8,16.2,4.9e-10,"<0.001",4.4
+"20","GO:0005622","intracellular anatomical structure",2697,394,324.2,69.8,5.2e-10,"<0.001",1.2
+"21","GO:0005768","endosome",226,60,27.2,32.8,7.5e-10,"<0.001",2.2
+"22","GO:0006810","transport",1142,198,137.3,60.7,8.7e-10,"<0.001",1.4
+"23","GO:0006950","response to stress",926,168,111.3,56.7,9e-10,"<0.001",1.5
+"24","GO:0009617","response to bacterium",227,60,27.3,32.7,9e-10,"<0.001",2.2
+"25","GO:0031410","cytoplasmic vesicle",500,105,60.1,44.9,1.1e-09,"<0.001",1.7
+"26","GO:0032652","regulation of interleukin-1 production",49,23,5.9,17.1,1.3e-09,"<0.001",3.9
+"27","GO:0032612","interleukin-1 production",49,23,5.9,17.1,1.3e-09,"<0.001",3.9
+"28","GO:0097708","intracellular vesicle",502,105,60.3,44.7,1.4e-09,"<0.001",1.7
+"29","GO:0031982","vesicle",541,111,65,46,1.4e-09,"<0.001",1.7
+"30","GO:1901575","organic substance catabolic process",323,76,38.8,37.2,1.7e-09,"<0.001",2
+"31","GO:0044237","cellular metabolic process",1878,292,225.7,66.3,2.7e-09,"<0.001",1.3
+"32","GO:0051234","establishment of localization",1170,199,140.6,58.4,4.5e-09,"<0.001",1.4
+"33","GO:0032731","positive regulation of interleukin-1 beta production",27,16,3.2,12.8,5.7e-09,"<0.001",4.9
+"34","GO:0042742","defense response to bacterium",82,30,9.9,20.1,6.3e-09,"<0.001",3
+"35","GO:0048584","positive regulation of response to stimulus",684,130,82.2,47.8,7.4e-09,"<0.001",1.6
+"36","GO:0051246","regulation of protein metabolic process",637,123,76.6,46.4,7.9e-09,"<0.001",1.6
+"37","GO:0032732","positive regulation of interleukin-1 production",31,17,3.7,13.3,9.6e-09,"<0.001",4.6
+"38","GO:0009893","positive regulation of metabolic process",983,172,118.2,53.8,1e-08,"<0.001",1.5
+"39","GO:0071704","organic substance metabolic process",2022,307,243,64,1.2e-08,"<0.001",1.3
+"40","GO:0002682","regulation of immune system process",484,99,58.2,40.8,1.5e-08,"<0.001",1.7
+"41","GO:0045087","innate immune response",226,57,27.2,29.8,1.6e-08,"<0.001",2.1
+"42","GO:0071702","organic substance transport",544,108,65.4,42.6,1.7e-08,"<0.001",1.7
+"43","GO:0032760","positive regulation of tumor necrosis factor production",47,21,5.6,15.4,2.1e-08,"<0.001",3.7
+"44","GO:0050776","regulation of immune response",276,65,33.2,31.8,2.7e-08,"<0.001",2
+"45","GO:0044281","small molecule metabolic process",331,74,39.8,34.2,3e-08,"<0.001",1.9
+"46","GO:0048583","regulation of response to stimulus",1136,191,136.5,54.5,3e-08,"<0.001",1.4
+"47","GO:1903557","positive regulation of tumor necrosis factor superfamily cytokine production",48,21,5.8,15.2,3.2e-08,"<0.001",3.6
+"48","GO:0071813","lipoprotein particle binding",18,12,2.2,9.8,7.7e-08,"<0.001",5.5
+"49","GO:0071814","protein-lipid complex binding",18,12,2.2,9.8,7.7e-08,"<0.001",5.5
+"50","GO:0051247","positive regulation of protein metabolic process",414,86,49.8,36.2,7.7e-08,"<0.001",1.7
+"51","GO:0050790","regulation of catalytic activity",675,125,81.1,43.9,8e-08,"<0.001",1.5
+"52","GO:0032101","regulation of response to external stimulus",352,76,42.3,33.7,9.2e-08,"<0.001",1.8
+"53","GO:0010604","positive regulation of macromolecule metabolic process",917,159,110.2,48.8,9.2e-08,"<0.001",1.4
+"54","GO:0031325","positive regulation of cellular metabolic process",833,147,100.1,46.9,1.1e-07,"<0.001",1.5
+"55","GO:0032755","positive regulation of interleukin-6 production",39,18,4.7,13.3,1.2e-07,"<0.001",3.8
+"56","GO:0032268","regulation of cellular protein metabolic process",598,113,71.9,41.1,1.3e-07,"<0.001",1.6
+"57","GO:0042802","identical protein binding",571,109,68.6,40.4,1.3e-07,"<0.001",1.6
+"58","GO:0032103","positive regulation of response to external stimulus",176,46,21.2,24.8,1.3e-07,"<0.001",2.2
+"59","GO:1901564","organonitrogen compound metabolic process",1250,203,150.2,52.8,1.6e-07,"<0.001",1.4
+"60","GO:0010008","endosome membrane",93,30,11.2,18.8,1.7e-07,"<0.001",2.7
+"61","GO:0048518","positive regulation of biological process",1684,259,202.4,56.6,1.9e-07,"<0.001",1.3
+"62","GO:0000323","lytic vacuole",109,33,13.1,19.9,2.2e-07,"<0.001",2.5
+"63","GO:0005764","lysosome",109,33,13.1,19.9,2.2e-07,"<0.001",2.5
+"64","GO:0006909","phagocytosis",105,32,12.6,19.4,2.9e-07,"<0.001",2.5
+"65","GO:0035556","intracellular signal transduction",760,135,91.4,43.6,2.9e-07,"<0.001",1.5
+"66","GO:0002221","pattern recognition receptor signaling pathway",54,21,6.5,14.5,3.7e-07,"<0.001",3.2
+"67","GO:0016020","membrane",2139,314,257.1,56.9,4.1e-07,"<0.001",1.2
+"68","GO:0032270","positive regulation of cellular protein metabolic process",390,80,46.9,33.1,4.1e-07,"<0.001",1.7
+"69","GO:0002764","immune response-regulating signaling pathway",133,37,16,21,4.5e-07,"<0.001",2.3
+"70","GO:0032675","regulation of interleukin-6 production",68,24,8.2,15.8,4.6e-07,"<0.001",2.9
+"71","GO:0032635","interleukin-6 production",68,24,8.2,15.8,4.6e-07,"<0.001",2.9
+"72","GO:0005769","early endosome",107,32,12.9,19.1,4.6e-07,"<0.001",2.5
+"73","GO:0051345","positive regulation of hydrolase activity",195,48,23.4,24.6,5.1e-07,"<0.001",2
+"74","GO:0032879","regulation of localization",964,162,115.9,46.1,6e-07,"<0.001",1.4
+"75","GO:0012506","vesicle membrane",214,51,25.7,25.3,6.5e-07,"<0.001",2
+"76","GO:0043229","intracellular organelle",2314,334,278.1,55.9,7.1e-07,"<0.001",1.2
+"77","GO:0005773","vacuole",125,35,15,20,7.8e-07,"<0.001",2.3
+"78","GO:0010876","lipid localization",125,35,15,20,7.8e-07,"<0.001",2.3
+"79","GO:0031331","positive regulation of cellular catabolic process",89,28,10.7,17.3,7.8e-07,"<0.001",2.6
+"80","GO:0005515","protein binding",2234,324,268.5,55.5,8.2e-07,"<0.001",1.2
+"81","GO:0030659","cytoplasmic vesicle membrane",210,50,25.2,24.8,8.7e-07,"<0.001",2
+"82","GO:0065009","regulation of molecular function",875,149,105.2,43.8,9.1e-07,"<0.001",1.4
+"83","GO:0051173","positive regulation of nitrogen compound metabolic process",782,136,94,42,9.5e-07,"<0.001",1.4
+"84","GO:0051174","regulation of phosphorus metabolic process",444,87,53.4,33.6,9.8e-07,"<0.001",1.6
+"85","GO:0019220","regulation of phosphate metabolic process",444,87,53.4,33.6,9.8e-07,"<0.001",1.6
+"86","GO:0015850","organic hydroxy compound transport",100,30,12,18,9.9e-07,"<0.001",2.5
+"87","GO:0048870","cell motility",664,119,79.8,39.2,1.1e-06,"<0.001",1.5
+"88","GO:0051674","localization of cell",664,119,79.8,39.2,1.1e-06,"<0.001",1.5
+"89","GO:0043226","organelle",2417,345,290.5,54.5,1.3e-06,"<0.001",1.2
+"90","GO:0010629","negative regulation of gene expression",255,57,30.7,26.3,1.3e-06,"<0.001",1.9
+"91","GO:0008289","lipid binding",237,54,28.5,25.5,1.4e-06,"<0.001",1.9
+"92","GO:0045178","basal part of cell",112,32,13.5,18.5,1.4e-06,"<0.001",2.4
+"93","GO:0019222","regulation of metabolic process",1456,225,175,50,1.7e-06,"<0.001",1.3
+"94","GO:1905954","positive regulation of lipid localization",37,16,4.4,11.6,1.8e-06,"<0.001",3.6
+"95","GO:0043067","regulation of programmed cell death",430,84,51.7,32.3,1.8e-06,"<0.001",1.6
+"96","GO:0051050","positive regulation of transport",326,68,39.2,28.8,1.8e-06,"<0.001",1.7
+"97","GO:0008047","enzyme activator activity",209,49,25.1,23.9,1.8e-06,"<0.001",2
+"98","GO:0009896","positive regulation of catabolic process",103,30,12.4,17.6,2e-06,"<0.001",2.4
+"99","GO:0012505","endomembrane system",938,156,112.7,43.3,2.1e-06,"<0.001",1.4
+"100","GO:0031329","regulation of cellular catabolic process",136,36,16.3,19.7,2.4e-06,"<0.001",2.2
+"101","GO:0031347","regulation of defense response",211,49,25.4,23.6,2.4e-06,"<0.001",1.9
+"102","GO:0042981","regulation of apoptotic process",420,82,50.5,31.5,2.5e-06,"<0.001",1.6
+"103","GO:0009925","basal plasma membrane",104,30,12.5,17.5,2.5e-06,"<0.001",2.4
+"104","GO:0016192","vesicle-mediated transport",441,85,53,32,2.7e-06,"<0.001",1.6
+"105","GO:0043085","positive regulation of catalytic activity",357,72,42.9,29.1,3.2e-06,"4.0000000000000001E-3",1.7
+"106","GO:0042325","regulation of phosphorylation",403,79,48.4,30.6,3.3e-06,"4.0000000000000001E-3",1.6
+"107","GO:1905952","regulation of lipid localization",56,20,6.7,13.3,3.4e-06,"4.0000000000000001E-3",3
+"108","GO:0016477","cell migration",629,112,75.6,36.4,3.5e-06,"4.0000000000000001E-3",1.5
+"109","GO:0019538","protein metabolic process",1095,176,131.6,44.4,3.6e-06,"4.0000000000000001E-3",1.3
+"110","GO:0043231","intracellular membrane-bounded organelle",2059,299,247.5,51.5,3.8e-06,"4.0000000000000001E-3",1.2
+"111","GO:0044093","positive regulation of molecular function",478,90,57.5,32.5,3.8e-06,"4.0000000000000001E-3",1.6
+"112","GO:0016042","lipid catabolic process",66,22,7.9,14.1,4.2e-06,"4.0000000000000001E-3",2.8
+"113","GO:0009057","macromolecule catabolic process",185,44,22.2,21.8,4.2e-06,"4.0000000000000001E-3",2
+"114","GO:0044267","cellular protein metabolic process",941,155,113.1,41.9,4.2e-06,"6.0000000000000001E-3",1.4
+"115","GO:0031323","regulation of cellular metabolic process",1287,201,154.7,46.3,4.2e-06,"6.0000000000000001E-3",1.3
+"116","GO:0006869","lipid transport",112,31,13.5,17.5,4.4e-06,"8.0000000000000002E-3",2.3
+"117","GO:0007165","signal transduction",1551,235,186.4,48.6,4.4e-06,"8.0000000000000002E-3",1.3
+"118","GO:0002684","positive regulation of immune system process",334,68,40.1,27.9,4.4e-06,"8.0000000000000002E-3",1.7
+"119","GO:0044242","cellular lipid catabolic process",48,18,5.8,12.2,4.8e-06,"0.01",3.1
+"120","GO:0044238","primary metabolic process",1846,272,221.9,50.1,4.8e-06,"0.01",1.2
+"121","GO:0030169","low-density lipoprotein particle binding",11,8,1.3,6.7,4.9e-06,"0.01",6.1
+"122","GO:0032994","protein-lipid complex",17,10,2,8,5.2e-06,"0.01",4.9
+"123","GO:1901701","cellular response to oxygen-containing compound",369,73,44.4,28.6,5.7e-06,"1.4E-2",1.6
+"124","GO:0006793","phosphorus metabolic process",699,121,84,37,5.8e-06,"1.4E-2",1.4
+"125","GO:0010941","regulation of cell death",491,91,59,32,6.6e-06,"1.4E-2",1.5
+"126","GO:0016323","basolateral plasma membrane",93,27,11.2,15.8,6.9e-06,"1.4E-2",2.4
+"127","GO:0009894","regulation of catabolic process",171,41,20.6,20.4,7.2e-06,"1.4E-2",2
+"128","GO:0071705","nitrogen compound transport",425,81,51.1,29.9,7.6e-06,"1.4E-2",1.6
+"129","GO:0051336","regulation of hydrolase activity",327,66,39.3,26.7,8.4e-06,"1.7999999999999999E-2",1.7
+"130","GO:0050789","regulation of biological process",2675,371,321.5,49.5,8.9e-06,"1.7999999999999999E-2",1.2
+"131","GO:0060255","regulation of macromolecule metabolic process",1362,209,163.7,45.3,9e-06,"1.7999999999999999E-2",1.3
+"132","GO:0006796","phosphate-containing compound metabolic process",691,119,83.1,35.9,9.2e-06,"1.7999999999999999E-2",1.4
+"133","GO:0071219","cellular response to molecule of bacterial origin",79,24,9.5,14.5,9.5e-06,"1.7999999999999999E-2",2.5
+"134","GO:0010628","positive regulation of gene expression",381,74,45.8,28.2,9.9e-06,"1.7999999999999999E-2",1.6
+"135","GO:0051240","positive regulation of multicellular organismal process",587,104,70.6,33.4,1.1e-05,"1.7999999999999999E-2",1.5
+"136","GO:0009967","positive regulation of signal transduction",497,91,59.7,31.3,1.1e-05,"1.7999999999999999E-2",1.5
+"137","GO:0001819","positive regulation of cytokine production",186,43,22.4,20.6,1.2e-05,"1.7999999999999999E-2",1.9
+"138","GO:0034248","regulation of cellular amide metabolic process",75,23,9,14,1.2e-05,"0.02",2.6
+"139","GO:0038187","pattern recognition receptor activity",15,9,1.8,7.2,1.3e-05,"2.1999999999999999E-2",5
+"140","GO:0006082","organic acid metabolic process",175,41,21,20,1.3e-05,"2.4E-2",1.9
+"141","GO:0048522","positive regulation of cellular process",1557,233,187.2,45.8,1.4e-05,"2.4E-2",1.2
+"142","GO:0048878","chemical homeostasis",365,71,43.9,27.1,1.4e-05,"2.4E-2",1.6
+"143","GO:0012501","programmed cell death",514,93,61.8,31.2,1.4e-05,"2.4E-2",1.5
+"144","GO:0006915","apoptotic process",501,91,60.2,30.8,1.5e-05,"2.4E-2",1.5
+"145","GO:1901615","organic hydroxy compound metabolic process",130,33,15.6,17.4,1.6e-05,"2.8000000000000001E-2",2.1
+"146","GO:0034249","negative regulation of cellular amide metabolic process",30,13,3.6,9.4,1.6e-05,"2.8000000000000001E-2",3.6
+"147","GO:0016298","lipase activity",30,13,3.6,9.4,1.6e-05,"2.8000000000000001E-2",3.6
+"148","GO:0050727","regulation of inflammatory response",136,34,16.3,17.7,1.7e-05,"2.8000000000000001E-2",2.1
+"149","GO:0043170","macromolecule metabolic process",1769,259,212.6,46.4,1.9e-05,"2.8000000000000001E-2",1.2
+"150","GO:0010562","positive regulation of phosphorus metabolic process",309,62,37.1,24.9,2e-05,"3.7999999999999999E-2",1.7
+"151","GO:0045937","positive regulation of phosphate metabolic process",309,62,37.1,24.9,2e-05,"3.7999999999999999E-2",1.7
+"152","GO:0051239","regulation of multicellular organismal process",988,158,118.8,39.2,2e-05,"0.04",1.3
+"153","GO:0016787","hydrolase activity",395,75,47.5,27.5,2e-05,"0.04",1.6
+"154","GO:0043227","membrane-bounded organelle",2159,307,259.5,47.5,2e-05,"0.04",1.2
+"155","GO:0071222","cellular response to lipopolysaccharide",77,23,9.3,13.7,2e-05,"0.04",2.5
+"156","GO:0051716","cellular response to stimulus",1851,269,222.5,46.5,2e-05,"0.04",1.2
+"157","GO:1901653","cellular response to peptide",104,28,12.5,15.5,2.2e-05,"4.3999999999999997E-2",2.2
+"158","GO:0044255","cellular lipid metabolic process",203,45,24.4,20.6,2.3e-05,"4.3999999999999997E-2",1.8
+"159","GO:0006807","nitrogen compound metabolic process",1759,257,211.4,45.6,2.5e-05,"4.5999999999999999E-2",1.2

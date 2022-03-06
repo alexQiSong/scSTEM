@@ -1,0 +1,7 @@
+"","Category ID","Category Name","#Genes Category","#Genes Assigned","#Genes Expected","#Genes Enriched","p-value","Corrected p-value","Fold"
+"1","GO:0043229","intracellular organelle",1482,32,17.3,14.7,1.3e-07,"<0.001",1.9
+"2","GO:0005622","intracellular anatomical structure",1735,33,20.2,12.8,1.5e-06,"<0.001",1.6
+"3","GO:0043226","organelle",1622,32,18.9,13.1,1.8e-06,"<0.001",1.7
+"4","GO:0043231","intracellular membrane-bounded organelle",1348,28,15.7,12.3,2.2e-05,"6.0000000000000001E-3",1.8
+"5","GO:0043227","membrane-bounded organelle",1503,29,17.5,11.5,5.6e-05,"2.1999999999999999E-2",1.7
+"6","GO:0005737","cytoplasm",1536,29,17.9,11.1,9.4e-05,"0.03",1.6
