@@ -16,6 +16,7 @@
   * [4. Input and output files](#4-input-and-output-files)
   * [5. Analysis steps](#5-analysis-steps)
   * [6. Upgrade to new version of scSTEM](#6-upgrade-to-new-version-of-scstem)
+- [Analysis code](#analysis-code)
 - [STEM Java program](#stem-java-program)
 - [Contact](#contact)
 - [Copyright](#copyright)
@@ -219,6 +220,8 @@ Note that you will need to activate the corresponding environment before upgradi
 ```R
 renv::activate(install_folder)
 ```
+# Analysis code
+Code for the analyses performed in scSTEM publication can be found under `/analysis`. The `main.sh` can automatically execute all analysis R code and generate figures.
 
 # STEM Java program
 We have made changes to original STEM Java prgram as in https://github.com/jernst98/STEM_DREM. The modified version of STEM, along with its source code, can be downloaded from: https://github.com/alexQiSong/scSTEM-STEM-java 
