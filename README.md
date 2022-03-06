@@ -221,7 +221,7 @@ Note that you will need to activate the corresponding environment before upgradi
 renv::activate(install_folder)
 ```
 # Analysis code
-Code for the analyses performed in scSTEM publication can be found under `/analysis`.
+Code for the analyses performed in scSTEM publication can be found under `/analysis`. The results presented in the publication were generated with R 4.1.0 on Windows10. Other OS may yield slightly different results.
 
 # STEM Java program
 We have made changes to original STEM Java prgram as in https://github.com/jernst98/STEM_DREM. The modified version of STEM, along with its source code, can be downloaded from: https://github.com/alexQiSong/scSTEM-STEM-java 
