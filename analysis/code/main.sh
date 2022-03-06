@@ -1,6 +1,0 @@
-Rscript generate_all_go_plots.R
-Rscript FigS2_umap_and_select_DEGs.R
-Rscript FigS10_step1_select_top1kTo6k_genes.R
-Rscript FigS10_step2_sensitivity_analysis.R
-Rscript FigS11_check_linear_analysis.R
-Rscript FigS1_benchmark_and_comparison.R
