@@ -1,5 +1,6 @@
 # scSTEM 0.1.0
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![DOI](https://zenodo.org/badge/386061763.svg)](https://zenodo.org/badge/latestdoi/386061763)
 - [Getting Started](#getting-started)
   * [1. Introduction](#1-introduction)
   * [2. Installation](#2-installation)
