@@ -145,7 +145,7 @@ This will take you to your `GitHub` account page (you may register a new account
 ```R
 usethis::edit_r_environ()
 ```
-This will take you to the R environment variable editor, where you can specify your token by `GITHUB_PAT = 'your_token'`. Replace `your_token` by the token you just created then close restart R and resume the installation steps. 
+This will take you to the R environment variable editor, where you can specify your token by `GITHUB_PAT = 'your_token'`. Replace `your_token` by the token you just created then close restart R and resume the installation steps.   
 3. If you encounter error message related to Xcode, open terminal and type xcode-select --install and then follow the prompts. This is required by Monocle 3.
 4. If you don't see the package installation information after running `renv::restore(prompt = F)` but instead only see a message `* The library is already synchronized with the lockfile.` This is probably because your text editor (such as the default TextEdit in macOS) may automatically append file extension after `renv.lock` when you save the content by the text editor. This will cause `renv` to fail because `renv.lock` file cannot be found. Double-check the file name and its extension. Remove any extensions after `renv.lock` (e.g. `.rtf` or `RTF`). 
 ## 3. Sample data sets
