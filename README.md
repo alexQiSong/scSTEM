@@ -64,7 +64,7 @@ For easy installation and reproducibility, you may use `renv` to install all dep
 ```R
 install.packages("renv")
 ```
-2. Create a new directory to store dependency files for scSTEM (e.g. `/home/alex/scstem`). `renv` will later install dependencies into this personal folder. Download the `renv.lock` file in this repository or right click and 'save as' from this [link](https://raw.githubusercontent.com/alexQiSong/scSTEM/master/renv.lock). `renv.lock` is the lock file which contains the dependency information.
+2. Create a new directory to store dependency files for scSTEM (e.g. `/home/alex/scstem`). `renv` will later install dependencies into this personal folder. Download the `renv.lock` file in this repository or right click and 'save as' from this [link](https://raw.githubusercontent.com/alexQiSong/scSTEM/master/renv.lock). `renv.lock` is the lock file which contains the dependency information. **Note that when you copy and paste the content of renv.lock into a text editor and save the file, your text editor (such as the default TextEdit in macOS) may automatically append file extension after renv.lock. This will cause `renv` to fail because `renv.lock` file cannot be found. Double-check the file name and its extension.** 
 3. Once lock file is downloaded, copy the file into the folder you just created. Make sure the file name is 'renv.lock'. Then in R, execute the following code to activate the environment in this personal folder.
 ```R
 install_folder = "/home/alex/scstem/"
@@ -146,7 +146,8 @@ This will take you to your `GitHub` account page (you may register a new account
 usethis::edit_r_environ()
 ```
 This will take you to the R environment variable editor, where you can specify your token by `GITHUB_PAT = 'your_token'`. Replace `your_token` by the token you just created then close restart R and resume the installation steps. 
-3. If you encounter error message related to Xcode, open terminal and type xcode-select --install and then follow the prompts. This is required by Monocle 3
+3. If you encounter error message related to Xcode, open terminal and type xcode-select --install and then follow the prompts. This is required by Monocle 3.
+4. If you don't see the package installation information after running `renv::restore(prompt = F)` but instead only see a message `* The library is already synchronized with the lockfile.` This is probably because your text editor (such as the default TextEdit in macOS) may automatically append file extension after `renv.lock` when you save the content by the text editor. This will cause `renv` to fail because `renv.lock` file cannot be found. Double-check the file name and its extension. Remove any extensions after `renv.lock` (e.g. `.rtf` or `RTF`). 
 ## 3. Sample data sets
 We have provided a sample data set for running the analysis. You may click `Load sample data` in the GUI to automatically load the sample data set. Alternatively, you may also download the sample data set (https://github.com/alexQiSong/scSTEM_sample_data) and load it manually.
 ## 4. Input and output files
