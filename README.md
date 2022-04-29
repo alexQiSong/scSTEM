@@ -187,9 +187,13 @@ Note that for monocle3, you may prune the trajectory to avoid having too may sma
 
 ![Alt text](img/step3_prune.png?raw=true "step3_prune")
 
-4. **Step 4: Visualize paths.** In the fourth panel, users may visualize the paths inferred by the previous step. Selected path is highlighted by red color and cells mapped to the path is marked by yellow color. Let's select `path1` to visualize. Selected path will be shown on the right part of the GUI.  
+4. **Step 4: Check paths.** In the fourth panel, users may 1) **visualize** the paths inferred by the previous step and 2) **check linear fit** for each path. For visualization, the selected path is highlighted by red color and cells mapped to the path is marked by yellow color. Let's select `path1` to visualize. Selected path will be shown on the right part of the GUI.  
 
 ![Alt text](img/UMAP2.png?raw=true "umap2")  
+
+In addition, we may also be interested in testing whether the change of expression is linear for each gene along the trajectory path. scSTEM can do a quick check by fitting linear models using expression of each gene to predict cell pseudtime on each segment of a selected path in **Step 4** panel. Users may do this by clicking on the `check linear` button in the **Step 4** panel. After fitting is completed, a plot will appear in a pop-up window showing the percentage of genes which has significant "good fit" from F test.
+
+![Alt text](img/linear.png?raw=true "linear")
 
 5. **Step 5: Run STEM analysis.** In the fifth panel, users can perform scSTEM analysis. Currently there are two parameters `metric` and `path` to be specified for scSTEM. `metric` specifies the method to summarize expression data from trajectories. Users can select `mean`, `entropy_reduction`, or `change_rate` from the `metric` drop-down list. In the `select a path` drop-down list, users can specify a path of interest to run scSTEM clustering (which can be visualized in **step 4**). Users will need to provide an output folder where output files and temporary files can be saved. Click the `output folder` button to specify an output folder. In this sample data set, let's select `path2` and `path3` in the `select a path` drop-down list, and `mean` in the `metric` drop-down list to run the STEM analysis.
 ![Alt text](img/step5.png?raw=true "umap2")  
