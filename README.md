@@ -191,7 +191,7 @@ Note that for monocle3, you may prune the trajectory to avoid having too may sma
 
 ![Alt text](img/UMAP2.png?raw=true "umap2")  
 
-In addition, we may also be interested in testing whether the change of expression is linear for each gene along the trajectory path. scSTEM can do a quick check by fitting linear models using expression of each gene to predict cell pseudtime on each segment of a selected path in **Step 4** panel. Users may do this by clicking on the `check linear` button in the **Step 4** panel. After fitting is completed, a plot will appear in a pop-up window showing the percentage of genes which has significant "good fit" from F test.
+In addition, we may also be interested in testing whether the change of expression is linear for each gene along the trajectory path. scSTEM can do a quick check by fitting linear models using expression of each gene to predict cell pseudtime on each segment of a selected path in **Step 4** panel. Users may do this by clicking on the `check linear` button in the **Step 4** panel. After fitting is completed, a plot will appear in a pop-up window showing the percentage of genes which has significant "good fit" from F test. As shown below, `Terminal segment` represents the segment located at the end of a trajecotry path and otherwise not. 
 
 ![Alt text](img/linear.png?raw=true "linear")
 
