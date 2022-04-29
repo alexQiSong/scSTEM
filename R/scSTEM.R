@@ -141,7 +141,7 @@ get_path_cells <- function(traj, closest_ms, path_node_ids){
 # traj: dynverse trajectory object
 # all_paths: paths from root to all leave nodes
 # tmp_folder: temporary folder to save inputs for STEM.
-get_stem_input<-function(dataset, traj, all_paths, path_names, closest_ms, metric){
+get_stem_input<-function(dataset, traj, all_paths, all_path_cells, path_names, closest_ms, metric){
 
   # Add pseudotime if metric = 'cr2'
   if(metric == 'cr2'){
@@ -162,51 +162,8 @@ get_stem_input<-function(dataset, traj, all_paths, path_names, closest_ms, metri
   for(i in 1:length(all_paths)){
 
     path_nodes <- all_paths[[i]]
-    path_cells <- list()
+    path_cells <- all_path_cells[[names(all_paths)[i]]]
     df[[i]] <- list()
-    if(traj$directed){
-      deg <- igraph::degree(gr, v=path_nodes[2:length(path_nodes)],mode = "out")
-      key_node_pos <- c(1,which(deg >= 2)+1,length(deg)+1) # index of root -> branching nodes ... ->leaf node
-    }else{
-      deg <- igraph::degree(gr, v=path_nodes[2:length(path_nodes)],mode = "all")
-      key_node_pos <- c(1,which(deg > 2)+1,length(deg)+1) # index of root -> branching nodes ... ->leaf node
-    }
-
-    # Assign cells to current path based on different scenario
-    if(length(key_node_pos) <= 1 ){
-      print(paste0("path",i," is too short for analysis, skipped..."))
-      next
-    }else if(length(key_node_pos) == 2){
-
-      nodes <- path_nodes[key_node_pos[1]:key_node_pos[2]]
-      cells <- closest_ms$cell_id[closest_ms$milestone_id %in% nodes]
-      pt <- sort(traj$pseudotime[cells])
-
-      key_pos <- quantile(
-                  1:length(pt),
-                  probs = c(0,1/3,2/3,1)
-                  ) %>%
-                as.integer()
-
-      for(k in 1:(length(key_pos)-1)){
-        path_cells[[k]] <-  names(pt[key_pos[k]:key_pos[k+1]])
-      }
-
-    }else if(length(key_node_pos) == 3){
-      for(k in 1:(length(key_node_pos)-1)){
-        nodes <- path_nodes[key_node_pos[k]:key_node_pos[k+1]]
-        cells <- closest_ms$cell_id[closest_ms$milestone_id %in% nodes]
-        pt <- sort(traj$pseudotime[cells])
-        med_pos <- as.integer(median(1:length(pt)))
-        path_cells[[length(path_cells)+1]] <- names(pt[1:med_pos])
-        path_cells[[length(path_cells)+1]] <- names(pt[(med_pos+1):length(pt)])
-      }
-    }else{
-      for(k in 1:(length(key_node_pos)-1)){
-        nodes <- path_nodes[key_node_pos[k]:key_node_pos[k+1]]
-        path_cells[[k]] <- closest_ms$cell_id[closest_ms$milestone_id %in% nodes]
-      }
-    }
 
     # Compute metrics using cells assigned to path
     for(k in 1:length(path_cells)){
@@ -231,7 +188,6 @@ get_stem_input<-function(dataset, traj, all_paths, path_names, closest_ms, metri
     shiny::incProgress(1/length(all_paths), detail = sprintf("%g%% done",round(100*i/length(all_paths),2)))
   }
 
-  #names(cells) <- paste0("path",1:length(cells))
   names(df) <- path_names
   return(df)
 }
@@ -248,6 +204,7 @@ run_scstem_GUI <- function(){
   ui <- shiny::fluidPage(
     shinyjs::useShinyjs(),
     shiny::fluidRow(
+      
       # The left side panel
       shiny::column(6,
 
@@ -265,15 +222,20 @@ run_scstem_GUI <- function(){
                                       shiny::fixedRow(
                                         shiny::column(3,
                                                       align = "left",
-                                                      shinyFiles::shinyFilesButton(id = "exp_file",
-                                                                                   style = "margin-top: 10px;",
-                                                                                   label = "Count matrix",
-                                                                                   title = "Please select a *.mtx file for count matrix",
-                                                                                   multiple = F,
-                                                                                   icon = shiny::icon("search",lib = "glyphicon"))),
+                                                          shiny::div(
+                                                              shinyFiles::shinyFilesButton(id = "exp_file",
+                                                                                           style = "margin-top: 10px;",
+                                                                                           label = "Count matrix",
+                                                                                           title = "Please select a *.mtx file for count matrix",
+                                                                                           multiple = F,
+                                                                                           width = "150px",
+                                                                                           icon = shiny::icon("search",lib = "glyphicon")),
+                                                              style = "font-size: 50px"
+                                                      )
+                                        ),
                                         shiny::column(6,
                                                       align = "left",
-                                                      shiny::h5(shiny::textOutput(outputId = "exp_file_status"), style = "text-align: left; padding: 20px, 0"))
+                                                      shiny::h5(shiny::textOutput(outputId = "exp_file_status"), style = "text-align: left; margin-top: 40px"))
                                                     ),
 
                                       # Select cell metadata file
@@ -285,10 +247,11 @@ run_scstem_GUI <- function(){
                                                                                    label = "Cell meta",
                                                                                    title = "Please select a *.csv file for cell meta data",
                                                                                    multiple = F,
+                                                                                   width = "150px",
                                                                                    icon = shiny::icon("search",lib = "glyphicon"))),
                                         shiny::column(6,
                                                       align = "left",
-                                                      shiny::h5(shiny::textOutput(outputId = "cell_file_status"), style = "text-align: left; padding: 20px, 0"))
+                                                      shiny::h5(shiny::textOutput(outputId = "cell_file_status"), style = "text-align: left; margin-top: 20px"))
                                       ),
 
                                       # Select gene metadata file
@@ -300,10 +263,11 @@ run_scstem_GUI <- function(){
                                                                                    label = "Gene meta",
                                                                                    title = "Please select a *.csv file for gene meta data",
                                                                                    multiple = F,
+                                                                                   width = "150px",
                                                                                    icon = shiny::icon("search",lib = "glyphicon"))),
                                         shiny::column(6,
                                                       align = "left",
-                                                      shiny::h5(shiny::textOutput(outputId = "gene_file_status"), style = "text-align: left; padding: 20px, 0"))
+                                                      shiny::h5(shiny::textOutput(outputId = "gene_file_status"), style = "text-align: left; margin-top: 20px"))
                                       ),
 
                                       # Load all input files here
@@ -312,21 +276,24 @@ run_scstem_GUI <- function(){
                                         shiny::column(3,
                                                       align = 'left',
                                                       shiny::selectInput(inputId = "id_type",
-                                                                         choices = c("ensembl ID", "gene symbol"),
+                                                                         width = '150px',
+                                                                         choices = c("ensembl ID", "gene symbol","None"),
                                                                          label = "Gene ID type"),
                                                                          icon = shiny::icon("folder-open",lib = "glyphicon")),
                                         shiny::column(3,
                                                       align = 'left',
                                                       shiny::selectInput(inputId = "species",
+                                                                         width = '150px',
                                                                          choices = c("homo sapiens","mus musculus"),
                                                                          label = "Species"),
-                                                      icon = shiny::icon("folder-open",lib = "glyphicon")),
+                                                                         icon = shiny::icon("folder-open",lib = "glyphicon")),
 
                                         shiny::column(3,
                                                       align = "left",
                                                       shiny::actionButton(inputId = "load",
                                                                           style = "margin-top: 24px;",
                                                                           label = "Load files",
+                                                                          width = '150px',
                                                                           icon = shiny::icon("folder-open",lib = "glyphicon"))
                                                       ),
                                         shiny::column(3,
@@ -334,6 +301,7 @@ run_scstem_GUI <- function(){
                                                       shiny::actionButton(inputId = "load_sample",
                                                                           style = "margin-top: 24px;",
                                                                           label = "Load sample data",
+                                                                          width = '150px',
                                                                           icon = shiny::icon("folder-open",lib = "glyphicon"))
                                         )
                                       ),
@@ -377,10 +345,11 @@ run_scstem_GUI <- function(){
                                       align = "left",
                                       shinyWidgets::dropdownButton(circle = F,
                                                                    label = "Column to visualize",
-                                                                   width = 120,
+                                                                   width = "150px",
                                                                    shiny::radioButtons(
                                                                      inputId = "col_to_vis",
                                                                      label = "Cell labels",
+                                                                     width = '150px',
                                                                      choices = c("partition")
                                                                    )
                                                                    )
@@ -400,6 +369,7 @@ run_scstem_GUI <- function(){
                                       align = "left",
                                       shinyWidgets::pickerInput(inputId = "partition_select",
                                                                 label = "Partition",
+                                                                width = '150px',
                                                                 choices = c("all"),
                                                                 multiple = T)
                                       ),
@@ -408,6 +378,7 @@ run_scstem_GUI <- function(){
                                       shiny::selectInput(
                                         inputId = "method",
                                         label = "Method",
+                                        width = "150px",
                                         choices = c("slingshot",
                                                     "paga_tree",
                                                     "paga",
@@ -435,18 +406,16 @@ run_scstem_GUI <- function(){
                                       shiny::selectInput(
                                         inputId = 'use_partition',
                                         label = "Use partitions?",
+                                        width = '150px',
                                         choices = c("Yes","No")
                                       )
                         ),
                         shiny::column(3,
                                       align = "left",
                                       style = "margin-top: 25px;",
-                                      #shiny::actionButton(inputId = "infer",
-                                      #                    label = "Infer trajectory",
-                                      #                    icon = shiny::icon("folder-open",lib = "glyphicon"))
                                       shinyWidgets::dropdownButton(circle = F,
                                                                    label = "Infer trajectory",
-                                                                   width = 120,
+                                                                   width = "150px",
                                                                    shiny::textInput(inputId = "bran_len", label = "(Monocle3 only) minimal branch length", value = 10),
                                                                    shinyjs::disabled(shiny::actionButton(inputId = "infer",
                                                                                        label = "infer")))
@@ -460,7 +429,7 @@ run_scstem_GUI <- function(){
 
                           shiny::column(12,
                                         align = 'center',
-                                        shiny::h4("Step 4: Visualize paths (optional)", style="text-align:left;font-weight:bold")
+                                        shiny::h4("Step 4: Check paths (optional)", style="text-align:left;font-weight:bold")
                                         ),
 
                           shiny::column(3,
@@ -468,6 +437,7 @@ run_scstem_GUI <- function(){
                                         shiny::selectInput(
                                           inputId = "vis_path_select",
                                           label = "Select path",
+                                          width = '150px',
                                           choices = c()
                                         )),
                           shiny::column(3,
@@ -476,7 +446,17 @@ run_scstem_GUI <- function(){
                                         shinyjs::disabled(shiny::actionButton(inputId = "vis_path_umap",
                                                             label = "View by UMAP",
                                                             ))
+                                        ),
+                          shiny::column(3,
+                                        align = 'left',
+                                        style = "margin-top: 25px;",
+                                        shinyjs::disabled(shiny::actionButton(
+                                          inputId = "linear",
+                                          label = "Check linear",
+                                          width = '150px'
                                         )
+                                      )
+                          )
 
                         )
                       ),
@@ -492,6 +472,7 @@ run_scstem_GUI <- function(){
                                       align = "left",
                                       shinyWidgets::pickerInput(inputId = "run_path_select",
                                                          label = "Select path(s)",
+                                                         width = '150px',
                                                          choices = c(),
                                                          multiple = T
                                       )
@@ -502,6 +483,7 @@ run_scstem_GUI <- function(){
                                       shiny::selectInput(
                                         inputId = "metric",
                                         label = "Metric",
+                                        width = '150px',
                                         choices = c("mean","entropy_reduction","change_rate","meidan")
                                         )
                                       )
@@ -551,6 +533,7 @@ run_scstem_GUI <- function(){
                                         shiny::selectInput(
                                           inputId = "compare1_name",
                                           label = "Path name 1",
+                                          width = '150px',
                                           choices = c()
                                         )
                           ),
@@ -560,6 +543,7 @@ run_scstem_GUI <- function(){
                                         shiny::selectInput(
                                           inputId = "compare2_name",
                                           label = "Path name 2",
+                                          width = '150px',
                                           choices = c()
                                         )
                           ),
@@ -746,7 +730,7 @@ run_scstem_GUI <- function(){
           # Files are loaded. Remove file loaidng pop-up window.
           shiny::removeModal()
 
-          # Tell the users when ID conversion is going on.
+          # Tell the users when ID conversion is being performed.
           shiny::showModal(shiny::modalDialog(title = "Converting gene IDs...",
                                               footer = NULL,
                                               easyClose = F))
@@ -758,9 +742,15 @@ run_scstem_GUI <- function(){
                                   attr="hgnc_symbol"),
             "mus musculus" = list(dataset="mmusculus_gene_ensembl",
                                   stem_species="Mouse (EBI)",
-                                  attr="mgi_symbol")
+                                  attr="mgi_symbol"),
+            "None" = list(dataset="hsapiens_gene_ensembl",
+                          stem_species="Human (EBI)",
+                          attr="hgnc_symbol")
           )
-
+          
+          # Tell STEM what species is used for GO annotations.
+          rv$species <- map_info[[input$species]]$stem_species
+          
           if(input$id_type == "ensembl ID"){
             rv$gene_meta$gene_id <- gsub("[.].*$","",rv$gene_meta$gene_id)
             mart <- biomaRt::useDataset(map_info[[input$species]]$dataset, biomaRt::useMart("ensembl"))
@@ -780,7 +770,10 @@ run_scstem_GUI <- function(){
             replace_ensembl <- !(is.na(res$hgnc_symbol) | res$hgnc_symbol == "")
             res$gene_id[replace_ensembl] <- res[replace_ensembl,]$hgnc_symbol
             rv$gene_meta$gene_id <- res$gene_id
+          
+          # If gene ID type is not ensembl ID or symbol, no conversion will be performed. 
           }
+          
           rownames(rv$cell_meta) <- rv$cell_meta$cell_id
           rownames(rv$gene_meta) <- rv$gene_meta$gene_id
           rownames(rv$counts) <- rv$gene_meta$gene_id
@@ -799,9 +792,6 @@ run_scstem_GUI <- function(){
           # Cell meta data columns are shown here onece files are loaded
           shiny::updateRadioButtons(inputId = 'col_to_vis',
                                     choices = c('partition',colnames(colData(rv$cds))))
-
-          # Tell STEM what species is used for GO annotations.
-          rv$species <- map_info[[input$species]]$stem_species
 
           output$loaded_status <- renderPrint({
             cat(sprintf("All files successfully loaded"))
@@ -1150,19 +1140,67 @@ run_scstem_GUI <- function(){
 
           # Get paths
           rv$all_paths <- get_all_paths(traj = rv$traj, root_id = rv$traj$root_milestone_id)
-
+          
           # Assign cells to closest milestone node (highest percentage)
           mp <- rv$traj$milestone_percentages
           mp <- mp[with(mp, order(cell_id,percentage,decreasing = T)),]
           rv$closest_ms <- mp[match(unique(mp$cell_id), mp$cell_id),]
-
-          # Get cells mapped to each path
-          rv$all_path_cells <- list()
-          for(path_node_ids in rv$all_paths){
-            rv$all_path_cells[[length(rv$all_path_cells)+1]] <- rv$closest_ms$cell_id[rv$closest_ms$milestone_id %in% path_node_ids]
+          
+          # For each path, get cells mapped to each segment.
+          for(i in 1:length(rv$all_paths)){
+            
+            path_nodes <- rv$all_paths[[i]]
+            path_cells <- list()
+            
+            if(rv$traj$directed){
+              deg <- igraph::degree(gr, v=path_nodes[2:length(path_nodes)],mode = "out")
+              key_node_pos <- c(1,which(deg >= 2)+1,length(deg)+1) # index of root -> branching nodes ... ->leaf node
+            }else{
+              deg <- igraph::degree(gr, v=path_nodes[2:length(path_nodes)],mode = "all")
+              key_node_pos <- c(1,which(deg > 2)+1,length(deg)+1) # index of root -> branching nodes ... ->leaf node
+            }
+            
+            # Assign cells to current path based on different scenario
+            if(length(key_node_pos) <= 1 ){
+              next # Path is too short and will be skipped
+            }else if(length(key_node_pos) == 2){
+              
+              nodes <- path_nodes[key_node_pos[1]:key_node_pos[2]]
+              cells <- rv$closest_ms$cell_id[rv$closest_ms$milestone_id %in% nodes]
+              pt <- sort(rv$traj$pseudotime[cells])
+              
+              key_pos <- quantile(
+                1:length(pt),
+                probs = c(0,1/3,2/3,1)
+              ) %>%
+                as.integer()
+              
+              for(k in 1:(length(key_pos)-1)){
+                path_cells[[k]] <-  names(pt[key_pos[k]:key_pos[k+1]])
+              }
+            
+            }else if(length(key_node_pos) == 3){
+              for(k in 1:(length(key_node_pos)-1)){
+                nodes <- path_nodes[key_node_pos[k]:key_node_pos[k+1]]
+                cells <- rv$closest_ms$cell_id[rv$closest_ms$milestone_id %in% nodes]
+                pt <- sort(rv$traj$pseudotime[cells])
+                med_pos <- as.integer(median(1:length(pt)))
+                path_cells[[length(path_cells)+1]] <- names(pt[1:med_pos])
+                path_cells[[length(path_cells)+1]] <- names(pt[(med_pos+1):length(pt)])
+              }
+            }else{
+              for(k in 1:(length(key_node_pos)-1)){
+                nodes <- path_nodes[key_node_pos[k]:key_node_pos[k+1]]
+                path_cells[[k]] <- rv$closest_ms$cell_id[rv$closest_ms$milestone_id %in% nodes]
+              }
+            }
+            rv$all_path_cells[[i]] <- path_cells 
           }
           names(rv$all_path_cells) <- names(rv$all_paths)
-
+          
+          # Now enable linear check functionality
+          shinyjs::enable(id = "linear")
+          
           # Update path info when inference is done
           shiny::updateSelectInput(inputId = 'vis_path_select', choices = names(rv$all_paths))
 
@@ -1220,7 +1258,7 @@ run_scstem_GUI <- function(){
       pars <- monocle3::partitions(rv$cds)
       cell_coord <- SingleCellExperiment::reducedDim(rv$cds,'UMAP')
       cell_coord <- cell_coord[pars %in% input$partition_select,]
-      path_cells <- rv$all_path_cells[[input$vis_path_select]]
+      path_cells <- unique(unlist(rv$all_path_cells[[input$vis_path_select]]))
       path_nodes <- rv$all_paths[[input$vis_path_select]]
 
       # Get a simplified trajectory tree
@@ -1375,7 +1413,106 @@ run_scstem_GUI <- function(){
         })
       }
     })
-
+    
+    # Check if pseudotime ~ gene expressions has good linear fit.  
+    shiny::observeEvent(input$linear, {
+      
+      # Alarm window pop-up
+      shiny::showModal(shiny::modalDialog(
+        title = "Fitting linear models...",
+        footer = NULL,
+        easyClose = F
+        )
+      )
+      
+      # The pvalues for linear fit
+      all_pvals <- list()
+      
+      # Whether the given segment is at the terminal of a path
+      is_terminal <- c()
+      
+      # Check linear fit for the selected path
+      path_name <- input$vis_path_select
+      
+      # Iterate over each segment of the path
+      for(k in 1:length(rv$all_path_cells[[path_name]])){
+        
+        # Whether the segment is at the terminal of the path
+        if(k == length(rv$all_path_cells[[path_name]])){
+          is_terminal <- c(is_terminal,T)
+        }else{
+          is_terminal <- c(is_terminal,F)
+        }
+        
+        # Get psedotime values for cells on the kth segment
+        path_cells <- rv$all_path_cells[[path_name]][[k]]
+        x <- rv$traj$pseudotime[path_cells]
+        
+        # Remove infinite pseudotime values
+        x <- x[!is.infinite(x)]
+        
+        # Get normalized gene expressions
+        Y <- monocle3::normalized_counts(rv$cds)[rv$gene_meta$gene_id, names(x)]
+        
+        # Use genes expressed in >5% cells
+        filtered_Y <- Y[rowSums(Y != 0)/ncol(Y) > 0.05,]
+        
+        # Perform linear regressions
+        res<-lapply(1:nrow(filtered_Y), function(j){
+          lmModel <- lm(filtered_Y[j,] ~ x)
+          f <- summary(lmModel)$fstatistic
+          p <- pf(f[1],f[2],f[3],lower.tail=F)
+          r2 <- summary(lmModel)$r.squared
+          return(c(p,r2))
+        }) %>%
+          unlist() %>%
+          matrix(ncol = 2, byrow = T)
+        
+        pvals <- p.adjust(res[,1],method = "fdr")
+        r2s <- res[,2]
+        all_pvals[[k]] <- pvals
+      }
+      
+      # Get the plot data
+      rates <- c()
+      num_genes <- c()
+      for(k in 1:length(all_pvals)){
+        rates <- c(rates,sum(all_pvals[[k]] < 0.05)/length(all_pvals[[k]]))
+        num_genes <- c(num_genes, length(all_pvals[[k]]))
+      }
+      
+      ord <- order(-rates)
+      res <- tibble(rates = rates[ord],
+                    is_terminal = is_terminal[ord],
+                    num_genes = num_genes[ord],
+                    index = 1:length(rates)
+      )
+      
+      # Remove alarm pop-up
+      shiny::removeModal()
+      
+      # Generate the plot
+      output$linear_plot <- shiny::renderPlot({
+        ggplot2::ggplot(data=res, ggplot2::aes(x=index, y=rates, fill = is_terminal)) +
+          ggplot2::ggtitle(paste0("Linear fit for ", path_name)) +
+          ggplot2::geom_bar(stat="identity") + 
+          ggplot2::geom_text(ggplot2::aes(label=num_genes), vjust=-0.3, size=7) +
+          ggplot2::theme_minimal(base_size = 18) +
+          ggplot2::theme(axis.text.x = ggplot2::element_blank()) +
+          ggplot2::xlab(NULL) +
+          ggplot2::ylab("Percentage of significant genes") + 
+          ggplot2::scale_y_continuous(labels = scales::percent) +
+          ggplot2::scale_fill_discrete(name = "Terminal segment")
+      })
+      
+      # Show plot in a pop-up window
+      shiny::showModal(shiny::modalDialog(
+        shiny::plotOutput("linear_plot"),
+        easyClose = F,
+        size = 'l'
+       )
+      )
+    })
     ############################################################
     # Step 5. RUN STEM program
     ############################################################
@@ -1396,6 +1533,7 @@ run_scstem_GUI <- function(){
             dataset = rv$dataset,
             traj = rv$traj,
             all_paths = rv$all_paths[input$run_path_select],
+            all_path_cells = rv$all_path_cells,
             path_names = input$run_path_select,
             closest_ms = rv$closest_ms,
             metric = input$metric
@@ -1454,7 +1592,9 @@ run_scstem_GUI <- function(){
 
       }
     })
-
+    
+    
+    
     ############################################################
     # Step 6. Run cluster comparison
     ############################################################
@@ -1474,6 +1614,7 @@ run_scstem_GUI <- function(){
             dataset = rv$dataset,
             traj = rv$traj,
             all_paths = rv$all_paths[c(input$compare1_name,input$compare2_name)],
+            all_path_cells = rv$all_path_cells,
             path_names = c(input$compare1_name,input$compare2_name),
             closest_ms = rv$closest_ms,
             metric = input$metric
@@ -1615,4 +1756,3 @@ stem_analysis<-function(
   # Change back the working dir
   setwd(wd)
 }
-
