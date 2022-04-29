@@ -1453,9 +1453,9 @@ run_scstem_GUI <- function(){
         
         # Get normalized gene expressions
         Y <- monocle3::normalized_counts(rv$cds)[rv$gene_meta$gene_id, names(x)]
-        browser() #####################################
+        
         # Use genes expressed in >5% cells
-        filtered_Y <- Y[rowSums(Y != 0)/ncol(Y) > 0.05,]
+        filtered_Y <- Y[Matrix::rowSums(Y != 0)/ncol(Y) > 0.05,]
         
         # Perform linear regressions
         res<-lapply(1:nrow(filtered_Y), function(j){
