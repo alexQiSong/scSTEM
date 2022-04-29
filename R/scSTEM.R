@@ -1424,7 +1424,7 @@ run_scstem_GUI <- function(){
         easyClose = F
         )
       )
-      browser() #####################################
+      
       # The pvalues for linear fit
       all_pvals <- list()
       
@@ -1453,7 +1453,7 @@ run_scstem_GUI <- function(){
         
         # Get normalized gene expressions
         Y <- monocle3::normalized_counts(rv$cds)[rv$gene_meta$gene_id, names(x)]
-        
+        browser() #####################################
         # Use genes expressed in >5% cells
         filtered_Y <- Y[rowSums(Y != 0)/ncol(Y) > 0.05,]
         
