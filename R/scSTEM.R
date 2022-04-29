@@ -1424,7 +1424,7 @@ run_scstem_GUI <- function(){
         easyClose = F
         )
       )
-      
+      browser() #####################################
       # The pvalues for linear fit
       all_pvals <- list()
       
