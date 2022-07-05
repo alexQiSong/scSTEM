@@ -323,13 +323,23 @@ run_scstem_GUI <- function(){
                                       align = 'center',
                                       shiny::h4("Step 2: Visualization and cell clustering (Optional)", style="text-align:left;font-weight:bold")
                                       ),
+                        #shiny::column(3,
+                        #              align = "left",
+                        #              shinyjs::disabled(shiny::actionButton(inputId = "umap",
+                        #                                                    label = "Run UMAP"
+                        #                                                    )
+                        #                                )
+                        #              ),
                         shiny::column(3,
                                       align = "left",
-                                      shinyjs::disabled(shiny::actionButton(inputId = "umap",
-                                                                            label = "Run UMAP"
-                                                                            )
-                                                        )
-                                      ),
+                                      #style = "margin-top: 25px;",
+                                      shinyWidgets::dropdownButton(circle = F,
+                                                                   label = "Run UMAP",
+                                                                   width = "150px",
+                                                                   shiny::textInput(inputId = "pca_dim", label = "PCA dim", value = 100),
+                                                                   shinyjs::disabled(shiny::actionButton(inputId = "umap",
+                                                                                                         label = "Run UMAP"))),
+                        ),
                         shiny::column(3,
                                       align = "left",
                                       shinyjs::disabled(shiny::actionButton(inputId = "cluster",
@@ -339,7 +349,7 @@ run_scstem_GUI <- function(){
                         shiny::column(3,
                                       align = "left",
                                       shinyjs::disabled(shiny::actionButton(inputId = "vis_partition",
-                                                          label = "Visualize Results",icon = shiny::icon("sunglasses",lib = "glyphicon")
+                                                          label = "Visualize Results"
                                                           ))),
                         shiny::column(3,
                                       align = "left",
@@ -444,7 +454,7 @@ run_scstem_GUI <- function(){
                                         align = 'left',
                                         style = "margin-top: 25px;",
                                         shinyjs::disabled(shiny::actionButton(inputId = "vis_path_umap",
-                                                            label = "View by UMAP",
+                                                            label = "View by UMAP"
                                                             ))
                                         ),
                           shiny::column(3,
@@ -923,13 +933,31 @@ run_scstem_GUI <- function(){
       shiny::showModal(shiny::modalDialog(title = "Running UMAP, please wait...",
                                           footer = NULL,
                                           easyClose = F))
-      rv$cds <- monocle3::preprocess_cds(rv$cds, num_dim = 100)
-      rv$cds <- monocle3::reduce_dimension(rv$cds, reduction_method = 'UMAP')
-      shiny::removeModal()
-      shiny::showModal(shiny::modalDialog(title = "UMAP is done.",
-                                          footer = modalButton("OK"),
-                                          easyClose = F))
-      shinyjs::enable("vis_partition")
+      # Check PCA dimension argument
+      pca_dim = as.numeric(input$pca_dim)
+      if(is.na(pca_dim)){
+        shiny::showModal(shiny::modalDialog(title = "PCA dim should be an integer",
+                                            footer = modalButton("OK"),
+                                            easyClose = F))
+      }else if(pca_dim %% 1 != 0){
+        shiny::showModal(shiny::modalDialog(title = "PCA dim should be an integer",
+                                            footer = modalButton("OK"),
+                                            easyClose = F))
+      }else if(pca_dim < 0 || pca_dim > nrow(rv$cds)){
+        shiny::showModal(shiny::modalDialog(title = "PCA dim should be greater 0 and smaller than (or equal to) number of genes",
+                                            footer = modalButton("OK"),
+                                            easyClose = F))
+        
+      }else{
+        rv$cds <- monocle3::preprocess_cds(rv$cds, num_dim = as.integer(pca_dim))
+        rv$cds <- monocle3::reduce_dimension(rv$cds, reduction_method = 'UMAP')
+        shiny::removeModal()
+        shiny::showModal(shiny::modalDialog(title = "UMAP is done.",
+                                            footer = modalButton("OK"),
+                                            easyClose = F))
+        shinyjs::enable("vis_partition")
+      }
+      
     })
 
     shiny::observeEvent(input$cluster, {
@@ -1136,6 +1164,13 @@ run_scstem_GUI <- function(){
           # Use this root node to rewire the trajectory network
           if(rv$traj$directed){
             rv$traj <- rewire_by_root(rv$traj, rv$traj$root_milestone_id)
+            
+            # Convert milestone network to igraph graph object (DAG)
+            gr <- igraph::graph_from_data_frame(rv$traj$milestone_network, directed = TRUE, vertices = NULL)
+          }else{
+            
+            # Convert milestone network to igraph graph object (undirected)
+            gr <- igraph::graph_from_data_frame(rv$traj$milestone_network, directed = FALSE, vertices = NULL)
           }
 
           # Get paths
@@ -1396,7 +1431,7 @@ run_scstem_GUI <- function(){
         output$path_plot <- shiny::renderPlot({
           plt
         })
-
+        
         # Remove the plotting reminder window
         shiny::removeModal()
       }
@@ -1665,7 +1700,8 @@ run_scstem_GUI <- function(){
       }
     })
   }
-  shiny::shinyApp(ui = ui, server = server)
+  #shiny::shinyApp(ui = ui, server = server)
+  shiny::runGadget(app = ui, server = server, viewer = dialogViewer("scSTEM", width = 1700, height = 900))
 }
 stem_analysis<-function(
   input_name,
