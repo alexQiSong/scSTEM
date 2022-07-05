@@ -20,6 +20,7 @@
 - [Analysis code](#analysis-code)
 - [STEM Java program](#stem-java-program)
 - [Contact](#contact)
+- [Cite](#cite)
 - [Copyright](#copyright)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
@@ -232,6 +233,9 @@ We have made changes to original STEM Java prgram as in https://github.com/jerns
 Contact us if you have any questions:  
 Qi (Alex) Song: qisong@andrew.cmu.edu; sqsq3178@gmail.com  
 Ziv Bar-Joseph: zivbj@andrew.cmu.edu  
+
+# Cite
+Qi Song, Ziv Bar-Joseph. scSTEM: Clustering pseudo-time ordered single cell data. **_Genome Biology_** (accepted).
 
 # Copyright
 ©2021 Qi Song, Ziv Bar-Joseph. [Systems Biology Group at Carnegie Mellon University](http://www.sb.cs.cmu.edu/). All rights reserved.
