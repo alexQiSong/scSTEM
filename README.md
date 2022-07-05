@@ -167,7 +167,11 @@ run_scstem_GUI()
 
 Alternatively, you may load sample data set by clicking the "Load sample data" button. It automatically loads the sample data set for this tutorial. This is the data set from a publised research[Cao et el., 2020](https://www.science.org/doi/10.1126/science.aba7721).
 
-2. **Step 2: Visualizing and clustering cells.** In the second panel, scSTEM can perform dimensionality reduction and cell clustering. However, this step is optional. This step is only intended to assist users to  select cells of interest by 2D UMAP visualization. If this step is skipped, scSTEM will take all cells from the input expression count matrix. To visualize dimensionality reduction results, first  click  `Run  UMAP`. After UMAP  is  done,  click `Run Clustering` and then `Visualize Results`. For the sample data set, we can see the cell partition number is displayed along with the cells. Let's focus on partition 4 highlited by green color here. For the sample data set, partitions may bi numbered differently on different OS. You may find the partition shown in the figure below numbered by a different number. 
+2. **Step 2: Visualizing and clustering cells.** In the second panel, scSTEM can perform dimensionality reduction and cell clustering. This step can be optional for some trajectory inference methods but is required if `monocle3` is selected as trajectory inference method. This step also provides 2D UMAP visualization that assists users to  select cells of interest. If this step is skipped, scSTEM will take all cells from the input expression count matrix. To visualize dimensionality reduction results, first  click  `Run  UMAP`. Then there is an argument `PCA dim` (default value 100) that may be provided by users before running UMAP. `PCA dim` specifies the number of dimensions for principle component analysis, which is a preprocessing step to denoise and decorrelate input dimensions before running UMAP. 
+
+![Alt text](img/step2_pca_options.png)
+
+After UMAP  is  done,  click `Run Clustering` and then `Visualize Results`. For the sample data set, we can see the cell partition number is displayed along with the cells. Let's focus on partition 4 highlited by green color here. For the sample data set, partitions may bi numbered differently on different OS. You may find the partition shown in the figure below numbered by a different number. 
 
 ![Alt text](img/step2.png?raw=true "umap1")
 
