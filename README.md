@@ -27,6 +27,9 @@
 # Getting Started
 ## 1. Introduction
 Single cell STEM (scSTEM) is a shiny app based R package for visualizing and clustering genes in pseudotime ordered single cell RNA-seq data. scSTEM is a GUI based tool and thus does not require any coding experience.  
+
+![Alt text](img/flowchart.png?raw=true "flowchart")
+
 ## 2. Installation
 ### 2.1 OS specific reqiurements
 scSTEM may have system dependencies that differ for different OS. Different requirments for different OS are described here.
