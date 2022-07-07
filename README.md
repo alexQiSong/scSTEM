@@ -238,7 +238,8 @@ Qi (Alex) Song: qisong@andrew.cmu.edu; sqsq3178@gmail.com
 Ziv Bar-Joseph: zivbj@andrew.cmu.edu  
 
 # Cite
-Qi Song, Ziv Bar-Joseph. scSTEM: Clustering pseudo-time ordered single cell data. **_Genome Biology_** (accepted).
+Please cite the following paper if you used scSTEM in your research.
+Qi Song, Jingtao Wang, Ziv Bar-Joseph. scSTEM: Clustering pseudo-time ordered single cell data. **_Genome Biology_**. 2022;23(1):150. 
 
 # Copyright
 ©2021 Qi Song, Ziv Bar-Joseph. [Systems Biology Group at Carnegie Mellon University](http://www.sb.cs.cmu.edu/). All rights reserved.
